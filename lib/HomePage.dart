@@ -139,6 +139,84 @@ class HomePage extends StatelessWidget{
               ],
             )
         ),
+        endDrawer: Drawer(
+            child: ListView(
+              children: [
+                DrawerHeader(
+                  padding: EdgeInsets.all(0),
+                  child: UserAccountsDrawerHeader(
+                    decoration: BoxDecoration(
+                        color: Colors.green),
+                    accountName: Text('Navigator',style: TextStyle(color: Colors.deepOrange,fontSize: 47,),),
+                    accountEmail: Text("navigatorofficial@gmail.com"),
+
+                    onDetailsPressed: (){
+
+                    },
+                  ),
+                ),
+
+                ListTile(
+                  leading: Icon(Icons.home),
+                  title: Text("Home"),
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>home()));
+                  },
+
+                ),
+                ListTile(
+                  leading: Icon(Icons.call),
+                  title: Text("Call Support"),
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>callsupport()));
+                  },
+
+                ),
+
+                ListTile(
+                  leading: Icon(Icons.settings),
+                  title: Text("Setting"),
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>setting()));
+                  },
+
+                ),
+                ListTile(
+                  leading: Icon(Icons.email),
+                  title: Text("Email"),
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>email()));
+                  },
+
+                ),
+                ListTile(
+                  leading: Icon(Icons.notifications),
+                  title: Text("Notification"),
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>notification()));
+                  },
+
+                ),
+                ListTile(
+                  leading: Icon(Icons.manage_accounts),
+                  title: Text("Manage_Account"),
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>manage_account()));
+                  },
+
+                ),
+                ListTile(
+                  leading: Icon(Icons.discount),
+                  title: Text("Offers"),
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Offer()));
+                  },
+
+                ),
+
+              ],
+            )
+        ),
         body: TabBarView(
           children: [
             home(),
