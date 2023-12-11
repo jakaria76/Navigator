@@ -246,6 +246,201 @@ class home extends StatelessWidget{
       appBar: AppBar(
         title: Text("Home Page"),
       ),
+      body: Stack(
+        children: [
+          Container(
+            height: 300,
+            width: MediaQuery.of(context).size.width,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(150),
+              ),
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color.fromARGB(255, 200, 171, 228),
+                  Color.fromARGB(255, 143, 118, 198),
+                  Color.fromARGB(255, 92, 52, 156),
+                  Color.fromARGB(255, 91, 19, 172),
+                ],
+
+              ),
+            ),
+          ),
+          Positioned(
+            top: 60,
+            left: 10,
+            right: 10,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+
+                    IconButton(onPressed: (){Navigator.pop(context);
+                    },
+                      icon: const Icon(
+                        Icons.arrow_back_ios_new,
+                        size: 30,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const Padding(
+                        padding:EdgeInsets.only(right: 20),
+                        child:Icon(
+                          Icons.person,
+                          size: 40,
+                          color: Colors.white,
+                        )
+                    )
+                  ],
+                ),
+                const Padding(padding: EdgeInsets.only(top:20,left:30 ),
+                    child: Text(
+                      'hi md jakaria',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    )
+                ),
+                const Padding(padding: EdgeInsets.only(top:20,left:30 ),
+                    child: Text(
+                      'where do you want to go',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    )
+                )
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 210,left: 20,right: 20),
+            child: Container(
+              height: 200,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.shade600,
+                    spreadRadius: 1,
+                    blurRadius: 15,
+                    offset: const Offset(5,5),
+                  )
+                ],
+                borderRadius: BorderRadius.circular(30),
+
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text(
+                        'From',
+                        style:TextStyle(
+                          color: Colors.grey,
+                          fontSize: 17,
+                        ) ,
+                      ),
+                      Text(
+                        'Location1',
+                        style:TextStyle(
+                          color: Colors.grey,
+                          fontSize: 17,
+                        ) ,
+                      ),
+                      Text(
+                        'To',
+                        style:TextStyle(
+                          color: Colors.grey,
+                          fontSize: 17,
+                        ) ,
+                      ),
+                      Text(
+                        'Location2',
+                        style:TextStyle(
+                          color: Colors.grey,
+                          fontSize: 17,
+                        ) ,
+                      )
+                    ],
+                  ),
+                  const Icon(Icons.swap_vert_rounded,color: Colors.deepPurple,size: 60,),
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 450,left: 20,right: 20),
+            child: Container(
+              height: 200,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.shade600,
+                    spreadRadius: 1,
+                    blurRadius: 15,
+                    offset: const Offset(5,5),
+                  )
+                ],
+                borderRadius: BorderRadius.circular(30),
+
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text(
+                        'From',
+                        style:TextStyle(
+                          color: Colors.grey,
+                          fontSize: 17,
+                        ) ,
+                      ),
+                      Text(
+                        'Location1',
+                        style:TextStyle(
+                          color: Colors.grey,
+                          fontSize: 17,
+                        ) ,
+                      ),
+                      Text(
+                        'To',
+                        style:TextStyle(
+                          color: Colors.grey,
+                          fontSize: 17,
+                        ) ,
+                      ),
+                      Text(
+                        'Location2',
+                        style:TextStyle(
+                          color: Colors.grey,
+                          fontSize: 17,
+                        ) ,
+                      )
+                    ],
+                  ),
+                  const Icon(Icons.swap_vert_rounded,color: Colors.deepPurple,size: 60,),
+                ],
+              ),
+            ),
+          ),
+
+        ],
+      ),
 
     );
   }
