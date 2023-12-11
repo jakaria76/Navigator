@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'HomePage.dart';
 
 class MyRegister extends StatefulWidget {
   const MyRegister({Key? key}) : super(key: key);
@@ -6,6 +7,8 @@ class MyRegister extends StatefulWidget {
   @override
   _MyRegisterState createState() => _MyRegisterState();
 }
+
+
 
 class _MyRegisterState extends State<MyRegister> {
   @override
@@ -123,9 +126,13 @@ class _MyRegisterState extends State<MyRegister> {
                                 backgroundColor: Color(0xff4c505b),
                                 child: IconButton(
                                     color: Colors.white,
-                                    onPressed: () {},
+                                    onPressed: () {
+
+                                      Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
+                                    },
                                     icon: Icon(
                                       Icons.arrow_forward,
+
                                     )),
                               )
                             ],
