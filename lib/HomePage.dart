@@ -39,7 +39,28 @@ class HomePage extends StatelessWidget{
 
 
         ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: [
+            BottomNavigationBarItem(icon: Icon(Icons.home),label:"home"),
+            BottomNavigationBarItem(icon: Icon(Icons.search),label:"search"),
+            BottomNavigationBarItem(icon: Icon(Icons.person),label:"profile"),
 
+          ],
+          onTap: (int index){
+            if(index==0)
+            {
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>home()));
+            }
+            if(index==1)
+            {
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>Search()));
+            }
+            if(index==2)
+            {
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>profile()));
+            }
+          },
+        ),
         body: TabBarView(
           children: [
             home(),
