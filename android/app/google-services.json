@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "598669528595",
+    "project_id": "sing-in-and-singup-576f2",
+    "storage_bucket": "sing-in-and-singup-576f2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:598669528595:android:2efba019445d6eadbb39e6",
+        "android_client_info": {
+          "package_name": "com.example.navigator"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmZ84rxK3Z2RZx7fBCzwS4rXV9Up3Qidk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
