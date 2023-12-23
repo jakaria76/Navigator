@@ -1,13 +1,19 @@
+
+
 import 'package:flutter/material.dart';
 
-class MyLogin extends StatefulWidget {
+
+import 'package:navigator/MyRegister.dart';
+
+
+import 'HomePage.dart';
+import 'forgate.dart';
+
+
+
+class MyLogin extends StatelessWidget {
   const MyLogin({Key? key}) : super(key: key);
 
-  @override
-  _MyLoginState createState() => _MyLoginState();
-}
-
-class _MyLoginState extends State<MyLogin> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,7 +25,6 @@ class _MyLoginState extends State<MyLogin> {
         backgroundColor: Colors.transparent,
         body: Stack(
           children: [
-            Container(),
             Container(
               padding: EdgeInsets.only(left: 35, top: 130),
               child: Text(
@@ -39,8 +44,10 @@ class _MyLoginState extends State<MyLogin> {
                       child: Column(
                         children: [
                           TextField(
+
                             style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
+
                                 fillColor: Colors.grey.shade100,
                                 filled: true,
                                 hintText: "Email",
@@ -52,6 +59,7 @@ class _MyLoginState extends State<MyLogin> {
                             height: 30,
                           ),
                           TextField(
+
                             style: TextStyle(),
                             obscureText: true,
                             decoration: InputDecoration(
@@ -63,52 +71,61 @@ class _MyLoginState extends State<MyLogin> {
                                 )),
                           ),
                           SizedBox(
+                            height: 5,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("Don't have an account?"),
+                              SizedBox(width: 5,),
+                              GestureDetector(
+                                onTap: (){
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>MyRegister()));
+                                },
+                                child: Text("MyRegister",style: TextStyle(color: Colors.deepPurple),),
+                              )
+                            ],
+                          ),
+
+                          SizedBox(
                             height: 40,
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
-                                'Sign in',
-                                style: TextStyle(
-                                    fontSize: 27, fontWeight: FontWeight.w700),
+                              GestureDetector(
+
+                                child: ElevatedButton(
+                                  child: Text('Login'),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.green,
+                                    textStyle: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontStyle: FontStyle.normal),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
+                                  },
+                                ),
                               ),
-                              CircleAvatar(
-                                radius: 30,
-                                backgroundColor: Color(0xff4c505b),
-                                child: IconButton(
-                                    color: Colors.white,
-                                    onPressed: () {},
-                                    icon: Icon(
-                                      Icons.arrow_forward,
-                                    )),
-                              )
+
                             ],
                           ),
                           SizedBox(
                             height: 40,
                           ),
+
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
+
                               TextButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(context, 'register');
-                                },
-                                child: Text(
-                                  'Sign Up',
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                      decoration: TextDecoration.underline,
-                                      color: Color(0xff4c505b),
-                                      fontSize: 18),
-                                ),
-                                style: ButtonStyle(),
-                              ),
-                              TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>forgate()));
+                                  },
                                   child: Text(
-                                    'Forgot Password',
+                                    'Forgot Password?',
                                     style: TextStyle(
                                       decoration: TextDecoration.underline,
                                       color: Color(0xff4c505b),

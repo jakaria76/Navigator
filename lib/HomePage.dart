@@ -1,6 +1,8 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:navigator/search.dart';
+import 'searchpage.dart';
 
 main() {
   runApp(const MyApp());
@@ -147,8 +149,7 @@ class HomePage extends StatelessWidget{
             message(),
             offer(),
             setting(),
-            Offer(),
-            setting(),
+
 
 
           ],
@@ -162,7 +163,31 @@ class HomePage extends StatelessWidget{
   }
 
 }
-class home extends StatelessWidget{
+class home extends StatefulWidget{
+
+
+
+
+  @override
+  State<home> createState() => _homeState();
+}
+
+class _homeState extends State<home> {
+
+  late DateTime _dateTime = DateTime.now();
+  void getDatePicker(){
+
+    showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2015),
+        lastDate: DateTime(2025)
+    ).then((value){
+      setState((){
+        _dateTime=value!;
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -223,7 +248,7 @@ class home extends StatelessWidget{
                   ),
                   const Padding(padding: EdgeInsets.only(top:20,left:30 ),
                       child: Text(
-                        'hi md jakaria',
+                        'WELCOME TO YOUR APPLICATION',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
@@ -264,24 +289,29 @@ class home extends StatelessWidget{
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
+
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
+
                         Text(
                           'From',
                           style:TextStyle(
                             color: Colors.grey,
                             fontSize: 17,
                           ) ,
+
                         ),
-                        Text(
-                          'Location1',
-                          style:TextStyle(
-                            color: Colors.grey,
-                            fontSize: 17,
-                          ) ,
-                        ),
+
+                         //TextButton(onPressed: (){
+                         //  Navigator.push(context, MaterialPageRoute(builder: (context)=>setting()));
+                        // }, child: Text("select your location")
+                        // ),
+                        ElevatedButton(onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>searchpage()));
+                        }, child: Text('Select your location')),
+
                         Text(
                           'To',
                           style:TextStyle(
@@ -289,85 +319,74 @@ class home extends StatelessWidget{
                             fontSize: 17,
                           ) ,
                         ),
-                        Text(
-                          'Location2',
-                          style:TextStyle(
-                            color: Colors.grey,
-                            fontSize: 17,
-                          ) ,
-                        )
+                        ElevatedButton(onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>searchpage()));
+                        }, child: Text('Select your location')),
                       ],
                     ),
                     const Icon(Icons.swap_vert_rounded,color: Colors.deepPurple,size: 60,),
                   ],
                 ),
               ),
+
+
             ),
+
+
+
             Padding(
+
               padding: const EdgeInsets.only(top: 450,left: 20,right: 20),
               child: Container(
-                height: 200,
+
+                height: 100,
+                width: 500,
+
+                padding: EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.shade600,
-                      spreadRadius: 1,
-                      blurRadius: 15,
-                      offset: const Offset(5,5),
-                    )
-                  ],
-                  borderRadius: BorderRadius.circular(30),
+
+                  color: Colors.pink,
+                  borderRadius: BorderRadius.circular(12),
 
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          'From',
-                          style:TextStyle(
-                            color: Colors.grey,
-                            fontSize: 17,
-                          ) ,
-                        ),
-                        Text(
-                          'Location1',
-                          style:TextStyle(
-                            color: Colors.grey,
-                            fontSize: 17,
-                          ) ,
-                        ),
-                        Text(
-                          'To',
-                          style:TextStyle(
-                            color: Colors.grey,
-                            fontSize: 17,
-                          ) ,
-                        ),
-                        Text(
-                          'Location2',
-                          style:TextStyle(
-                            color: Colors.grey,
-                            fontSize: 17,
-                          ) ,
-                        )
+
+                child: Center(
+                  child: Container(
+                    width: double.infinity,
+                    height: 50,
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+
+
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(onPressed:(){
+                          getDatePicker();
+                        },
+                            icon: Icon(Icons.calendar_month,color: Colors.deepPurple,)),
+                        Text(_dateTime.day.toString()+'/'+_dateTime.month.toString()+'/'+_dateTime.year.toString(),style: TextStyle(fontSize: 18),)
                       ],
                     ),
-                    const Icon(Icons.swap_vert_rounded,color: Colors.deepPurple,size: 60,),
-                  ],
+
+
+                  ),
                 ),
-              ),
+              )
+
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 690,left: 20,right: 20),
+              padding: const EdgeInsets.only(top: 570,left: 20,right: 20),
               child: Container(
-                height: 200,
+
+                width: double.infinity,
+                height: 50,
+                padding: EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Colors.green,
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.shade600,
@@ -376,110 +395,29 @@ class home extends StatelessWidget{
                       offset: const Offset(5,5),
                     )
                   ],
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(12),
 
                 ),
+
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          'From',
-                          style:TextStyle(
-                            color: Colors.grey,
-                            fontSize: 17,
-                          ) ,
-                        ),
-                        Text(
-                          'Location1',
-                          style:TextStyle(
-                            color: Colors.grey,
-                            fontSize: 17,
-                          ) ,
-                        ),
-                        Text(
-                          'To',
-                          style:TextStyle(
-                            color: Colors.grey,
-                            fontSize: 17,
-                          ) ,
-                        ),
-                        Text(
-                          'Location2',
-                          style:TextStyle(
-                            color: Colors.grey,
-                            fontSize: 17,
-                          ) ,
-                        )
-                      ],
-                    ),
-                    const Icon(Icons.swap_vert_rounded,color: Colors.deepPurple,size: 60,),
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 930,left: 20,right: 20),
-              child: Container(
-                height: 200,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.shade600,
-                      spreadRadius: 1,
-                      blurRadius: 15,
-                      offset: const Offset(5,5),
+
+                    //Text("Search",style: TextStyle(color: Colors.white,fontSize: 30,fontWeight: FontWeight.bold),),
+                    ElevatedButton(onPressed: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>search()));
+                    },
+                      child: Text("Search",style: TextStyle(color: Colors.white,fontSize: 30,fontWeight: FontWeight.bold),),
                     )
+
                   ],
-                  borderRadius: BorderRadius.circular(30),
 
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          'From',
-                          style:TextStyle(
-                            color: Colors.grey,
-                            fontSize: 17,
-                          ) ,
-                        ),
-                        Text(
-                          'Location1',
-                          style:TextStyle(
-                            color: Colors.grey,
-                            fontSize: 17,
-                          ) ,
-                        ),
-                        Text(
-                          'To',
-                          style:TextStyle(
-                            color: Colors.grey,
-                            fontSize: 17,
-                          ) ,
-                        ),
-                        Text(
-                          'Location2',
-                          style:TextStyle(
-                            color: Colors.grey,
-                            fontSize: 17,
-                          ) ,
-                        )
-                      ],
-                    ),
-                    const Icon(Icons.swap_vert_rounded,color: Colors.deepPurple,size: 60,),
-                  ],
-                ),
+
               ),
             ),
+
+
 
           ],
         ),
@@ -487,7 +425,6 @@ class home extends StatelessWidget{
 
     );
   }
-
 }
 class setting extends StatelessWidget{
   @override
@@ -606,5 +543,16 @@ class callsupport extends StatelessWidget{
     );
   }
 }
+class timeanddate extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Call Support page"),
+      ),
+    );
+  }
+}
+
 
 
