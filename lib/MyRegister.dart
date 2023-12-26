@@ -159,7 +159,7 @@ class _MyRegisterState extends State<MyRegister> {
                               SizedBox(width: 5,),
                               GestureDetector(
                                 onTap: (){
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>MyLogin()));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>LogIn()));
                                 },
                                 child: Text("Login",style: TextStyle(color: Colors.deepPurple),),
                               )
