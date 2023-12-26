@@ -49,6 +49,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '22471713389',
     projectId: 'jakaria-61fa1',
     authDomain: 'jakaria-61fa1.firebaseapp.com',
+    databaseURL: 'https://jakaria-61fa1-default-rtdb.firebaseio.com',
     storageBucket: 'jakaria-61fa1.appspot.com',
     measurementId: 'G-497GDY1WZJ',
   );
@@ -58,6 +59,7 @@ class DefaultFirebaseOptions {
     appId: '1:22471713389:android:7160252b798af3b7911564',
     messagingSenderId: '22471713389',
     projectId: 'jakaria-61fa1',
+    databaseURL: 'https://jakaria-61fa1-default-rtdb.firebaseio.com',
     storageBucket: 'jakaria-61fa1.appspot.com',
   );
 
@@ -66,6 +68,7 @@ class DefaultFirebaseOptions {
     appId: '1:22471713389:ios:9d03c514e8f95fec911564',
     messagingSenderId: '22471713389',
     projectId: 'jakaria-61fa1',
+    databaseURL: 'https://jakaria-61fa1-default-rtdb.firebaseio.com',
     storageBucket: 'jakaria-61fa1.appspot.com',
     iosBundleId: 'com.example.navigator',
   );
@@ -75,6 +78,7 @@ class DefaultFirebaseOptions {
     appId: '1:22471713389:ios:70d327c1dbc6ea9e911564',
     messagingSenderId: '22471713389',
     projectId: 'jakaria-61fa1',
+    databaseURL: 'https://jakaria-61fa1-default-rtdb.firebaseio.com',
     storageBucket: 'jakaria-61fa1.appspot.com',
     iosBundleId: 'com.example.navigator.RunnerTests',
   );
