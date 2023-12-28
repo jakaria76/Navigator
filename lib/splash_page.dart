@@ -37,3 +37,5 @@ class _splash_pageState extends State<splash_page> {
 
   }
 }
+
+
