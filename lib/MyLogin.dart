@@ -189,6 +189,27 @@ class _LogInState extends State<LogIn> {
                       ),
                       SizedBox(
                         width: 5.0,
+
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>forgate()));
+                                  },
+                                  child: Text(
+                                    'Forgot Password?',
+                                    style: TextStyle(
+                                      decoration: TextDecoration.underline,
+                                      color: Color(0xff4c505b),
+                                      fontSize: 19,
+                                    ),
+                                  )),
+                            ],
+                          )
+                        ],
                       ),
                       GestureDetector(
                           onTap: () {
