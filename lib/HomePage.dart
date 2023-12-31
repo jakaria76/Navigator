@@ -1,7 +1,9 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:navigator/profile%20page.dart';
 import 'package:navigator/search.dart';
+import 'package:navigator/setting%20page.dart';
 import 'searchpage.dart';
 
 main() {
@@ -26,7 +28,7 @@ class HomePage extends StatelessWidget{
       length: 5,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Navigator'),
+          title: Center(child: Text('Navigator',style: TextStyle(color: Colors.white,fontSize: 30),)),
           bottom: TabBar(
             isScrollable: true,
             tabs: [
@@ -141,84 +143,7 @@ class HomePage extends StatelessWidget{
               ],
             )
         ),
-        endDrawer: Drawer(
-            child: ListView(
-              children: [
-                DrawerHeader(
-                  padding: EdgeInsets.all(0),
-                  child: UserAccountsDrawerHeader(
-                    decoration: BoxDecoration(
-                        color: Colors.green),
-                    accountName: Text('Navigator',style: TextStyle(color: Colors.deepOrange,fontSize: 47,),),
-                    accountEmail: Text("navigatorofficial@gmail.com"),
 
-                    onDetailsPressed: (){
-
-                    },
-                  ),
-                ),
-
-                ListTile(
-                  leading: Icon(Icons.home),
-                  title: Text("Home"),
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>home()));
-                  },
-
-                ),
-                ListTile(
-                  leading: Icon(Icons.call),
-                  title: Text("Call Support"),
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>callsupport()));
-                  },
-
-                ),
-
-                ListTile(
-                  leading: Icon(Icons.settings),
-                  title: Text("Setting"),
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>setting()));
-                  },
-
-                ),
-                ListTile(
-                  leading: Icon(Icons.email),
-                  title: Text("Email"),
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>email()));
-                  },
-
-                ),
-                ListTile(
-                  leading: Icon(Icons.notifications),
-                  title: Text("Notification"),
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>notification()));
-                  },
-
-                ),
-                ListTile(
-                  leading: Icon(Icons.manage_accounts),
-                  title: Text("Manage_Account"),
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>manage_account()));
-                  },
-
-                ),
-                ListTile(
-                  leading: Icon(Icons.discount),
-                  title: Text("Offers"),
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Offer()));
-                  },
-
-                ),
-
-              ],
-            )
-        ),
         body: TabBarView(
           children: [
             home(),
@@ -268,9 +193,7 @@ class _homeState extends State<home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Home Page"),
-      ),
+
       body: SingleChildScrollView(
         child: Stack(
           children: [
@@ -301,28 +224,7 @@ class _homeState extends State<home> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
 
-                      IconButton(onPressed: (){Navigator.pop(context);
-                      },
-                        icon: const Icon(
-                          Icons.arrow_back_ios_new,
-                          size: 30,
-                          color: Colors.white,
-                        ),
-                      ),
-                      const Padding(
-                          padding:EdgeInsets.only(right: 20),
-                          child:Icon(
-                            Icons.person,
-                            size: 40,
-                            color: Colors.white,
-                          )
-                      )
-                    ],
-                  ),
                   const Padding(padding: EdgeInsets.only(top:20,left:30 ),
                       child: Text(
                         'WELCOME TO YOUR APPLICATION',
@@ -347,11 +249,11 @@ class _homeState extends State<home> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 210,left: 20,right: 20),
+              padding: const EdgeInsets.only(top: 170,left: 20,right: 20),
               child: Container(
                 height: 200,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Colors.blueGrey,
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.shade600,
@@ -408,32 +310,52 @@ class _homeState extends State<home> {
 
 
             ),
+            Padding(
+              padding: const EdgeInsets.only(top: 380,left: 20,right: 20),
+              child: GestureDetector(
+
+
+                  child: Container(
+                    width: 200,
+                    height: 45,
+                    decoration: BoxDecoration(
+                      color: Colors.blueGrey,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Center(
+                      child: Text('Select your date',style: TextStyle(color: Colors.white,fontSize: 25,fontStyle: FontStyle.normal),),
+                    ),
+                  )
+
+              ),
+            ),
 
 
 
             Padding(
 
-              padding: const EdgeInsets.only(top: 450,left: 20,right: 20),
+              padding: const EdgeInsets.only(top: 430,left: 20,right: 20),
               child: Container(
 
-                height: 100,
-                width: 500,
+                height: 80,
+                width: 400,
 
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
 
-                  color: Colors.pink,
+                  color: Colors.blueGrey,
                   borderRadius: BorderRadius.circular(12),
 
                 ),
 
+
                 child: Center(
                   child: Container(
                     width: double.infinity,
-                    height: 50,
+                    height: 100,
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Colors.blueGrey,
                       borderRadius: BorderRadius.circular(12),
 
 
@@ -455,41 +377,25 @@ class _homeState extends State<home> {
               )
 
             ),
+
             Padding(
-              padding: const EdgeInsets.only(top: 570,left: 20,right: 20),
-              child: Container(
+              padding: const EdgeInsets.only(top: 520,left: 20,right: 20),
+              child: GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Search()));
+                  },
 
-                width: double.infinity,
-                height: 50,
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                  color: Colors.green,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.shade600,
-                      spreadRadius: 1,
-                      blurRadius: 15,
-                      offset: const Offset(5,5),
-                    )
-                  ],
-                  borderRadius: BorderRadius.circular(12),
-
-                ),
-
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-
-                    //Text("Search",style: TextStyle(color: Colors.white,fontSize: 30,fontWeight: FontWeight.bold),),
-                    ElevatedButton(onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>search()));
-                    },
-                      child: Text("Search",style: TextStyle(color: Colors.white,fontSize: 30,fontWeight: FontWeight.bold),),
-                    )
-
-                  ],
-
-                ),
+                  child: Container(
+                    width: double.infinity,
+                    height: 45,
+                    decoration: BoxDecoration(
+                      color: Colors.blueGrey,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Center(
+                      child: Text('Search',style: TextStyle(color: Colors.white,fontSize: 25,fontStyle: FontStyle.normal),),
+                    ),
+                  )
 
               ),
             ),
@@ -503,17 +409,7 @@ class _homeState extends State<home> {
     );
   }
 }
-class setting extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("setting page"),
-      ),
-    );
-  }
 
-}
 class email extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
@@ -552,34 +448,128 @@ class Offer extends StatelessWidget{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Offers page"),
+        title: Text("Offers",style: TextStyle(color: Colors.black),),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.black),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Container(
+                height: 300,
+                width: double.infinity,
+                child: Column(
+                  children: [
+                    Container(
+                      height: 200,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(image: AssetImage("images/cashback.jpeg",),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    ),
+
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Container(
+                            height: 90,
+                            width: 60,
+                            color: Colors.redAccent,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: Container(
+                            height: 90,
+                            width: 310,
+                            child: Column(
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: Text('Offer Name',style: TextStyle(fontSize: 16),),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: Text("20/12/2021"),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Container(
+                                            height: 50,
+                                            child: Text("Get Up to 40% Cash Back On 1st Payments",style: TextStyle(fontSize: 18),)),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(5.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 1,
+                      blurRadius: 3,
+                      offset: Offset(0, 1,), // changes position of shadow
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 2.0,bottom: 2.0,left: 8.0,right: 8.0),
+              child: Container(
+                height: 305,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: Colors.greenAccent,
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 2.0,bottom: 2.0,left: 8.0,right: 8.0),
+              child: Container(
+                height: 305,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: Colors.redAccent,
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
 }
-class Search extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Search page"),
-      ),
-    );
-  }
 
-}
-class profile extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("profile page"),
-      ),
-    );
-  }
 
-}
 class bus_alert extends StatelessWidget{
   @override
   Widget build(BuildContext context) {

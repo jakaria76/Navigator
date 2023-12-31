@@ -8,7 +8,7 @@ import 'package:navigator/MyRegister.dart';
 import 'forgate.dart';
 
 class LogIn extends StatefulWidget {
-  const LogIn({super.key});
+  const LogIn({Key? key}) : super(key: key);
 
   @override
   State<LogIn> createState() => _LogInState();
@@ -17,10 +17,10 @@ class LogIn extends StatefulWidget {
 class _LogInState extends State<LogIn> {
   String email = "", password = "";
 
-  final _formkey= GlobalKey<FormState>();
+  final _formkey = GlobalKey<FormState>();
 
-  TextEditingController useremailcontroller = new TextEditingController();
-  TextEditingController userpasswordcontroller = new TextEditingController();
+  TextEditingController useremailcontroller = TextEditingController();
+  TextEditingController userpasswordcontroller = TextEditingController();
 
   userLogin() async {
     try {
@@ -48,13 +48,13 @@ class _LogInState extends State<LogIn> {
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-            image: AssetImage('images/login.png'), fit: BoxFit.cover),
+          image: AssetImage('images/login.png'),
+          fit: BoxFit.cover,
+        ),
       ),
-
-
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
@@ -68,8 +68,6 @@ class _LogInState extends State<LogIn> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
-
                   SizedBox(
                     height: 300.0,
                   ),
@@ -80,11 +78,10 @@ class _LogInState extends State<LogIn> {
                         color: Color(0xFF4c59a5),
                         borderRadius: BorderRadius.circular(22)),
                     child: TextFormField(
-                      controller:  useremailcontroller,
-                      validator: (value){
-                        if(value==null|| value.isEmpty){
+                      controller: useremailcontroller,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
                           return 'Please Enter E-Mail';
-
                         }
                         return null;
                       },
@@ -110,10 +107,9 @@ class _LogInState extends State<LogIn> {
                         borderRadius: BorderRadius.circular(22)),
                     child: TextFormField(
                       controller: userpasswordcontroller,
-                      validator: (value){
-                        if(value==null|| value.isEmpty){
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
                           return 'Please Enter Password';
-
                         }
                         return null;
                       },
@@ -133,8 +129,11 @@ class _LogInState extends State<LogIn> {
                     height: 15.0,
                   ),
                   GestureDetector(
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> ForgotPassword()));
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ForgotPassword()));
                     },
                     child: Container(
                       padding: EdgeInsets.only(right: 24.0),
@@ -150,10 +149,10 @@ class _LogInState extends State<LogIn> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      if(_formkey.currentState!.validate()){
+                      if (_formkey.currentState!.validate()) {
                         setState(() {
-                          email= useremailcontroller.text;
-                          password= userpasswordcontroller.text;
+                          email = useremailcontroller.text;
+                          password = userpasswordcontroller.text;
                         });
                       }
                       userLogin();
@@ -190,18 +189,45 @@ class _LogInState extends State<LogIn> {
                       SizedBox(
                         width: 5.0,
                       ),
+                      Container(
+                        // Wrap SizedBox with Container to provide width
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ForgotPassword()));
+                              },
+                              child: Text(
+                                'Forgot Password?',
+                                style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  color: Color(0xff4c505b),
+                                  fontSize: 19,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                       GestureDetector(
-                          onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) => MyRegister()));
-                          },
-                          child: Text(
-                            " Signup",
-                            style: TextStyle(
-                                color: Color(0xFFf95f3b),
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.bold),
-                          ))
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MyRegister()));
+                        },
+                        child: Text(
+                          " Signup",
+                          style: TextStyle(
+                              color: Color(0xFFf95f3b),
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      )
                     ],
                   )
                 ],
