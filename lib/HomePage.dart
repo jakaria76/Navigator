@@ -607,6 +607,12 @@ class callsupport extends StatelessWidget{
       appBar: AppBar(
         title: Text("Call Support page"),
       ),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('images/callsupport.png'), fit: BoxFit.cover),
+        ),
+      ),
     );
   }
 }
