@@ -72,7 +72,7 @@ class HomePage extends StatelessWidget{
                   padding: EdgeInsets.all(0),
                   child: UserAccountsDrawerHeader(
                     decoration: BoxDecoration(
-                        color: Colors.green),
+                        color: Colors.blueGrey),
                     accountName: Text('Navigator',style: TextStyle(color: Colors.deepOrange,fontSize: 47,),),
                     accountEmail: Text("navigatorofficial@gmail.com"),
 
