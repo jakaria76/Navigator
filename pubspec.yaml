@@ -41,6 +41,10 @@ dependencies:
   firebase_storage: ^11.5.6
   firebase_database: ^10.3.8
   provider: ^6.1.1
+  book_my_seat: ^1.0.1
+  intl: ^0.17.0
+  shared_preferences: ^2.0.6
+  flutter_typeahead: ^4.0.0
 
 
 
@@ -76,6 +80,9 @@ flutter:
     - images/welcome.png
     - images/cashback.jpeg
     - images/callsupport.png
+    - images/bus_user.png
+    - images/profile.jpg
+    - images/jakaria.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
