@@ -1,6 +1,10 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:navigator/profile%20page.dart';
+import 'package:navigator/search.dart';
+import 'package:navigator/setting%20page.dart';
+import 'searchpage.dart';
 
 main() {
   runApp(const MyApp());
@@ -24,7 +28,7 @@ class HomePage extends StatelessWidget{
       length: 5,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Navigator'),
+          title: Center(child: Text('Navigator',style: TextStyle(color: Colors.white,fontSize: 30),)),
           bottom: TabBar(
             isScrollable: true,
             tabs: [
@@ -147,8 +151,7 @@ class HomePage extends StatelessWidget{
             message(),
             offer(),
             setting(),
-            Offer(),
-            setting(),
+
 
 
           ],
@@ -162,13 +165,35 @@ class HomePage extends StatelessWidget{
   }
 
 }
-class home extends StatelessWidget{
+class home extends StatefulWidget{
+
+
+
+
+  @override
+  State<home> createState() => _homeState();
+}
+
+class _homeState extends State<home> {
+
+  late DateTime _dateTime = DateTime.now();
+  void getDatePicker(){
+
+    showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2015),
+        lastDate: DateTime(2025)
+    ).then((value){
+      setState((){
+        _dateTime=value!;
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Home Page"),
-      ),
+
       body: SingleChildScrollView(
         child: Stack(
           children: [
@@ -199,31 +224,10 @@ class home extends StatelessWidget{
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
 
-                      IconButton(onPressed: (){Navigator.pop(context);
-                      },
-                        icon: const Icon(
-                          Icons.arrow_back_ios_new,
-                          size: 30,
-                          color: Colors.white,
-                        ),
-                      ),
-                      const Padding(
-                          padding:EdgeInsets.only(right: 20),
-                          child:Icon(
-                            Icons.person,
-                            size: 40,
-                            color: Colors.white,
-                          )
-                      )
-                    ],
-                  ),
                   const Padding(padding: EdgeInsets.only(top:20,left:30 ),
                       child: Text(
-                        'hi md jakaria',
+                        'WELCOME TO YOUR APPLICATION',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
@@ -245,11 +249,11 @@ class home extends StatelessWidget{
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 210,left: 20,right: 20),
+              padding: const EdgeInsets.only(top: 170,left: 20,right: 20),
               child: Container(
                 height: 200,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Colors.blueGrey,
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.shade600,
@@ -264,24 +268,29 @@ class home extends StatelessWidget{
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
+
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
+
                         Text(
                           'From',
                           style:TextStyle(
                             color: Colors.grey,
                             fontSize: 17,
                           ) ,
+
                         ),
-                        Text(
-                          'Location1',
-                          style:TextStyle(
-                            color: Colors.grey,
-                            fontSize: 17,
-                          ) ,
-                        ),
+
+                         //TextButton(onPressed: (){
+                         //  Navigator.push(context, MaterialPageRoute(builder: (context)=>setting()));
+                        // }, child: Text("select your location")
+                        // ),
+                        ElevatedButton(onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>searchpage()));
+                        }, child: Text('Select your location')),
+
                         Text(
                           'To',
                           style:TextStyle(
@@ -289,197 +298,109 @@ class home extends StatelessWidget{
                             fontSize: 17,
                           ) ,
                         ),
-                        Text(
-                          'Location2',
-                          style:TextStyle(
-                            color: Colors.grey,
-                            fontSize: 17,
-                          ) ,
-                        )
+                        ElevatedButton(onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>searchpage()));
+                        }, child: Text('Select your location')),
                       ],
                     ),
                     const Icon(Icons.swap_vert_rounded,color: Colors.deepPurple,size: 60,),
                   ],
                 ),
               ),
+
+
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 450,left: 20,right: 20),
-              child: Container(
-                height: 200,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.shade600,
-                      spreadRadius: 1,
-                      blurRadius: 15,
-                      offset: const Offset(5,5),
-                    )
-                  ],
-                  borderRadius: BorderRadius.circular(30),
+              padding: const EdgeInsets.only(top: 380,left: 20,right: 20),
+              child: GestureDetector(
 
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          'From',
-                          style:TextStyle(
-                            color: Colors.grey,
-                            fontSize: 17,
-                          ) ,
-                        ),
-                        Text(
-                          'Location1',
-                          style:TextStyle(
-                            color: Colors.grey,
-                            fontSize: 17,
-                          ) ,
-                        ),
-                        Text(
-                          'To',
-                          style:TextStyle(
-                            color: Colors.grey,
-                            fontSize: 17,
-                          ) ,
-                        ),
-                        Text(
-                          'Location2',
-                          style:TextStyle(
-                            color: Colors.grey,
-                            fontSize: 17,
-                          ) ,
-                        )
-                      ],
+
+                  child: Container(
+                    width: 200,
+                    height: 45,
+                    decoration: BoxDecoration(
+                      color: Colors.blueGrey,
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    const Icon(Icons.swap_vert_rounded,color: Colors.deepPurple,size: 60,),
-                  ],
-                ),
+                    child: Center(
+                      child: Text('Select your date',style: TextStyle(color: Colors.white,fontSize: 25,fontStyle: FontStyle.normal),),
+                    ),
+                  )
+
               ),
             ),
+
+
+
             Padding(
-              padding: const EdgeInsets.only(top: 690,left: 20,right: 20),
+
+              padding: const EdgeInsets.only(top: 430,left: 20,right: 20),
               child: Container(
-                height: 200,
+
+                height: 80,
+                width: 400,
+
+                padding: EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.shade600,
-                      spreadRadius: 1,
-                      blurRadius: 15,
-                      offset: const Offset(5,5),
-                    )
-                  ],
-                  borderRadius: BorderRadius.circular(30),
+
+                  color: Colors.blueGrey,
+                  borderRadius: BorderRadius.circular(12),
 
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          'From',
-                          style:TextStyle(
-                            color: Colors.grey,
-                            fontSize: 17,
-                          ) ,
-                        ),
-                        Text(
-                          'Location1',
-                          style:TextStyle(
-                            color: Colors.grey,
-                            fontSize: 17,
-                          ) ,
-                        ),
-                        Text(
-                          'To',
-                          style:TextStyle(
-                            color: Colors.grey,
-                            fontSize: 17,
-                          ) ,
-                        ),
-                        Text(
-                          'Location2',
-                          style:TextStyle(
-                            color: Colors.grey,
-                            fontSize: 17,
-                          ) ,
-                        )
+
+
+                child: Center(
+                  child: Container(
+                    width: double.infinity,
+                    height: 100,
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    decoration: BoxDecoration(
+                      color: Colors.blueGrey,
+                      borderRadius: BorderRadius.circular(12),
+
+
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(onPressed:(){
+                          getDatePicker();
+                        },
+                            icon: Icon(Icons.calendar_month,color: Colors.deepPurple,)),
+                        Text(_dateTime.day.toString()+'/'+_dateTime.month.toString()+'/'+_dateTime.year.toString(),style: TextStyle(fontSize: 18),)
                       ],
                     ),
-                    const Icon(Icons.swap_vert_rounded,color: Colors.deepPurple,size: 60,),
-                  ],
+
+
+                  ),
                 ),
-              ),
+              )
+
             ),
+
             Padding(
-              padding: const EdgeInsets.only(top: 930,left: 20,right: 20),
-              child: Container(
-                height: 200,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.shade600,
-                      spreadRadius: 1,
-                      blurRadius: 15,
-                      offset: const Offset(5,5),
-                    )
-                  ],
-                  borderRadius: BorderRadius.circular(30),
+              padding: const EdgeInsets.only(top: 520,left: 20,right: 20),
+              child: GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Search()));
+                  },
 
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          'From',
-                          style:TextStyle(
-                            color: Colors.grey,
-                            fontSize: 17,
-                          ) ,
-                        ),
-                        Text(
-                          'Location1',
-                          style:TextStyle(
-                            color: Colors.grey,
-                            fontSize: 17,
-                          ) ,
-                        ),
-                        Text(
-                          'To',
-                          style:TextStyle(
-                            color: Colors.grey,
-                            fontSize: 17,
-                          ) ,
-                        ),
-                        Text(
-                          'Location2',
-                          style:TextStyle(
-                            color: Colors.grey,
-                            fontSize: 17,
-                          ) ,
-                        )
-                      ],
+                  child: Container(
+                    width: double.infinity,
+                    height: 45,
+                    decoration: BoxDecoration(
+                      color: Colors.blueGrey,
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    const Icon(Icons.swap_vert_rounded,color: Colors.deepPurple,size: 60,),
-                  ],
-                ),
+                    child: Center(
+                      child: Text('Search',style: TextStyle(color: Colors.white,fontSize: 25,fontStyle: FontStyle.normal),),
+                    ),
+                  )
+
               ),
             ),
+
+
 
           ],
         ),
@@ -487,19 +408,8 @@ class home extends StatelessWidget{
 
     );
   }
-
 }
-class setting extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("setting page"),
-      ),
-    );
-  }
 
-}
 class email extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
@@ -538,34 +448,128 @@ class Offer extends StatelessWidget{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Offers page"),
+        title: Text("Offers",style: TextStyle(color: Colors.black),),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.black),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Container(
+                height: 300,
+                width: double.infinity,
+                child: Column(
+                  children: [
+                    Container(
+                      height: 200,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(image: AssetImage("images/cashback.jpeg",),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    ),
+
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Container(
+                            height: 90,
+                            width: 60,
+                            color: Colors.redAccent,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: Container(
+                            height: 90,
+                            width: 310,
+                            child: Column(
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: Text('Offer Name',style: TextStyle(fontSize: 16),),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: Text("20/12/2021"),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Container(
+                                            height: 50,
+                                            child: Text("Get Up to 40% Cash Back On 1st Payments",style: TextStyle(fontSize: 18),)),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(5.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 1,
+                      blurRadius: 3,
+                      offset: Offset(0, 1,), // changes position of shadow
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 2.0,bottom: 2.0,left: 8.0,right: 8.0),
+              child: Container(
+                height: 305,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: Colors.greenAccent,
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 2.0,bottom: 2.0,left: 8.0,right: 8.0),
+              child: Container(
+                height: 305,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: Colors.redAccent,
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
 }
-class Search extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Search page"),
-      ),
-    );
-  }
 
-}
-class profile extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("profile page"),
-      ),
-    );
-  }
 
-}
 class bus_alert extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
@@ -603,8 +607,25 @@ class callsupport extends StatelessWidget{
       appBar: AppBar(
         title: Text("Call Support page"),
       ),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('images/callsupport.png'), fit: BoxFit.cover),
+        ),
+      ),
     );
   }
 }
+class timeanddate extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Call Support page"),
+      ),
+    );
+  }
+}
+
 
 

@@ -1,16 +1,35 @@
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:navigator/MyLogin.dart';
+import 'package:navigator/user_auth/firebase_auth_services.dart';
+
 import 'HomePage.dart';
 
 class MyRegister extends StatefulWidget {
   const MyRegister({Key? key}) : super(key: key);
 
   @override
-  _MyRegisterState createState() => _MyRegisterState();
+  State<MyRegister> createState() => _MyRegisterState();
 }
 
-
-
 class _MyRegisterState extends State<MyRegister> {
+
+  final FirebaseAuthService _auth = FirebaseAuthService();
+
+  TextEditingController _usernameController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,6 +58,7 @@ class _MyRegisterState extends State<MyRegister> {
                       child: Column(
                         children: [
                           TextField(
+                           controller:_usernameController,
                             style: TextStyle(color: Colors.white),
                             decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
@@ -63,6 +83,7 @@ class _MyRegisterState extends State<MyRegister> {
                             height: 30,
                           ),
                           TextField(
+                            controller:_emailController,
                             style: TextStyle(color: Colors.white),
                             decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
@@ -87,6 +108,7 @@ class _MyRegisterState extends State<MyRegister> {
                             height: 30,
                           ),
                           TextField(
+                            controller:_passwordController,
                             style: TextStyle(color: Colors.white),
                             obscureText: true,
                             decoration: InputDecoration(
@@ -111,54 +133,39 @@ class _MyRegisterState extends State<MyRegister> {
                           SizedBox(
                             height: 40,
                           ),
+                          GestureDetector(
+                            onTap: _singUp,
+
+                              child: Container(
+                                width: double.infinity,
+                                height: 45,
+                                decoration: BoxDecoration(
+                                  color: Colors.blue,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Center(
+                                  child: Text('Sign Up',style: TextStyle(color: Colors.white,fontSize: 25,fontStyle: FontStyle.normal),),
+                                ),
+                              )
+
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
-                                'Sign Up',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 27,
-                                    fontWeight: FontWeight.w700),
-                              ),
-                              CircleAvatar(
-                                radius: 30,
-                                backgroundColor: Color(0xff4c505b),
-                                child: IconButton(
-                                    color: Colors.white,
-                                    onPressed: () {
-
-                                      Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
-                                    },
-                                    icon: Icon(
-                                      Icons.arrow_forward,
-
-                                    )),
+                              Text("Already have an account?"),
+                              SizedBox(width: 5,),
+                              GestureDetector(
+                                onTap: (){
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>LogIn()));
+                                },
+                                child: Text("Login",style: TextStyle(color: Colors.deepPurple),),
                               )
                             ],
                           ),
-                          SizedBox(
-                            height: 40,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(context, 'login');
-                                },
-                                child: Text(
-                                  'Sign In',
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                      decoration: TextDecoration.underline,
-                                      color: Colors.white,
-                                      fontSize: 18),
-                                ),
-                                style: ButtonStyle(),
-                              ),
-                            ],
-                          )
+
                         ],
                       ),
                     )
@@ -170,5 +177,18 @@ class _MyRegisterState extends State<MyRegister> {
         ),
       ),
     );
+  }
+  void _singUp() async{
+    String username = _usernameController.text;
+    String email = _emailController.text;
+    String password = _passwordController.text;
+    
+    User? user =await _auth.signUpWithEmailAndPassword(email, password);
+    if(user != null){
+      print("user is successfully created");
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
+    }else{
+      print("some error happend");
+    }
   }
 }
