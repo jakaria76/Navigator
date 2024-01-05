@@ -295,8 +295,7 @@ class _homeState extends State<home> {
                           'To',
                           style:TextStyle(
                             color: Colors.grey,
-                            fontSize: 17,
-                          ) ,
+                            fontSize: 17,) ,
                         ),
                         ElevatedButton(onPressed: (){
                           Navigator.push(context, MaterialPageRoute(builder: (context)=>searchpage()));
