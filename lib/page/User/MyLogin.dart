@@ -2,8 +2,8 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:navigator/HomePage.dart';
-import 'package:navigator/MyRegister.dart';
+import 'package:navigator/page/User/HomePage.dart';
+import 'package:navigator/page/User/MyRegister.dart';
 
 import 'forgate.dart';
 

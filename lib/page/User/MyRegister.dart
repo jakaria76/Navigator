@@ -1,7 +1,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:navigator/MyLogin.dart';
+import 'package:navigator/page/User/MyLogin.dart';
 import 'package:navigator/user_auth/firebase_auth_services.dart';
 
 import 'HomePage.dart';
