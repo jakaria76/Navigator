@@ -1,9 +1,11 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:navigator/profile%20page.dart';
 import 'package:navigator/search.dart';
 import 'package:navigator/setting%20page.dart';
+import 'ProfilePage.dart';
 import 'searchpage.dart';
 
 main() {
@@ -28,18 +30,49 @@ class HomePage extends StatelessWidget{
       length: 5,
       child: Scaffold(
         appBar: AppBar(
-          title: Center(child: Text('Navigator',style: TextStyle(color: Colors.white,fontSize: 30),)),
+          actions: [
+            IconButton(
+              icon:Icon(
+              Icons.person,
+              color: Colors.white,
+              size: 30,
+            ), onPressed: () {  Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ProfilePage()),
+            ); },
+                  //onPressed() {}
+
+            )
+          ],
+          backgroundColor: Colors.blue,
+          title: Center(
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Navigator',
+                style: GoogleFonts.lato(
+                  textStyle: TextStyle(
+                    color: Colors.white,
+                    fontSize: 30,
+                  ),
+                ),
+              ),
+            ),
+          ),
+
+
           bottom: TabBar(
             isScrollable: true,
             tabs: [
-              Tab(icon: Icon(Icons.home),text: "home",),
-              Tab(icon: Icon(Icons.bus_alert),text: "bus alert",),
-              Tab(icon: Icon(Icons.message),text: "message ",),
+              Tab(icon: Icon(Icons.home),text: "Home",),
+              Tab(icon: Icon(Icons.bus_alert),text: "Bus Alert",),
+              Tab(icon: Icon(Icons.message),text: "Message ",),
               Tab(icon: Icon(Icons.discount),text: "Offers",),
-              Tab(icon: Icon(Icons.settings),text: "setting",),
+              Tab(icon: Icon(Icons.settings),text: "Setting",),
 
             ],
           ),
+          elevation: 5,
 
 
         ),
@@ -72,9 +105,10 @@ class HomePage extends StatelessWidget{
                   padding: EdgeInsets.all(0),
                   child: UserAccountsDrawerHeader(
                     decoration: BoxDecoration(
+                      //borderRadius: ,
                         color: Colors.blueGrey),
-                    accountName: Text('Navigator',style: TextStyle(color: Colors.deepOrange,fontSize: 47,),),
-                    accountEmail: Text("navigatorofficial@gmail.com"),
+                    accountName: Text('Navigator',style: GoogleFonts.lato(textStyle:TextStyle(color: Colors.grey,fontSize: 47,)),),
+                    accountEmail: Text('navigatorofficial@gmail.com',style: GoogleFonts.lato(textStyle: TextStyle(color: Colors.grey)),),
 
                     onDetailsPressed: (){
 
