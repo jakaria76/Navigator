@@ -46,7 +46,9 @@ class HomePage extends StatelessWidget{
 
             )
           ],
-          backgroundColor: Colors.blue,
+          backgroundColor: Colors.blueGrey,
+          iconTheme: IconThemeData(color: Colors.white),
+
           title: Center(
             child: Align(
               alignment: Alignment.centerLeft,
@@ -62,7 +64,6 @@ class HomePage extends StatelessWidget{
             ),
           ),
 
-
           bottom: TabBar(
             isScrollable: true,
             tabs: [
@@ -74,7 +75,7 @@ class HomePage extends StatelessWidget{
 
             ],
           ),
-          elevation: 5,
+          elevation: 40,
 
 
         ),
@@ -109,8 +110,8 @@ class HomePage extends StatelessWidget{
                     decoration: BoxDecoration(
                       //borderRadius: ,
                         color: Colors.blueGrey),
-                    accountName: Text('Navigator',style: GoogleFonts.lato(textStyle:TextStyle(color: Colors.grey,fontSize: 47,)),),
-                    accountEmail: Text('navigatorofficial@gmail.com',style: GoogleFonts.lato(textStyle: TextStyle(color: Colors.grey)),),
+                    accountName: Text('Navigator',style: GoogleFonts.lato(textStyle:TextStyle(color: Colors.black,fontSize: 37,)),),
+                    accountEmail: Text('navigatorofficial@gmail.com',style: GoogleFonts.lato(textStyle: TextStyle(color: Colors.black,fontSize: 15)),),
 
                     onDetailsPressed: (){
 
@@ -168,13 +169,14 @@ class HomePage extends StatelessWidget{
 
                 ),
                 ListTile(
-                  leading: Icon(Icons.discount),
-                  title: Text("Offers"),
+                  leading: Icon(Icons.logout),
+                  title: Text("Log Out"),
                   onTap: (){
                     Navigator.push(context, MaterialPageRoute(builder: (context)=>Offer()));
                   },
 
                 ),
+
 
               ],
             )
