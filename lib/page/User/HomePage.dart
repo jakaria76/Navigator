@@ -42,7 +42,7 @@ class HomePage extends StatelessWidget{
               Tab(icon: Icon(Icons.bus_alert),text: "bus alert",),
               Tab(icon: Icon(Icons.message),text: "message ",),
               Tab(icon: Icon(Icons.discount),text: "Offers",),
-              Tab(icon: Icon(Icons.settings),text: "setting",),
+              Tab(icon: Icon(Icons.settings),text: "settings",),
 
             ],
           ),
