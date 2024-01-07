@@ -30,6 +30,8 @@ class HomePage extends StatelessWidget{
       length: 5,
       child: Scaffold(
         appBar: AppBar(
+          foregroundColor: Colors.white,
+          shadowColor: Colors.black,
           actions: [
             IconButton(
               icon:Icon(
