@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:navigator/page/User/passenger%20details.dart';
 
 
 
@@ -83,10 +84,10 @@ class _seatbookingState extends State<seatbooking> {
                           actions: [
                             TextButton(
                               onPressed: () {
-                                Navigator.pop(context);
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>passenger_details()));
                               },
                               child: Text('OK'),
-                            ),
+                            )
                           ],
                         );
                       },

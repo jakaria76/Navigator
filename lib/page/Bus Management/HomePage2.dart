@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:navigator/page/Bus%20Management/profile2.dart';
 import 'package:navigator/page/bus%20and%20user%20select%20page.dart';
+
+import 'massage2.dart';
+
+
 
 class HomePage2 extends StatefulWidget {
   @override
@@ -160,6 +165,28 @@ class _HomePage2State extends State<HomePage2> {
       appBar: AppBar(
         title: Center(child: Text('Bus Information')),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home),label:"Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.message),label:"message"),
+          BottomNavigationBarItem(icon: Icon(Icons.person),label:"profile"),
+
+        ],
+        onTap: (int index){
+          if(index==0)
+          {
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage2()));
+          }
+          if(index==1)
+          {
+             Navigator.push(context, MaterialPageRoute(builder: (context)=>messages_screen2()));
+          }
+          if(index==2)
+          {
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>profile2()));
+          }
+        },
+      ),
       drawer: Drawer(
           child: ListView(
             children: [
@@ -185,6 +212,7 @@ class _HomePage2State extends State<HomePage2> {
             ],
           )
       ),
+
       body: Padding(
         padding: const EdgeInsets.all(5),
         child: Column(

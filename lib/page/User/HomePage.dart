@@ -8,6 +8,7 @@ import 'package:navigator/page/User/setting%20page.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import '../bus and user select page.dart';
 import 'Bus Alart.dart';
+import 'Map page.dart';
 import 'Offer page.dart';
 import 'call support.dart';
 
@@ -31,7 +32,7 @@ class HomePage extends StatelessWidget{
   Widget build(BuildContext context) {
 
     return DefaultTabController(
-      length: 5,
+      length: 6,
       child: Scaffold(
         appBar: AppBar(
           title: Center(child: Text('Navigator',style: TextStyle(color: Colors.white,fontSize: 30),)),
@@ -43,6 +44,8 @@ class HomePage extends StatelessWidget{
               Tab(icon: Icon(Icons.message),text: "message ",),
               Tab(icon: Icon(Icons.discount),text: "Offers",),
               Tab(icon: Icon(Icons.settings),text: "settings",),
+              Tab(icon: Icon(Icons.location_on),text: "map",),
+
 
             ],
           ),
@@ -147,9 +150,10 @@ class HomePage extends StatelessWidget{
           children: [
             home(),
             busalart(),
-            massage(),
+            messages_screen(),
             offer(),
             setting(),
+            map(),
 
 
 
@@ -432,17 +436,7 @@ class _homeState extends State<home> {
   }
 }
 
-class email extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("email page"),
-      ),
-    );
-  }
 
-}
 
 
 
