@@ -15,6 +15,10 @@ class LogIn extends StatefulWidget {
 }
 
 class _LogInState extends State<LogIn> {
+
+
+
+
   String email = "", password = "";
 
   final _formkey = GlobalKey<FormState>();
@@ -26,6 +30,15 @@ class _LogInState extends State<LogIn> {
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
+
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(
+          "Login Successful!",
+          style: TextStyle(fontSize: 18.0, color: Colors.white),
+        ),
+        backgroundColor: Colors.green, // You can customize the background color
+      ));
 
       Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
     } on FirebaseAuthException catch (e) {
@@ -45,6 +58,7 @@ class _LogInState extends State<LogIn> {
       }
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
