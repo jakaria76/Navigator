@@ -47,6 +47,8 @@ dependencies:
   flutter_typeahead: ^4.0.0
   geolocator: ^10.1.0
   google_maps_flutter: ^2.0.15
+  sqflite: ^2.0.0
+  path: ^1.8.0
 
 
 
@@ -88,6 +90,7 @@ flutter:
     - images/bus_user.png
     - images/profile.jpg
     - images/jakaria.jpg
+    - images/signup2.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
