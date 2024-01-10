@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class messages_screen extends StatefulWidget {
+class messages_screen2 extends StatefulWidget {
   @override
-  _MessagesScreenState createState() => _MessagesScreenState();
+  _MessagesScreen2State createState() => _MessagesScreen2State();
 }
 
-class _MessagesScreenState extends State<messages_screen> {
+class _MessagesScreen2State extends State<messages_screen2> {
   final TextEditingController _messageController = TextEditingController();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   CollectionReference _messages = FirebaseFirestore.instance.collection('messages');
@@ -44,12 +44,11 @@ class _MessagesScreenState extends State<messages_screen> {
                     String sender = data['sender'] ?? 'Unknown sender';
 
                     return ListTile(
-                      //icon add kore dite hobe
+
                       title: Text(message),
                       subtitle: Text(sender),
                     );
                   }).toList(),
-
                 );
               },
             ),
@@ -85,7 +84,7 @@ class _MessagesScreenState extends State<messages_screen> {
     if (message.isNotEmpty) {
       _messages.add({
         'message': message,
-        'sender': 'User', // You can replace this with the actual sender's name or ID
+        'sender': 'Bus Management', // Replace with actual sender's name or ID
         'timestamp': FieldValue.serverTimestamp(),
       });
       _messageController.clear();
