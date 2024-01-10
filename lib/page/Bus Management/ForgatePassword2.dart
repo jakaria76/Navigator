@@ -1,14 +1,12 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
 
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:navigator/page/Bus%20Management/SignUp%20page2.dart';
+import 'package:flutter/material.dart';
 import 'package:navigator/page/Bus%20Management/loginPage2.dart';
-
 import 'package:navigator/page/User/MyLogin.dart';
 import 'package:navigator/page/User/MyRegister.dart';
+
+import 'SignUp page2.dart';
 
 class ForgotPassword2 extends StatefulWidget {
   ForgotPassword2({Key? key}) : super(key: key);
@@ -45,7 +43,7 @@ class _ForgotPassword2State extends State<ForgotPassword2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(133, 60, 8, 8),
+      backgroundColor: Colors.blue,
       body: Container(
         margin: EdgeInsets.symmetric(vertical: 50.0),
         child: Form(
@@ -154,7 +152,7 @@ class _ForgotPassword2State extends State<ForgotPassword2> {
                                     alignment: Alignment.bottomRight,
                                     child: Text(
                                       "LogIn",
-                                      style: TextStyle(fontSize: 15.0),
+                                      style: TextStyle(fontSize: 25,color: Colors.white),
                                     )),
                               ),
                             ],
@@ -169,19 +167,19 @@ class _ForgotPassword2State extends State<ForgotPassword2> {
                             Text(
                               "Don't have an account? ",
                               style:
-                              TextStyle(fontSize: 18.0, color: Colors.white),
+                              TextStyle(fontSize: 25, color: Colors.white),
                             ),
                             GestureDetector(
                               onTap: () {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => SignUp2()));
+                                        builder: (context) =>SignUp2()));
                               },
                               child: Text("Create",
                                   style: TextStyle(
-                                    color: Color.fromARGB(255, 184, 166, 6),
-                                    fontSize: 20.0,
+                                    color: Colors.red,
+                                    fontSize: 25,
                                     fontWeight: FontWeight.w500,
                                   )),
                             )

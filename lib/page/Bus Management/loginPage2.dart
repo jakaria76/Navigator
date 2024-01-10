@@ -144,7 +144,7 @@ class _LogIn2State extends State<LogIn2> {
                       alignment: Alignment.bottomRight,
                       child: Text(
                         "Forgot password?",
-                        style: TextStyle(color: Colors.white, fontSize: 18.0),
+                        style: TextStyle(color: Colors.white, fontSize: 25.0),
                       ),
                     ),
                   ),
@@ -188,35 +188,12 @@ class _LogIn2State extends State<LogIn2> {
                     children: [
                       Text(
                         "New User?",
-                        style: TextStyle(color: Colors.white, fontSize: 20.0),
+                        style: TextStyle(color: Colors.white, fontSize: 30.0),
                       ),
                       SizedBox(
                         width: 5.0,
                       ),
-                      Container(
-                        // Wrap SizedBox with Container to provide width
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ForgotPassword2()));
-                              },
-                              child: Text(
-                                'Forgot Password?',
-                                style: TextStyle(
-                                  decoration: TextDecoration.underline,
-                                  color: Color(0xff4c505b),
-                                  fontSize: 19,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
@@ -227,8 +204,8 @@ class _LogIn2State extends State<LogIn2> {
                         child: Text(
                           " Signup",
                           style: TextStyle(
-                              color: Color(0xFFf95f3b),
-                              fontSize: 20.0,
+                              color: Colors.orange,
+                              fontSize: 30.0,
                               fontWeight: FontWeight.bold),
                         ),
                       )
