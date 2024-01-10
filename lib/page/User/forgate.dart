@@ -40,7 +40,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(133, 60, 8, 8),
+      backgroundColor: Colors.blue,
       body: Container(
         margin: EdgeInsets.symmetric(vertical: 50.0),
         child: Form(
@@ -149,7 +149,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                     alignment: Alignment.bottomRight,
                                     child: Text(
                                       "LogIn",
-                                      style: TextStyle(fontSize: 15.0),
+                                      style: TextStyle(fontSize: 25,color: Colors.white),
                                     )),
                               ),
                             ],
@@ -164,7 +164,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                             Text(
                               "Don't have an account? ",
                               style:
-                              TextStyle(fontSize: 18.0, color: Colors.white),
+                              TextStyle(fontSize: 25, color: Colors.white),
                             ),
                             GestureDetector(
                               onTap: () {
@@ -175,8 +175,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                               },
                               child: Text("Create",
                                   style: TextStyle(
-                                    color: Color.fromARGB(255, 184, 166, 6),
-                                    fontSize: 20.0,
+                                    color: Colors.red,
+                                    fontSize: 25,
                                     fontWeight: FontWeight.w500,
                                   )),
                             )

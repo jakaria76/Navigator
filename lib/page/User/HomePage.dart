@@ -306,7 +306,7 @@ class _homeState extends State<home> {
               ),
             ),
              Padding(
-               padding: const EdgeInsets.only(top: 190,left: 0,right: 0),
+               padding: const EdgeInsets.only(top: 210,left: 0,right: 0),
                child: Card(
 
                  color: Colors.orange,
@@ -327,7 +327,7 @@ class _homeState extends State<home> {
 
                          decoration: InputDecoration(
                              icon: Icon(Icons.location_on,size: 50,),
-                             labelText: 'From location'
+                             labelText: 'From location',labelStyle: TextStyle(fontSize: 15,fontWeight: FontWeight.w600)
                          ),
                        ),
                        suggestionsCallback: (pattern) async {
@@ -350,7 +350,7 @@ class _homeState extends State<home> {
 
                          decoration: InputDecoration(
                              icon: Icon(Icons.location_city,size: 50,),
-                             labelText: 'To location'
+                             labelText: 'To location',labelStyle: TextStyle(fontSize: 15,fontWeight: FontWeight.w600)
                          ),
                        ),
                        suggestionsCallback: (pattern) async {
@@ -383,7 +383,7 @@ class _homeState extends State<home> {
                        readOnly: true,
                        onTap: () => _selectDate(context),
                        decoration: InputDecoration(
-                         labelText: 'Select Date',
+                         labelText: 'Select Date',labelStyle: TextStyle(fontSize: 15,fontWeight: FontWeight.w600),
                          icon: Icon(Icons.date_range,size: 50,),
                        ),
                      ),
