@@ -1,15 +1,19 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class setting extends StatefulWidget {
-  const setting({super.key});
-
-  @override
-  State<setting> createState() => _settingState();
+void main() {
+  runApp(MyApp());
 }
 
-class _settingState extends State<setting> {
+class MyApp extends StatelessWidget {
   @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: SettingsPage(),
+    );
+  }
+}
+
+class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

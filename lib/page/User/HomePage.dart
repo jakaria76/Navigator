@@ -112,7 +112,7 @@ class HomePage extends StatelessWidget{
                   leading: Icon(Icons.settings),
                   title: Text("Setting"),
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>setting()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>SettingsPage()));
                   },
 
                 ),
@@ -152,7 +152,7 @@ class HomePage extends StatelessWidget{
             busalart(),
             messages_screen(),
             offer(),
-            setting(),
+            SettingsPage(),
             map(),
 
 
@@ -435,7 +435,7 @@ class _homeState extends State<home> {
     }
   }
 }
-//jakariag
+
 
 
 
