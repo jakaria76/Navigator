@@ -56,9 +56,9 @@ class HomePage extends StatelessWidget {
         ),
         bottomNavigationBar: BottomNavigationBar(
           items: [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-            BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: "home"),
+            BottomNavigationBarItem(icon: Icon(Icons.search), label: "search"),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: "profile"),
           ],
           onTap: (int index) {
             if (index == 0) {
@@ -81,7 +81,7 @@ class HomePage extends StatelessWidget {
                   decoration: BoxDecoration(color: Colors.green),
                   accountName: Text(
                     'Navigator',
-                    style: TextStyle(color: Colors.black, fontSize: 47),
+                    style: TextStyle(color: Colors.deepOrange, fontSize: 47),
                   ),
                   accountEmail: Text("navigatorofficial@gmail.com"),
                   onDetailsPressed: () {},
@@ -231,7 +231,7 @@ class _HomeContentState extends State<HomeContent> {
         children: [
           // Replace the image URL with your actual background image
           Image.network(
-            'https://image.lexica.art/full_webp/54a99583-ced5-400b-8015-c15f30b8d2d9',
+            'https://example.com/your-background-image.jpg',
             height: 300,
             width: MediaQuery.of(context).size.width,
             fit: BoxFit.cover,
@@ -268,21 +268,10 @@ class _HomeContentState extends State<HomeContent> {
               ],
             ),
           ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Image.network(
-              'https://image.lexica.art/full_webp/de38120a-c485-4d7c-95dc-eca39a2acbab',
-              height: 250,
-              width: MediaQuery.of(context).size.width,
-              fit: BoxFit.cover,
-            ),
-          ),
           Padding(
             padding: const EdgeInsets.only(top: 210, left: 0, right: 0),
             child: Card(
-              color: Colors.grey,
+              color: Colors.orange,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
               elevation: 7,
               shadowColor: Colors.black,
@@ -362,19 +351,18 @@ class _HomeContentState extends State<HomeContent> {
                       heightFactor: 2,
                       child: Text(
                         'Search Bus',
-                        style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
                 ],
               ),
             ),
-          ),
+          )
         ],
       ),
     );
   }
-
 
   Future<void> _selectDate(BuildContext context) async {
     DateTime currentDate = DateTime.now();
@@ -390,4 +378,82 @@ class _HomeContentState extends State<HomeContent> {
       _searchDateController.text = selectedDate.toLocal().toString();
     }
   }
+}
+
+
+
+
+
+
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 6,
+      child: Scaffold(
+        appBar: AppBar(
+          // ... (rest of the code)
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          // ... (rest of the code)
+        ),
+        drawer: Drawer(
+          child: ListView(
+            children: [
+              DrawerHeader(
+                // ... (rest of the code)
+              ),
+              _HomeContentState().buildListTile(Icons.home, "Home", () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+              }),
+              _HomeContentState().buildListTile(Icons.call, "Call Support", () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => callsupport()));
+              }),
+              _HomeContentState().buildListTile(Icons.settings, "Settings", () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsPage()));
+              }),
+              _HomeContentState().buildListTile(Icons.notifications, "Bus Alert", () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => busalart()));
+              }),
+              _HomeContentState().buildListTile(Icons.discount, "Offers", () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => offer()));
+              }),
+              _HomeContentState().buildListTile(Icons.logout, "Log Out", () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => bus_user()));
+              }),
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: [
+            HomeContent(),
+            busalart(),
+            messages_screen(),
+            offer(),
+            SettingsPage(),
+            map(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _HomeContentState extends State<HomeContent> {
+  // ... (rest of the code)
+
+  Widget buildListTile(IconData icon, String title, VoidCallback onTap) {
+    return ListTile(
+      leading: Icon(icon, color: Colors.white),
+      title: Text(
+        title,
+        style: TextStyle(color: Colors.white),
+      ),
+      onTap: onTap,
+    );
+  }
+
+// ... (rest of the code)
 }

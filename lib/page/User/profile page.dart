@@ -96,17 +96,12 @@ class _ProfilePageState extends State<ProfilePage> {
               SizedBox(
                 height: 35,
               ),
-              EditableField(
-                labelText: "Full Name",
-                value: fullName,
-                icon: Icons.person,
-                onChanged: (value) {
-                  // Update the user's name
-                  setState(() {
-                    fullName = value;
-                  });
-                },
-              ),
+              buildEditableField("Full Name", fullName, Icons.person, (value) {
+                // Update the user's name
+                setState(() {
+                  fullName = value;
+                });
+              }),
               buildNonEditableField("E-mail", email, Icons.email),
               buildTextField("Password", "********", true),
               buildTextField("Location", "Dhaka,Bangladesh", false),
@@ -137,11 +132,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      // Implement save functionality here
-                      // You can update the user's information in your data source
-                      // For example, you can save the 'fullName' and 'email' values to Firebase Firestore.
-                      print("Name: $fullName");
-                      print("Email: $email");
+                      // TODO: Implement logic to update the user's information in your data source (e.g., Firebase Firestore)
+                      // For demonstration purposes, we print the updated name to the console.
+                      print("Updated Name: $fullName");
+
+                      // After updating the user's information, navigate back to the settings page.
+                      Navigator.pop(context);
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Colors.green,
@@ -203,47 +199,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget buildNonEditableField(String labelText, String value, IconData icon) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 35.0),
-      child: Row(
-        children: [
-          Icon(
-            icon,
-            color: Colors.green,
-          ),
-          SizedBox(
-            width: 8,
-          ),
-          Text(
-            value,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class EditableField extends StatelessWidget {
-  final String labelText;
-  final String value;
-  final IconData icon;
-  final Function(String) onChanged;
-
-  EditableField({
-    required this.labelText,
-    required this.value,
-    required this.icon,
-    required this.onChanged,
-  });
-
-  @override
-  Widget build(BuildContext context) {
+  Widget buildEditableField(String labelText, String value, IconData icon, Function(String) onChanged) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 35.0),
       child: Row(
@@ -270,6 +226,31 @@ class EditableField extends StatelessWidget {
                   color: Colors.black,
                 ),
               ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildNonEditableField(String labelText, String value, IconData icon) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 35.0),
+      child: Row(
+        children: [
+          Icon(
+            icon,
+            color: Colors.green,
+          ),
+          SizedBox(
+            width: 8,
+          ),
+          Text(
+            value,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
             ),
           ),
         ],
