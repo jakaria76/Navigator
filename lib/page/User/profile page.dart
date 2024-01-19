@@ -1,8 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:navigator/page/User/HomePage.dart';
-
-import '../bus and user select page.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -10,256 +6,273 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  String name = "jakaria";
-  String email = "jakaria";
-  String phoneNumber = "123-456-7890";
-  String gender = "Male"; // Default gender
-
-  // Function to update the profile with the new information
-  void updateProfile(String newName, String newEmail, String newPhoneNumber, String newGender) {
-    setState(() {
-      name = newName;
-      email = newEmail;
-      phoneNumber = newPhoneNumber;
-      gender = newGender;
-    });
-  }
-
-  // Function to open the image picker for changing the profile picture
-  void changeProfilePicture() {
-    // Implement your logic for changing the profile picture here
-    // You may use plugins like image_picker for this purpose
-  }
+  bool showPassword = false;
+  String fullName = "caesium"; // Initial name, you can fetch the user's name from your data source
+  String email = "eka.caesium721@gmail.com"; // Initial email, you can fetch the user's email from your data source
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Profile Page"),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        elevation: 1,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.green,
+          ),
+          onPressed: () {
+            Navigator.pop(context); // Navigate back when the back button is pressed
+          },
+        ),
+        actions: [],
       ),
-      drawer: Drawer(
+      body: Container(
+        padding: EdgeInsets.only(left: 16, top: 25, right: 16),
+        child: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
           child: ListView(
             children: [
-              DrawerHeader(
-                padding: EdgeInsets.all(0),
-                child: UserAccountsDrawerHeader(
-                  decoration: BoxDecoration(
-                      color: Colors.orange),
-                  accountName: Text('Navigator',style: TextStyle(color: Colors.deepOrange,fontSize: 47,),),
-                  accountEmail: Text("navigatorofficial@gmail.com"),
-
-
+              Text(
+                "Edit Profile",
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Center(
+                child: Stack(
+                  children: [
+                    Container(
+                      width: 130,
+                      height: 130,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 4,
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            spreadRadius: 2,
+                            blurRadius: 10,
+                            color: Colors.black.withOpacity(0.1),
+                            offset: Offset(0, 10),
+                          )
+                        ],
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(
+                            "https://static.wikia.nocookie.net/naruto/images/f/fd/Madara.png/revision/latest?cb=20160115141947",
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: Container(
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            width: 4,
+                            color: Theme.of(context).scaffoldBackgroundColor,
+                          ),
+                          color: Colors.green,
+                        ),
+                        child: Icon(
+                          Icons.edit,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-
-              ListTile(
-                leading: Icon(Icons.logout),
-                title: Text("LogOut"),
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>bus_user()));
+              SizedBox(
+                height: 35,
+              ),
+              EditableField(
+                labelText: "Full Name",
+                value: fullName,
+                icon: Icons.person,
+                onChanged: (value) {
+                  // Update the user's name
+                  setState(() {
+                    fullName = value;
+                  });
                 },
               ),
-            ],
-          )
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            GestureDetector(
-              onTap: () {
-                // Call the function to change the profile picture
-                changeProfilePicture();
-              },
-              child: CircleAvatar(
-                radius: 50,
-                backgroundImage: AssetImage("images/jakaria.jpg"), // Provide a default image
+              buildNonEditableField("E-mail", email, Icons.email),
+              buildTextField("Password", "********", true),
+              buildTextField("Location", "Dhaka,Bangladesh", false),
+              SizedBox(
+                height: 35,
               ),
-            ),
-            SizedBox(height: 16),
-            Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              elevation: 7,
-              shadowColor: Colors.black,
-              color: Colors.blueAccent,
-              child: ListTile(
-                title: Text("Name",style: TextStyle(fontSize: 20),),
-                subtitle: Text(name,style:TextStyle(color: Colors.white,fontSize: 25,fontWeight: FontWeight.bold),),
-              ),
-            ),
-            Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              elevation: 7,
-              shadowColor: Colors.black,
-              color: Colors.blueAccent,
-              child: ListTile(
-                title: Text("Email",style: TextStyle(fontSize: 20),),
-                subtitle: Text(email,style:TextStyle(color: Colors.white,fontSize: 30,fontWeight: FontWeight.bold),),
-              ),
-            ),
-            Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              elevation: 7,
-              shadowColor: Colors.black,
-              color: Colors.blueAccent,
-              child: ListTile(
-                title: Text("Phone Number",style: TextStyle(fontSize: 20),),
-                subtitle: Text(phoneNumber,style:TextStyle(color: Colors.white,fontSize: 30,fontWeight: FontWeight.bold),),
-              ),
-            ),
-            Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              elevation: 7,
-              shadowColor: Colors.black,
-              color: Colors.blueAccent,
-              child: ListTile(
-
-                title: Text("Gender",style: TextStyle(fontSize: 20),),
-                subtitle: Text(gender,style:TextStyle(color: Colors.white,fontSize: 30,fontWeight: FontWeight.bold),),
-              ),
-            ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () async {
-                // Implement your logic to navigate to the update profile page
-                final result = await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => UpdateProfilePage(
-                      currentName: name,
-                      currentEmail: email,
-                      currentPhoneNumber: phoneNumber,
-                      currentGender: gender,
-                      onUpdate: updateProfile,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  OutlinedButton(
+                    onPressed: () {
+                      Navigator.pop(context); // Navigate back when the cancel button is pressed
+                    },
+                    style: OutlinedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(horizontal: 50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    child: Text(
+                      "CANCEL",
+                      style: TextStyle(
+                        fontSize: 14,
+                        letterSpacing: 2.2,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
-                );
-
-                // Check if the route has been popped and update the values
-                if (result == true) {
-                  setState(() {
-                    // Update the values here if needed
-                  });
-                }
-              },
-              child: Text("Update Profile"),
-            ),
-            ElevatedButton(onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
-            },
-                child: Text("Back"))
-          ],
+                  ElevatedButton(
+                    onPressed: () {
+                      // Implement save functionality here
+                      // You can update the user's information in your data source
+                      // For example, you can save the 'fullName' and 'email' values to Firebase Firestore.
+                      print("Name: $fullName");
+                      print("Email: $email");
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.green,
+                      padding: EdgeInsets.symmetric(horizontal: 50),
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    child: Text(
+                      "SAVE",
+                      style: TextStyle(
+                        fontSize: 14,
+                        letterSpacing: 2.2,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
+      ),
+    );
+  }
+
+  Widget buildTextField(
+      String labelText, String placeholder, bool isPasswordTextField) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 35.0),
+      child: TextField(
+        obscureText: isPasswordTextField ? showPassword : false,
+        decoration: InputDecoration(
+          suffixIcon: isPasswordTextField
+              ? IconButton(
+            onPressed: () {
+              setState(() {
+                showPassword = !showPassword;
+              });
+            },
+            icon: Icon(
+              Icons.remove_red_eye,
+              color: Colors.grey,
+            ),
+          )
+              : null,
+          contentPadding: EdgeInsets.only(bottom: 3),
+          labelText: labelText,
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          hintText: placeholder,
+          hintStyle: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildNonEditableField(String labelText, String value, IconData icon) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 35.0),
+      child: Row(
+        children: [
+          Icon(
+            icon,
+            color: Colors.green,
+          ),
+          SizedBox(
+            width: 8,
+          ),
+          Text(
+            value,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+        ],
       ),
     );
   }
 }
 
+class EditableField extends StatelessWidget {
+  final String labelText;
+  final String value;
+  final IconData icon;
+  final Function(String) onChanged;
 
-class UpdateProfilePage extends StatefulWidget {
-  final String currentName;
-  final String currentEmail;
-  final String currentPhoneNumber;
-  final String currentGender;
-  final Function(String, String, String, String) onUpdate;
-
-  UpdateProfilePage({
-    required this.currentName,
-    required this.currentEmail,
-    required this.currentPhoneNumber,
-    required this.currentGender,
-    required this.onUpdate,
+  EditableField({
+    required this.labelText,
+    required this.value,
+    required this.icon,
+    required this.onChanged,
   });
 
   @override
-  _UpdateProfilePageState createState() => _UpdateProfilePageState();
-}
-
-class _UpdateProfilePageState extends State<UpdateProfilePage> {
-  late TextEditingController nameController;
-  late TextEditingController emailController;
-  late TextEditingController phoneNumberController;
-  String genderValue = "Male";
-
-  @override
-  void initState() {
-    super.initState();
-    nameController = TextEditingController(text: widget.currentName);
-    emailController = TextEditingController(text: widget.currentEmail);
-    phoneNumberController = TextEditingController(text: widget.currentPhoneNumber);
-    genderValue = widget.currentGender;
-  }
-
-  @override
-  void dispose() {
-    nameController.dispose();
-    emailController.dispose();
-    phoneNumberController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Update Profile"),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextField(
-              controller: nameController,
-              decoration: InputDecoration(labelText: "Name"),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 35.0),
+      child: Row(
+        children: [
+          Icon(
+            icon,
+            color: Colors.green,
+          ),
+          SizedBox(
+            width: 8,
+          ),
+          Expanded(
+            child: TextFormField(
+              initialValue: value,
+              onChanged: onChanged,
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.only(bottom: 3),
+                labelText: labelText,
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                hintText: value,
+                hintStyle: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
             ),
-            TextField(
-              controller: emailController,
-              decoration: InputDecoration(labelText: "Email"),
-            ),
-            TextField(
-              controller: phoneNumberController,
-              decoration: InputDecoration(labelText: "Phone Number"),
-            ),
-            DropdownButton<String>(
-              value: genderValue,
-              onChanged: (String? newValue) {
-                setState(() {
-                  genderValue = newValue!;
-                });
-              },
-              items: <String>['Male', 'Female']
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                // Call the onUpdate function to update the profile
-                widget.onUpdate(
-                  nameController.text,
-                  emailController.text,
-                  phoneNumberController.text,
-                  genderValue,
-                );
-
-                // Return a result to indicate that the changes are saved
-                Navigator.pop(context, true);
-              },
-              child: Text("Save Changes"),
-            ),
-
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
