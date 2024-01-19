@@ -2,17 +2,20 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:navigator/MyLogin.dart';
-import 'package:navigator/MyRegister.dart';
+import 'package:navigator/page/Bus%20Management/loginPage2.dart';
+import 'package:navigator/page/User/MyLogin.dart';
+import 'package:navigator/page/User/MyRegister.dart';
 
-class ForgotPassword extends StatefulWidget {
-  ForgotPassword({Key? key}) : super(key: key);
+import 'SignUp page2.dart';
+
+class ForgotPassword2 extends StatefulWidget {
+  ForgotPassword2({Key? key}) : super(key: key);
 
   @override
-  State<ForgotPassword> createState() => _ForgotPasswordState();
+  State<ForgotPassword2> createState() => _ForgotPassword2State();
 }
 
-class _ForgotPasswordState extends State<ForgotPassword> {
+class _ForgotPassword2State extends State<ForgotPassword2> {
   String email = "";
   TextEditingController mailcontroller = new TextEditingController();
 
@@ -40,7 +43,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(133, 60, 8, 8),
+      backgroundColor: Colors.blue,
       body: Container(
         margin: EdgeInsets.symmetric(vertical: 50.0),
         child: Form(
@@ -140,7 +143,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                   Navigator.pushAndRemoveUntil(
                                       context,
                                       PageRouteBuilder(
-                                        pageBuilder: (context, a, b) => LogIn(),
+                                        pageBuilder: (context, a, b) => LogIn2(),
                                         transitionDuration: Duration(seconds: 0),
                                       ),
                                           (route) => false);
@@ -149,7 +152,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                     alignment: Alignment.bottomRight,
                                     child: Text(
                                       "LogIn",
-                                      style: TextStyle(fontSize: 15.0),
+                                      style: TextStyle(fontSize: 25,color: Colors.white),
                                     )),
                               ),
                             ],
@@ -164,19 +167,19 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                             Text(
                               "Don't have an account? ",
                               style:
-                              TextStyle(fontSize: 18.0, color: Colors.white),
+                              TextStyle(fontSize: 25, color: Colors.white),
                             ),
                             GestureDetector(
                               onTap: () {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => MyRegister()));
+                                        builder: (context) =>SignUp2()));
                               },
                               child: Text("Create",
                                   style: TextStyle(
-                                    color: Color.fromARGB(255, 184, 166, 6),
-                                    fontSize: 20.0,
+                                    color: Colors.red,
+                                    fontSize: 25,
                                     fontWeight: FontWeight.w500,
                                   )),
                             )

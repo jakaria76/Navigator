@@ -2,19 +2,23 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:navigator/HomePage.dart';
-import 'package:navigator/MyRegister.dart';
+import 'package:navigator/page/Bus%20Management/HomePage2.dart';
+import 'package:navigator/page/User/HomePage.dart';
+import 'package:navigator/page/User/MyRegister.dart';
 
-import 'forgate.dart';
+import 'ForgatePassword2.dart';
+import 'SignUp page2.dart';
 
-class LogIn extends StatefulWidget {
-  const LogIn({Key? key}) : super(key: key);
+
+
+class LogIn2 extends StatefulWidget {
+  const LogIn2({Key? key}) : super(key: key);
 
   @override
-  State<LogIn> createState() => _LogInState();
+  State<LogIn2> createState() => _LogIn2State();
 }
 
-class _LogInState extends State<LogIn> {
+class _LogIn2State extends State<LogIn2> {
   String email = "", password = "";
 
   final _formkey = GlobalKey<FormState>();
@@ -27,7 +31,7 @@ class _LogInState extends State<LogIn> {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
 
-      Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage2()));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -133,14 +137,14 @@ class _LogInState extends State<LogIn> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ForgotPassword()));
+                              builder: (context) => ForgotPassword2()));
                     },
                     child: Container(
                       padding: EdgeInsets.only(right: 24.0),
                       alignment: Alignment.bottomRight,
                       child: Text(
                         "Forgot password?",
-                        style: TextStyle(color: Colors.white, fontSize: 18.0),
+                        style: TextStyle(color: Colors.white, fontSize: 25.0),
                       ),
                     ),
                   ),
@@ -184,47 +188,24 @@ class _LogInState extends State<LogIn> {
                     children: [
                       Text(
                         "New User?",
-                        style: TextStyle(color: Colors.white, fontSize: 20.0),
+                        style: TextStyle(color: Colors.white, fontSize: 30.0),
                       ),
                       SizedBox(
                         width: 5.0,
                       ),
-                      Container(
-                        // Wrap SizedBox with Container to provide width
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ForgotPassword()));
-                              },
-                              child: Text(
-                                'Forgot Password?',
-                                style: TextStyle(
-                                  decoration: TextDecoration.underline,
-                                  color: Color(0xff4c505b),
-                                  fontSize: 19,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => MyRegister()));
+                                  builder: (context) => SignUp2()));
                         },
                         child: Text(
                           " Signup",
                           style: TextStyle(
-                              color: Color(0xFFf95f3b),
-                              fontSize: 20.0,
+                              color: Colors.orange,
+                              fontSize: 30.0,
                               fontWeight: FontWeight.bold),
                         ),
                       )

@@ -1,7 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+//import 'package:google_fonts/google_fonts.dart';
 import 'package:navigator/profile%20page.dart';
 import 'package:navigator/search.dart';
 import 'package:navigator/setting%20page.dart';

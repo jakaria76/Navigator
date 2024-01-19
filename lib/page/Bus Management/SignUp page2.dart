@@ -1,19 +1,21 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:navigator/MyLogin.dart';
+import 'package:navigator/page/Bus%20Management/HomePage2.dart';
+import 'package:navigator/page/Bus%20Management/loginPage2.dart';
 import 'package:navigator/user_auth/firebase_auth_services.dart';
 
-import 'HomePage.dart';
 
-class MyRegister extends StatefulWidget {
-  const MyRegister({Key? key}) : super(key: key);
+
+class SignUp2 extends StatefulWidget {
+  const SignUp2({Key? key}) : super(key: key);
 
   @override
-  State<MyRegister> createState() => _MyRegisterState();
+  State<SignUp2> createState() => _SignUp2State();
 }
 
-class _MyRegisterState extends State<MyRegister> {
+class _SignUp2State extends State<SignUp2> {
 
   final FirebaseAuthService _auth = FirebaseAuthService();
 
@@ -35,7 +37,7 @@ class _MyRegisterState extends State<MyRegister> {
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-            image: AssetImage('images/rsgister.png'), fit: BoxFit.cover),
+            image: AssetImage('images/signup2.png'), fit: BoxFit.cover),
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -58,13 +60,13 @@ class _MyRegisterState extends State<MyRegister> {
                       child: Column(
                         children: [
                           TextField(
-                           controller:_usernameController,
-                            style: TextStyle(color: Colors.white),
+                            controller:_usernameController,
+                            style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide(
-                                    color: Colors.white,
+                                    color: Colors.black,
                                   ),
                                 ),
                                 focusedBorder: OutlineInputBorder(
@@ -73,8 +75,8 @@ class _MyRegisterState extends State<MyRegister> {
                                     color: Colors.black,
                                   ),
                                 ),
-                                hintText: "Name",
-                                hintStyle: TextStyle(color: Colors.white),
+                                hintText: "UserName",
+                                hintStyle: TextStyle(color: Colors.black),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 )),
@@ -84,12 +86,12 @@ class _MyRegisterState extends State<MyRegister> {
                           ),
                           TextField(
                             controller:_emailController,
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide(
-                                    color: Colors.white,
+                                    color: Colors.black,
                                   ),
                                 ),
                                 focusedBorder: OutlineInputBorder(
@@ -99,7 +101,7 @@ class _MyRegisterState extends State<MyRegister> {
                                   ),
                                 ),
                                 hintText: "Email",
-                                hintStyle: TextStyle(color: Colors.white),
+                                hintStyle: TextStyle(color: Colors.black),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 )),
@@ -109,13 +111,13 @@ class _MyRegisterState extends State<MyRegister> {
                           ),
                           TextField(
                             controller:_passwordController,
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.black),
                             obscureText: true,
                             decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide(
-                                    color: Colors.white,
+                                    color: Colors.black,
                                   ),
                                 ),
                                 focusedBorder: OutlineInputBorder(
@@ -125,7 +127,7 @@ class _MyRegisterState extends State<MyRegister> {
                                   ),
                                 ),
                                 hintText: "Password",
-                                hintStyle: TextStyle(color: Colors.white),
+                                hintStyle: TextStyle(color: Colors.black),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 )),
@@ -134,7 +136,7 @@ class _MyRegisterState extends State<MyRegister> {
                             height: 40,
                           ),
                           GestureDetector(
-                            onTap: _singUp,
+                              onTap: _singUp,
 
                               child: Container(
                                 width: double.infinity,
@@ -155,13 +157,13 @@ class _MyRegisterState extends State<MyRegister> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("Already have an account?"),
+                              Text("Already have an account?",style: TextStyle(fontSize: 20),),
                               SizedBox(width: 5,),
                               GestureDetector(
                                 onTap: (){
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>LogIn()));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>LogIn2()));
                                 },
-                                child: Text("Login",style: TextStyle(color: Colors.deepPurple),),
+                                child: Text("Login",style: TextStyle(color: Colors.blue,fontSize: 25),),
                               )
                             ],
                           ),
@@ -178,17 +180,48 @@ class _MyRegisterState extends State<MyRegister> {
       ),
     );
   }
-  void _singUp() async{
+  void _singUp() async {
     String username = _usernameController.text;
     String email = _emailController.text;
     String password = _passwordController.text;
-    
-    User? user =await _auth.signUpWithEmailAndPassword(email, password);
-    if(user != null){
-      print("user is successfully created");
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
-    }else{
-      print("some error happend");
+
+
+    if (!email.contains('@') || !email.contains('.') || !email.contains('com')) {
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Invalid email format'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+      return;
+    }
+
+    User? user = await _auth.signUpWithEmailAndPassword(email, password);
+
+    if (user != null) {
+      print("User is successfully created");
+
+
+      await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+        'username': username,
+        'email': email,
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Sign up successful!'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+
+
+      Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage2()));
+    } else {
+      print("Some error happened");
     }
   }
+
+
+
 }
