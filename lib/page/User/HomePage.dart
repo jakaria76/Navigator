@@ -35,7 +35,7 @@ class HomePage extends StatelessWidget{
       length: 6,
       child: Scaffold(
         appBar: AppBar(
-          title: Center(child: Text('Navigator',style: TextStyle(color: Colors.white,fontSize: 30),)),
+          title: Center(child: Text('Navigator',style: TextStyle(color: Colors.black,fontSize: 30),)),
           bottom: TabBar(
             isScrollable: true,
             tabs: [
