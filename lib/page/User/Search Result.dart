@@ -25,7 +25,7 @@ class SearchResult extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: NetworkImage(
-                'https://image.lexica.art/full_webp/cd9bb2f5-0747-4a8c-a27c-d6ec1fddc873'),
+                'https://c1.wallpaperflare.com/preview/864/516/895/blur-buildings-bus-evening.jpg'),
             fit: BoxFit.cover,
           ),
         ),

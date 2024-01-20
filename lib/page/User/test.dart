@@ -1150,4 +1150,250 @@ class SearchResult extends StatelessWidget {
     );
   }
 }
+//------------------------------
+import 'package:flutter/material.dart';
+
+class BusManagementProfilePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Profile'),
+      ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                radius: 60,
+                backgroundImage: AssetImage('assets/profile_image.jpg'),
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Bus Management Author',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 10),
+              Text(
+                'Bus Management Company',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 16,
+                ),
+              ),
+              SizedBox(height: 30),
+              ProfileField(label: 'Name', value: 'John Doe'),
+              ProfileField(label: 'Vehicle Name', value: 'Bus XYZ'),
+              ProfileField(label: 'Vehicle Type', value: 'Semi Sleeper'),
+              ProfileField(label: 'Vehicle Model', value: 'Model ABC'),
+              ProfileField(label: 'Contact Info', value: '+1 123-456-7890'),
+              SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: () {
+                  // Navigate to the profile editing page
+                },
+                child: Text('Edit Profile'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ProfileField extends StatelessWidget {
+  final String label;
+  final String value;
+
+  const ProfileField({
+    Key? key,
+    required this.label,
+    required this.value,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              '$label: ',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              value,
+              style: TextStyle(
+                fontSize: 16,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: BusManagementProfilePage(),
+  ));
+}
+//-------------------------------------
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+class Profile2 extends StatefulWidget {
+  const Profile2({Key? key}) : super(key: key);
+
+  @override
+  _Profile2State createState() => _Profile2State();
+}
+
+class _Profile2State extends State<Profile2> {
+  TextEditingController nameController = TextEditingController(text: 'John Doe');
+  TextEditingController vehicleNameController =
+  TextEditingController(text: 'Bus XYZ');
+  TextEditingController vehicleTypeController =
+  TextEditingController(text: 'Semi Sleeper');
+  TextEditingController vehicleModelController =
+  TextEditingController(text: 'Model ABC');
+  TextEditingController contactInfoController =
+  TextEditingController(text: '+1 123-456-7890');
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('images/background_image.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                CircleAvatar(
+                  radius: 60,
+                  backgroundImage: AssetImage('images/user.png'),
+                ),
+                SizedBox(height: 20),
+                Text(
+                  'Bus Management Author',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'Bus Management Company',
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 16,
+                  ),
+                ),
+                SizedBox(height: 1),
+                EditableProfileField(
+                  label: 'Name',
+                  controller: nameController,
+                ),
+                EditableProfileField(
+                  label: 'Vehicle Name',
+                  controller: vehicleNameController,
+                ),
+                EditableProfileField(
+                  label: 'Vehicle Type',
+                  controller: vehicleTypeController,
+                ),
+                EditableProfileField(
+                  label: 'Vehicle Model',
+                  controller: vehicleModelController,
+                ),
+                EditableProfileField(
+                  label: 'Contact Info',
+                  controller: contactInfoController,
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    // Update the user's profile with the edited values
+                    // You can print or use the updated values as needed
+                    print('Name: ${nameController.text}');
+                    print('Vehicle Name: ${vehicleNameController.text}');
+                    print('Vehicle Type: ${vehicleTypeController.text}');
+                    print('Vehicle Model: ${vehicleModelController.text}');
+                    print('Contact Info: ${contactInfoController.text}');
+                  },
+                  child: Text('Save Changes'),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class EditableProfileField extends StatelessWidget {
+  final String label;
+  final TextEditingController controller;
+
+  const EditableProfileField({
+    Key? key,
+    required this.label,
+    required this.controller,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            '$label: ',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(
+            width: 200,
+            child: TextFormField(
+              controller: controller,
+              style: TextStyle(fontSize: 16),
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.symmetric(horizontal: 10),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 
