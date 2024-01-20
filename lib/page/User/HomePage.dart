@@ -119,7 +119,7 @@ class HomePage extends StatelessWidget {
                 leading: Icon(Icons.discount),
                 title: Text("Offers"),
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => offer()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => OfferPage()));
                 },
               ),
               ListTile(
@@ -137,7 +137,7 @@ class HomePage extends StatelessWidget {
             HomeContent(),
             busalart(),
             messages_screen(),
-            offer(),
+            OfferPage(),
             SettingsPage(),
             map(),
           ],
@@ -282,9 +282,9 @@ class _HomeContentState extends State<HomeContent> {
           Padding(
             padding: const EdgeInsets.only(top: 210, left: 0, right: 0),
             child: Card(
-              color: Colors.grey,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-              elevation: 7,
+              color: Colors.blueGrey[800],
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+              elevation: 10,
               shadowColor: Colors.black,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -293,9 +293,9 @@ class _HomeContentState extends State<HomeContent> {
                     textFieldConfiguration: TextFieldConfiguration(
                       controller: _searchLocation1Controller,
                       decoration: InputDecoration(
-                          icon: Icon(Icons.location_on, size: 50),
-                          labelText: 'From location',
-                          labelStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
+                          icon: Icon(Icons.location_on, size: 50,color: Colors.white,),
+                          labelText: 'From Where',
+                          labelStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.w600,color: Colors.white)),
                     ),
                     suggestionsCallback: (pattern) async {
                       return suggestions
@@ -315,9 +315,9 @@ class _HomeContentState extends State<HomeContent> {
                     textFieldConfiguration: TextFieldConfiguration(
                       controller: _searchLocation2Controller,
                       decoration: InputDecoration(
-                          icon: Icon(Icons.location_city, size: 50),
+                          icon: Icon(Icons.location_city, size: 50,color: Colors.white,),
                           labelText: 'To location',
-                          labelStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
+                          labelStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.w600,color: Colors.white)),
                     ),
                     suggestionsCallback: (pattern) async {
                       return suggestions
@@ -339,11 +339,11 @@ class _HomeContentState extends State<HomeContent> {
                     onTap: () => _selectDate(context),
                     decoration: InputDecoration(
                       labelText: 'Select Date',
-                      labelStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
-                      icon: Icon(Icons.date_range, size: 50),
+                      labelStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.w600,color: Colors.white),
+                      icon: Icon(Icons.date_range, size: 50,color: Colors.white,),
                     ),
                   ),
-                  SizedBox(height: 50),
+                  SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
                       // Perform search and navigate to the SearchPage
@@ -358,12 +358,14 @@ class _HomeContentState extends State<HomeContent> {
                         ),
                       );
                     },
-                    child: Center(
-                      heightFactor: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                       child: Text(
                         'Search Bus',
                         style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                       ),
+                      //heightFactor: 2,
+
                     ),
                   ),
                 ],
