@@ -21,59 +21,90 @@ class SearchResult extends StatelessWidget {
       appBar: AppBar(
         title: Text('Search Results'),
       ),
-      body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('bus_info').snapshots(),
-        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (!snapshot.hasData) {
-            return CircularProgressIndicator();
-          }
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage(
+                'https://c1.wallpaperflare.com/preview/864/516/895/blur-buildings-bus-evening.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: StreamBuilder(
+          stream: FirebaseFirestore.instance.collection('bus_info').snapshots(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (!snapshot.hasData) {
+              return CircularProgressIndicator();
+            }
 
-          List<Widget> searchResults = [];
+            List<Widget> searchResults = [];
 
-          snapshot.data!.docs.forEach((doc) {
-            var busName = doc['bus_name'];
-            var location1 = doc['location1'];
-            var location2 = doc['location2'];
-            var date = doc['date'];
-            var price = doc['price'];
+            snapshot.data!.docs.forEach((doc) {
+              var busName = doc['bus_name'];
+              var location1 = doc['location1'];
+              var location2 = doc['location2'];
+              var date = doc['date'];
+              var price = doc['price'];
 
-            if (location1 == searchLocation1 &&
-                location2 == searchLocation2 &&
-                date == searchDate) {
-              searchResults.add(
-                Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: GestureDetector(
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>seatbooking()));
-                    },
-                    child: Card(
-                      margin: EdgeInsets.symmetric(vertical: 10),
-                      color: Colors.orange,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Bus Name: $busName'),
-                            Text('Location 1: $location1'),
-                            Text('Location 2: $location2'),
-                            Text('Date: $date'),
-                            Text('price:$price')
-                          ],
+              if (location1 == searchLocation1 &&
+                  location2 == searchLocation2 &&
+                  date == searchDate) {
+                searchResults.add(
+                  Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => seatbooking()));
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          image: DecorationImage(
+                            image: NetworkImage(
+                                'https://wallpaperfx.com/uploads/wallpapers/2015/04/26/16393/preview_city-rain.jpg'),
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                      ),
+
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(35),
+                          child: Card(
+                            margin: EdgeInsets.symmetric(vertical: 1),
+                            color: Colors.transparent,
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('Bus Name: $busName',
+                                      style: TextStyle(color: Colors.white)),
+                                  Text('Location 1: $location1',
+                                      style: TextStyle(color: Colors.white)),
+                                  Text('Location 2: $location2',
+                                      style: TextStyle(color: Colors.white)),
+                                  Text('Date: $date',
+                                      style: TextStyle(color: Colors.white)),
+                                  Text('Price: $price',
+                                      style: TextStyle(color: Colors.white)),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+
+
                     ),
                   ),
-                ),
-              );
-            }
-          });
+                );
+              }
+            });
 
-          return ListView(
-            children: searchResults,
-          );
-        },
+            return ListView(
+              children: searchResults,
+            );
+          },
+        ),
       ),
     );
   }
