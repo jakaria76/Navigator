@@ -1,7 +1,10 @@
 
+
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:navigator/page/User/Massage.dart';
+
 import 'package:navigator/page/User/profile%20page.dart';
 import 'package:navigator/page/User/Search Result.dart';
 import 'package:navigator/page/User/setting%20page.dart';
@@ -9,8 +12,11 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import '../bus and user select page.dart';
 import 'Bus Alart.dart';
 import 'Map page.dart';
+import 'Notification.dart';
 import 'Offer page.dart';
 import 'call support.dart';
+
+
 
 
 main() {
@@ -25,10 +31,15 @@ class MyApp extends StatelessWidget{
   }
 
 }
-class HomePage extends StatelessWidget{
+class HomePage extends StatefulWidget{
   const HomePage({super.key});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+
   Widget build(BuildContext context) {
 
     return DefaultTabController(
@@ -129,7 +140,7 @@ class HomePage extends StatelessWidget{
                   leading: Icon(Icons.discount),
                   title: Text("Offers"),
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>offer()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>MyApp()));
                   },
 
                 ),
@@ -150,7 +161,7 @@ class HomePage extends StatelessWidget{
           children: [
             home(),
             busalart(),
-            messages_screen(),
+            SearchScreen(),
             offer(),
             setting(),
             map(),

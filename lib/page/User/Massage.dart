@@ -1,94 +1,85 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class messages_screen extends StatefulWidget {
-  @override
-  _MessagesScreenState createState() => _MessagesScreenState();
+void main() {
+  runApp(MyApp());
 }
 
-class _MessagesScreenState extends State<messages_screen> {
-  final TextEditingController _messageController = TextEditingController();
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  CollectionReference _messages = FirebaseFirestore.instance.collection('messages');
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: SearchScreen(),
+    );
+  }
+}
+
+class SearchScreen extends StatefulWidget {
+  @override
+  _SearchScreenState createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
+  final TextEditingController _searchController = TextEditingController();
+  String _searchedName = '';
+  bool _showCard = false;
+  Map<String, dynamic>? _userData;
+
+  void _searchUser() async {
+    String searchedName = _searchController.text.trim();
+
+    // TODO: Replace 'your_collection' with the actual collection name in your Firebase Firestore.
+    QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore.instance
+        .collection('your_collection')
+        .where('username', isEqualTo: searchedName)
+        .limit(1) // Limit the result to 1 since username should be unique
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      setState(() {
+        _showCard = true;
+        _userData = querySnapshot.docs.first.data();
+      });
+    } else {
+      setState(() {
+        _showCard = false;
+        _userData = null;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text('Messages')),
+        title: Text('Firebase User Search'),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: StreamBuilder(
-              stream: _messages.orderBy('timestamp').snapshots(),
-              builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (!snapshot.hasData) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-
-                return ListView(
-                  children: snapshot.data!.docs.map((DocumentSnapshot document) {
-                    Map<String, dynamic>? data = document.data() as Map<String, dynamic>?;
-                    if (data == null) {
-                      return ListTile(
-                        title: Text('Error: Invalid Data'),
-                        subtitle: Text('Error'),
-                      );
-                    }
-
-                    String message = data['message'] ?? 'No message';
-                    String sender = data['sender'] ?? 'Unknown sender';
-
-                    return ListTile(
-                      //icon add kore dite hobe
-                      title: Text(message),
-                      subtitle: Text(sender),
-                    );
-                  }).toList(),
-
-                );
-              },
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextField(
+              controller: _searchController,
+              decoration: InputDecoration(labelText: 'Enter username'),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _messageController,
-                    decoration: InputDecoration(
-                      hintText: 'Type your message...',
-                    ),
-                  ),
-                ),
-                IconButton(
-                  icon: Icon(Icons.send),
-                  onPressed: () {
-                    _sendMessage();
-                  },
-                ),
-              ],
+            SizedBox(height: 16.0),
+            ElevatedButton(
+              onPressed: _searchUser,
+              child: Text('Search'),
             ),
-          ),
-        ],
+            SizedBox(height: 16.0),
+            _showCard
+                ? Card(
+              color: Colors.green,
+              child: ListTile(
+                title: Text('Username: ${_userData?['username']}'),
+                // Add other details from the user if needed
+              ),
+            )
+                : Container(),
+          ],
+        ),
       ),
     );
-  }
-
-  void _sendMessage() {
-    String message = _messageController.text.trim();
-    if (message.isNotEmpty) {
-      _messages.add({
-        'message': message,
-        'sender': 'User', // You can replace this with the actual sender's name or ID
-        'timestamp': FieldValue.serverTimestamp(),
-      });
-      _messageController.clear();
-    }
   }
 }

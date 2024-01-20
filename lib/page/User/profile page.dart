@@ -1,7 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:navigator/page/User/HomePage.dart';
-
 import '../bus and user select page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -10,6 +11,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  String uid = FirebaseAuth.instance.currentUser?.uid ?? "";
   String name = "jakaria";
   String email = "jakaria";
   String phoneNumber = "123-456-7890";
@@ -23,12 +25,29 @@ class _ProfilePageState extends State<ProfilePage> {
       phoneNumber = newPhoneNumber;
       gender = newGender;
     });
+
+    // Update the user information in Firebase Firestore
+    updateUserInformation(uid, newName, newEmail, newPhoneNumber, newGender);
   }
 
   // Function to open the image picker for changing the profile picture
   void changeProfilePicture() {
     // Implement your logic for changing the profile picture here
     // You may use plugins like image_picker for this purpose
+  }
+
+  // Function to update user information in Firebase Firestore
+  Future<void> updateUserInformation(String uid, String newName, String newEmail, String newPhoneNumber, String newGender) async {
+    try {
+      await FirebaseFirestore.instance.collection('users').doc(uid).update({
+        'name': newName,
+        'email': newEmail,
+        'phoneNumber': newPhoneNumber,
+        'gender': newGender,
+      });
+    } catch (e) {
+      print("Error updating user information: $e");
+    }
   }
 
   @override
@@ -38,29 +57,30 @@ class _ProfilePageState extends State<ProfilePage> {
         title: Text("Profile Page"),
       ),
       drawer: Drawer(
-          child: ListView(
-            children: [
-              DrawerHeader(
-                padding: EdgeInsets.all(0),
-                child: UserAccountsDrawerHeader(
-                  decoration: BoxDecoration(
-                      color: Colors.orange),
-                  accountName: Text('Navigator',style: TextStyle(color: Colors.deepOrange,fontSize: 47,),),
-                  accountEmail: Text("navigatorofficial@gmail.com"),
-
-
+        child: ListView(
+          children: [
+            DrawerHeader(
+              padding: EdgeInsets.all(0),
+              child: UserAccountsDrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.orange,
                 ),
+                accountName: Text(
+                  'Navigator',
+                  style: TextStyle(color: Colors.deepOrange, fontSize: 47),
+                ),
+                accountEmail: Text("navigatorofficial@gmail.com"),
               ),
-
-              ListTile(
-                leading: Icon(Icons.logout),
-                title: Text("LogOut"),
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>bus_user()));
-                },
-              ),
-            ],
-          )
+            ),
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text("LogOut"),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => bus_user()));
+              },
+            ),
+          ],
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -79,48 +99,67 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             SizedBox(height: 16),
             Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
               elevation: 7,
               shadowColor: Colors.black,
               color: Colors.blueAccent,
               child: ListTile(
-                title: Text("Name",style: TextStyle(fontSize: 20),),
-                subtitle: Text(name,style:TextStyle(color: Colors.white,fontSize: 25,fontWeight: FontWeight.bold),),
+                title: Text(
+                  "Name",
+                  style: TextStyle(fontSize: 20),
+                ),
+                subtitle: Text(
+                  name,
+                  style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
+                ),
               ),
             ),
             Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
               elevation: 7,
               shadowColor: Colors.black,
               color: Colors.blueAccent,
               child: ListTile(
-                title: Text("Email",style: TextStyle(fontSize: 20),),
-                subtitle: Text(email,style:TextStyle(color: Colors.white,fontSize: 30,fontWeight: FontWeight.bold),),
+                title: Text(
+                  "Email",
+                  style: TextStyle(fontSize: 20),
+                ),
+                subtitle: Text(
+                  email,
+                  style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
+                ),
               ),
             ),
             Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
               elevation: 7,
               shadowColor: Colors.black,
               color: Colors.blueAccent,
               child: ListTile(
-                title: Text("Phone Number",style: TextStyle(fontSize: 20),),
-                subtitle: Text(phoneNumber,style:TextStyle(color: Colors.white,fontSize: 30,fontWeight: FontWeight.bold),),
+                title: Text(
+                  "Phone Number",
+                  style: TextStyle(fontSize: 20),
+                ),
+                subtitle: Text(
+                  phoneNumber,
+                  style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
+                ),
               ),
             ),
             Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
               elevation: 7,
               shadowColor: Colors.black,
               color: Colors.blueAccent,
               child: ListTile(
-
-                title: Text("Gender",style: TextStyle(fontSize: 20),),
-                subtitle: Text(gender,style:TextStyle(color: Colors.white,fontSize: 30,fontWeight: FontWeight.bold),),
+                title: Text(
+                  "Gender",
+                  style: TextStyle(fontSize: 20),
+                ),
+                subtitle: Text(
+                  gender,
+                  style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
+                ),
               ),
             ),
             SizedBox(height: 16),
@@ -149,17 +188,18 @@ class _ProfilePageState extends State<ProfilePage> {
               },
               child: Text("Update Profile"),
             ),
-            ElevatedButton(onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
-            },
-                child: Text("Back"))
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+              },
+              child: Text("Back"),
+            )
           ],
         ),
       ),
     );
   }
 }
-
 
 class UpdateProfilePage extends StatefulWidget {
   final String currentName;
@@ -257,7 +297,6 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
               },
               child: Text("Save Changes"),
             ),
-
           ],
         ),
       ),
