@@ -35,7 +35,7 @@ class _seatbookingState extends State<seatbooking> {
         appBar: AppBar(
           title: Text('Welcome to Your Bus'),
           centerTitle: true,
-          backgroundColor: Colors.orange,
+          backgroundColor: Colors.greenAccent[400],
           elevation: 0.0,
           bottom: PreferredSize(
             child: TabBar(
@@ -93,7 +93,10 @@ class _seatbookingState extends State<seatbooking> {
                       },
                     );
                   },
-                  child: Text('Next', style: TextStyle(color: Colors.orange)),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green
+                  ),
+                  child: Text('Next', style: TextStyle(color: Colors.blueGrey[800])),
                 ),
               ],
             ),
@@ -232,33 +235,38 @@ class SeatWidget extends StatefulWidget {
 }
 
 class _SeatWidgetState extends State<SeatWidget> {
-  late Color currentColor;
-
-  @override
-  void initState() {
-    super.initState();
-    currentColor = widget.color;
-  }
+  bool isSelected = false;
 
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width / 5 - 4;
     return GestureDetector(
       onTap: () {
-        // Toggle seat color on tap
+        // Toggle seat selection on tap
         setState(() {
-          currentColor = (currentColor == Colors.grey) ? Colors.orange : Colors.grey;
+          isSelected = !isSelected;
         });
       },
       child: Container(
         margin: EdgeInsets.all(2.0),
         width: width,
         height: width / 1.5,
-        color: currentColor,
+        decoration: BoxDecoration(
+          color: isSelected ? Colors.black : Colors.blueGrey[500],
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(
+            color: isSelected ? Colors.white : Colors.black,
+            width: 2.0,
+          ),
+        ),
         child: Center(
           child: Text(
             widget.name,
-            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+              color: isSelected ? Colors.greenAccent : Colors.black,
+            ),
           ),
         ),
       ),
