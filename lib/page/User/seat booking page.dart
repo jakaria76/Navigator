@@ -296,3 +296,5 @@ class _SeatWidgetState extends State<SeatWidget> {
     );
   }
 }
+//certain pixel errors happening if more then 4 seats are seleceted
+
