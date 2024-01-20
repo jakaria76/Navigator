@@ -510,3 +510,644 @@ class _SeatWidgetState extends State<SeatWidget> {
     );
   }
 }
+///////////////////////////////////////
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'Bus Management/loginPage2.dart';
+import 'User/MyLogin.dart';
+
+class BusUser extends StatefulWidget {
+  const BusUser({Key? key}) : super(key: key);
+
+  @override
+  State<BusUser> createState() => _BusUserState();
+}
+
+class _BusUserState extends State<BusUser> {
+  @override
+  Widget build(BuildContext context) {
+    final action = CupertinoActionSheet(
+      message: Text("Select The Item", style: TextStyle(fontSize: 20)),
+      actions: [
+        CupertinoActionSheetAction(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LogIn()),
+            );
+          },
+          child: Text("User", style: TextStyle(fontSize: 30)),
+        ),
+        CupertinoActionSheetAction(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LogIn2()),
+            );
+          },
+          child: Text("Bus Management", style: TextStyle(fontSize: 30)),
+        ),
+      ],
+      cancelButton: CupertinoActionSheetAction(
+        child: Text("Cancel", style: TextStyle(color: Colors.red)),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+    );
+
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/your_placeholder_image.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Container(
+              padding: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Select your item',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 30,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      showCupertinoModalPopup(
+                        context: context,
+                        builder: (context) => action,
+                      );
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 10,
+                        horizontal: 20,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.orange,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Text(
+                        "Click",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+///////////////////////////////////////////////
+final action = CupertinoActionSheet(
+  title: Text(
+    "Select Your Role",
+    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+  ),
+  actions: [
+    CupertinoActionSheetAction(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => LogIn()),
+        );
+      },
+      child: Text("User", style: TextStyle(fontSize: 18)),
+    ),
+    CupertinoActionSheetAction(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => LogIn2()),
+        );
+      },
+      child: Text("Bus Management", style: TextStyle(fontSize: 18)),
+    ),
+  ],
+  cancelButton: CupertinoActionSheetAction(
+    child: Text("Cancel", style: TextStyle(color: Colors.red)),
+    onPressed: () {
+      Navigator.pop(context);
+    },
+  ),
+);
+////////////////////
+final action = CupertinoActionSheet(
+  title: Text(
+    "Select Your Role",
+    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+  ),
+  actions: [
+    Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        CupertinoActionSheetAction(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LogIn()),
+            );
+          },
+          child: Text("User", style: TextStyle(fontSize: 18)),
+        ),
+        CupertinoActionSheetAction(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LogIn2()),
+            );
+          },
+          child: Text("Bus Management", style: TextStyle(fontSize: 18)),
+        ),
+      ],
+    ),
+  ],
+  cancelButton: CupertinoActionSheetAction(
+    child: Text("Cancel", style: TextStyle(color: Colors.red)),
+    onPressed: () {
+      Navigator.pop(context);
+    },
+  ),
+);
+/////////////////////////////////////////
+class _bus_userState extends State<bus_user> {
+  @override
+  Widget build(BuildContext context) {
+    final action = CupertinoActionSheet(
+      title: Text(
+        "Select Your Role",
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+      ),
+      actions: [
+        CupertinoActionSheetAction(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LogIn()),
+            );
+          },
+          child: Text("User", style: TextStyle(fontSize: 18)),
+        ),
+        CupertinoActionSheetAction(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LogIn2()),
+            );
+          },
+          child: Text("Bus Management", style: TextStyle(fontSize: 18)),
+        ),
+      ],
+      cancelButton: CupertinoActionSheetAction(
+        child: Text("Cancel", style: TextStyle(color: Colors.red)),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+    );
+
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              'Select your item',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 30,
+                backgroundColor: Colors.blue,
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            GestureDetector(
+              onTap: () {
+                showCupertinoModalPopup(context: context, builder: (context) => action);
+              },
+              child: Text(
+                "Click",
+                style: TextStyle(
+                  color: Colors.orange,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+//////////////////////////////////
+class _bus_userState extends State<bus_user> {
+  @override
+  Widget build(BuildContext context) {
+    final action = CupertinoActionSheet(
+      title: Text(
+        "Select Your Role",
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+      ),
+      actions: [
+        CupertinoActionSheetAction(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LogIn()),
+            );
+          },
+          child: Text("User", style: TextStyle(fontSize: 18)),
+        ),
+        CupertinoActionSheetAction(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LogIn2()),
+            );
+          },
+          child: Text("Bus Management", style: TextStyle(fontSize: 18)),
+        ),
+      ],
+      cancelButton: CupertinoActionSheetAction(
+        child: Text("Cancel", style: TextStyle(color: Colors.red)),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+    );
+
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              'Select your item',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 30,
+                backgroundColor: Colors.blue,
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            GestureDetector(
+              onTap: () {
+                showCupertinoModalPopup(context: context, builder: (context) => action);
+              },
+              child: Text(
+                "Click",
+                style: TextStyle(
+                  color: Colors.orange,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+////////////////
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:navigator/page/User/seat%20booking%20page.dart';
+
+class SearchResult extends StatelessWidget {
+  final String searchLocation1;
+  final String searchLocation2;
+  final String searchDate;
+
+  SearchResult({
+    required this.searchLocation1,
+    required this.searchLocation2,
+    required this.searchDate,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Search Results'),
+      ),
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance.collection('bus_info').snapshots(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) {
+            return CircularProgressIndicator();
+          }
+
+          List<Widget> searchResults = [];
+
+          snapshot.data!.docs.forEach((doc) {
+            var busName = doc['bus_name'];
+            var location1 = doc['location1'];
+            var location2 = doc['location2'];
+            var date = doc['date'];
+            var price = doc['price'];
+
+            if (location1 == searchLocation1 &&
+                location2 == searchLocation2 &&
+                date == searchDate) {
+              searchResults.add(
+                Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => seatbooking()));
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        image: DecorationImage(
+                          image: NetworkImage(
+                              'https://example.com/your_background_image_url.jpg'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Card(
+                          margin: EdgeInsets.symmetric(vertical: 10),
+                          color: Colors.transparent,
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Bus Name: $busName',
+                                    style: TextStyle(color: Colors.white)),
+                                Text('Location 1: $location1',
+                                    style: TextStyle(color: Colors.white)),
+                                Text('Location 2: $location2',
+                                    style: TextStyle(color: Colors.white)),
+                                Text('Date: $date',
+                                    style: TextStyle(color: Colors.white)),
+                                Text('Price: $price',
+                                    style: TextStyle(color: Colors.white)),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            }
+          });
+
+          return ListView(
+            children: searchResults,
+          );
+        },
+      ),
+    );
+  }
+}
+//////////////////=----------------------------------------------
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:navigator/page/User/seat%20booking%20page.dart';
+
+class SearchResult extends StatelessWidget {
+  final String searchLocation1;
+  final String searchLocation2;
+  final String searchDate;
+
+  SearchResult({
+    required this.searchLocation1,
+    required this.searchLocation2,
+    required this.searchDate,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Search Results'),
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage(
+                'https://image.lexica.art/full_webp/cd9bb2f5-0747-4a8c-a27c-d6ec1fddc873'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: StreamBuilder(
+          stream: FirebaseFirestore.instance.collection('bus_info').snapshots(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (!snapshot.hasData) {
+              return CircularProgressIndicator();
+            }
+
+            List<Widget> searchResults = [];
+
+            snapshot.data!.docs.forEach((doc) {
+              var busName = doc['bus_name'];
+              var location1 = doc['location1'];
+              var location2 = doc['location2'];
+              var date = doc['date'];
+              var price = doc['price'];
+
+              if (location1 == searchLocation1 &&
+                  location2 == searchLocation2 &&
+                  date == searchDate) {
+                searchResults.add(
+                  Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => seatbooking()));
+                      },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Card(
+                          margin: EdgeInsets.symmetric(vertical: 10),
+                          color: Colors.transparent,
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Bus Name: $busName',
+                                    style: TextStyle(color: Colors.white)),
+                                Text('Location 1: $location1',
+                                    style: TextStyle(color: Colors.white)),
+                                Text('Location 2: $location2',
+                                    style: TextStyle(color: Colors.white)),
+                                Text('Date: $date',
+                                    style: TextStyle(color: Colors.white)),
+                                Text('Price: $price',
+                                    style: TextStyle(color: Colors.white)),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              }
+            });
+
+            return ListView(
+              children: searchResults,
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+//////.................................................
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:navigator/page/User/seat%20booking%20page.dart';
+
+class SearchResult extends StatelessWidget {
+  final String searchLocation1;
+  final String searchLocation2;
+  final String searchDate;
+
+  SearchResult({
+    required this.searchLocation1,
+    required this.searchLocation2,
+    required this.searchDate,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Search Results'),
+      ),
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance.collection('bus_info').snapshots(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) {
+            return CircularProgressIndicator();
+          }
+
+          List<Widget> searchResults = [];
+
+          snapshot.data!.docs.forEach((doc) {
+            var busName = doc['bus_name'];
+            var location1 = doc['location1'];
+            var location2 = doc['location2'];
+            var date = doc['date'];
+            var price = doc['price'];
+
+            if (location1 == searchLocation1 &&
+                location2 == searchLocation2 &&
+                date == searchDate) {
+              searchResults.add(
+                Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => seatbooking()));
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        image: DecorationImage(
+                          image: NetworkImage(
+                              'https://example.com/your_background_image_url.jpg'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Card(
+                          margin: EdgeInsets.symmetric(vertical: 10),
+                          color: Colors.transparent,
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Bus Name: $busName',
+                                    style: TextStyle(color: Colors.white)),
+                                Text('Location 1: $location1',
+                                    style: TextStyle(color: Colors.white)),
+                                Text('Location 2: $location2',
+                                    style: TextStyle(color: Colors.white)),
+                                Text('Date: $date',
+                                    style: TextStyle(color: Colors.white)),
+                                Text('Price: $price',
+                                    style: TextStyle(color: Colors.white)),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            }
+          });
+
+          return ListView(
+            children: searchResults,
+          );
+        },
+      ),
+    );
+  }
+}
+

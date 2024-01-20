@@ -15,30 +15,43 @@ class _bus_userState extends State<bus_user> {
   @override
   Widget build(BuildContext context) {
     final action = CupertinoActionSheet(
-
-      message: Text("Select The Item",style: TextStyle(fontSize: 20),),
+      title: Text(
+        "Select Your Role",
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+      ),
       actions: [
-        CupertinoActionSheetAction(onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => LogIn()));
-        },
-            child: Text("User",style: TextStyle(fontSize: 30),)
-        ),
-        CupertinoActionSheetAction(onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => LogIn2()));
-        },
-            child: Text("Bus Management",style: TextStyle(fontSize: 30),)
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CupertinoActionSheetAction(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LogIn()),
+                );
+              },
+              child: Text("User", style: TextStyle(fontSize: 18)),
+            ),
+            CupertinoActionSheetAction(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LogIn2()),
+                );
+              },
+              child: Text("Bus Management", style: TextStyle(fontSize: 18)),
+            ),
+          ],
         ),
       ],
       cancelButton: CupertinoActionSheetAction(
-        child: Text("cencel",style: TextStyle(color: Colors.red),),
+        child: Text("Cancel", style: TextStyle(color: Colors.red)),
         onPressed: () {
           Navigator.pop(context);
         },
       ),
-
     );
+
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
