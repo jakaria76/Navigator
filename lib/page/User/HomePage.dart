@@ -2,43 +2,60 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:navigator/page/User/Massage.dart';
+
 import 'package:navigator/page/User/profile%20page.dart';
 import 'package:navigator/page/User/Search Result.dart';
 import 'package:navigator/page/User/setting%20page.dart';
+import '../Bus Management/massage2.dart';
 import '../bus and user select page.dart';
 import 'Bus Alart.dart';
 import 'Map page.dart';
+import 'Notification.dart';
 import 'Offer page.dart';
 import 'call support.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-main() {
+void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: HomePage());
+    // Initialize EasyLoading
+    EasyLoading.init();
+
+    return const MaterialApp(
+      home: HomePage(),
+    );
   }
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 6,
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.blueGrey[700],
           title: Center(
             child: Container(
               alignment: Alignment.centerLeft,
-              child: Text(
-                'Navigator',
-                style: TextStyle(color: Colors.black, fontSize: 30),
+              child: Center(
+                child: Text(
+                  'Navigator',
+                  style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
+                ),
               ),
             ),
           ),
@@ -57,7 +74,7 @@ class HomePage extends StatelessWidget {
         bottomNavigationBar: BottomNavigationBar(
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-            BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
+            BottomNavigationBarItem(icon: Icon(Icons.feed), label: "Feed"),
             BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
           ],
           onTap: (int index) {
@@ -65,7 +82,7 @@ class HomePage extends StatelessWidget {
               Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
             }
             if (index == 1) {
-              // Navigator.push(context, MaterialPageRoute(builder: (context)=>()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
             }
             if (index == 2) {
               Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage()));
@@ -110,7 +127,7 @@ class HomePage extends StatelessWidget {
               ),
               ListTile(
                 leading: Icon(Icons.notifications),
-                title: Text("Bus Alart"),
+                title: Text("Bus Alert"),
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => busalart()));
                 },
@@ -136,7 +153,7 @@ class HomePage extends StatelessWidget {
           children: [
             HomeContent(),
             busalart(),
-            messages_screen(),
+            ChatPage(),
             OfferPage(),
             SettingsPage(),
             map(),
@@ -226,157 +243,174 @@ class _HomeContentState extends State<HomeContent> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Stack(
-        children: [
-          // Replace the image URL with your actual background image
-          Image.network(
-            'https://image.lexica.art/full_webp/54a99583-ced5-400b-8015-c15f30b8d2d9',
-            height: 300,
-            width: MediaQuery.of(context).size.width,
-            fit: BoxFit.cover,
-          ),
-          Positioned(
-            top: 60,
-            left: 10,
-            right: 10,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 20, left: 30),
-                  child: Text(
-                    'WELCOME TO YOUR APPLICATION',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('images/body.jpg'),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Stack(
+            children: [
+              Positioned(
+                top: 60,
+                left: 10,
+                right: 10,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20, left: 30),
+                      child: Text(
+                        'WELCOME TO YOUR APPLICATION',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
                     ),
-                  ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20, left: 30),
+                      child: Text(
+                        'where do you want to go',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 25,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20, left: 30),
-                  child: Text(
-                    'where do you want to go',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+              ),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Image.network(
+                  'https://image.lexica.art/full_webp/de38120a-c485-4d7c-95dc-eca39a2acbab',
+                  height: 250,
+                  width: MediaQuery.of(context).size.width,
+                  fit: BoxFit.cover,
                 ),
-              ],
-            ),
-          ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Image.network(
-              'https://image.lexica.art/full_webp/de38120a-c485-4d7c-95dc-eca39a2acbab',
-              height: 250,
-              width: MediaQuery.of(context).size.width,
-              fit: BoxFit.cover,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 210, left: 0, right: 0),
-            child: Card(
-              color: Colors.blueGrey[800],
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-              elevation: 10,
-              shadowColor: Colors.black,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TypeAheadField(
-                    textFieldConfiguration: TextFieldConfiguration(
-                      controller: _searchLocation1Controller,
-                      decoration: InputDecoration(
-                          icon: Icon(Icons.location_on, size: 50,color: Colors.white,),
-                          labelText: 'From Where',
-                          labelStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.w600,color: Colors.white)),
-                    ),
-                    suggestionsCallback: (pattern) async {
-                      return suggestions
-                          .where((item) => item.toLowerCase().contains(pattern.toLowerCase()))
-                          .toList();
-                    },
-                    itemBuilder: (context, suggestion) {
-                      return ListTile(
-                        title: Text(suggestion),
-                      );
-                    },
-                    onSuggestionSelected: (suggestion) {
-                      _searchLocation1Controller.text = suggestion;
-                    },
-                  ),
-                  TypeAheadField(
-                    textFieldConfiguration: TextFieldConfiguration(
-                      controller: _searchLocation2Controller,
-                      decoration: InputDecoration(
-                          icon: Icon(Icons.location_city, size: 50,color: Colors.white,),
-                          labelText: 'To location',
-                          labelStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.w600,color: Colors.white)),
-                    ),
-                    suggestionsCallback: (pattern) async {
-                      return suggestions
-                          .where((item) => item.toLowerCase().contains(pattern.toLowerCase()))
-                          .toList();
-                    },
-                    itemBuilder: (context, suggestion) {
-                      return ListTile(
-                        title: Text(suggestion),
-                      );
-                    },
-                    onSuggestionSelected: (suggestion) {
-                      _searchLocation2Controller.text = suggestion;
-                    },
-                  ),
-                  TextFormField(
-                    controller: _searchDateController,
-                    readOnly: true,
-                    onTap: () => _selectDate(context),
-                    decoration: InputDecoration(
-                      labelText: 'Select Date',
-                      labelStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.w600,color: Colors.white),
-                      icon: Icon(Icons.date_range, size: 50,color: Colors.white,),
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Perform search and navigate to the SearchPage
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SearchResult(
-                            searchLocation1: _searchLocation1Controller.text,
-                            searchLocation2: _searchLocation2Controller.text,
-                            searchDate: _searchDateController.text,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 210, left: 0, right: 0),
+                child: Card(
+                  color: Colors.blueGrey[700],
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                  elevation: 10,
+                  shadowColor: Colors.black,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TypeAheadField(
+                        textFieldConfiguration: TextFieldConfiguration(
+                          controller: _searchLocation1Controller,
+                          decoration: InputDecoration(
+                              icon: Icon(Icons.location_on, size: 50, color: Colors.white),
+                              labelText: 'From Where',
+                              labelStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white)),
+                        ),
+                        suggestionsCallback: (pattern) async {
+                          return suggestions
+                              .where((item) => item.toLowerCase().contains(pattern.toLowerCase()))
+                              .toList();
+                        },
+                        itemBuilder: (context, suggestion) {
+                          return ListTile(
+                            title: Text(suggestion, selectionColor: Colors.white),
+                          );
+                        },
+                        onSuggestionSelected: (suggestion) {
+                          _searchLocation1Controller.text = suggestion;
+                        },
+                      ),
+                      TypeAheadField(
+                        textFieldConfiguration: TextFieldConfiguration(
+                          controller: _searchLocation2Controller,
+                          decoration: InputDecoration(
+                              icon: Icon(Icons.location_city, size: 50, color: Colors.white),
+                              labelText: 'To location',
+                              labelStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white)),
+                        ),
+                        suggestionsCallback: (pattern) async {
+                          return suggestions
+                              .where((item) => item.toLowerCase().contains(pattern.toLowerCase()))
+                              .toList();
+                        },
+                        itemBuilder: (context, suggestion) {
+                          return ListTile(
+                            title: Text(suggestion),
+                          );
+                        },
+                        onSuggestionSelected: (suggestion) {
+                          _searchLocation2Controller.text = suggestion;
+                        },
+                      ),
+                      TextFormField(
+                        controller: _searchDateController,
+                        readOnly: true,
+                        onTap: () => _selectDate(context),
+                        decoration: InputDecoration(
+                          labelText: 'Select Date',
+                          labelStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white),
+                          icon: Icon(Icons.date_range, size: 50, color: Colors.white),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: () async {
+                          // Show loading indicator
+                          EasyLoading.show(status: 'Searching...');
+                          await Future.delayed(Duration(seconds: 3));
+                          EasyLoading.dismiss();
+
+                          // Perform search and navigate to the SearchPage
+                          await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SearchResult(
+                                searchLocation1: _searchLocation1Controller.text,
+                                searchLocation2: _searchLocation2Controller.text,
+                                searchDate: _searchDateController.text,
+                              ),
+                            ),
+                          );
+
+                          // Hide loading indicator after the search is complete
+                          EasyLoading.dismiss();
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                          child: Center(
+                            child: Text(
+                              'Search Bus',
+                              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.blueGrey[800]),
+                            ),
                           ),
                         ),
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                      child: Text(
-                        'Search Bus',
-                        style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                       ),
-                      //heightFactor: 2,
-
-                    ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
-
 
   Future<void> _selectDate(BuildContext context) async {
     DateTime currentDate = DateTime.now();
@@ -393,4 +427,7 @@ class _HomeContentState extends State<HomeContent> {
     }
   }
 }
-//rabbi
+
+
+
+

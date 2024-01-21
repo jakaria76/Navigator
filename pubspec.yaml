@@ -51,6 +51,12 @@ dependencies:
   google_maps_flutter: ^2.0.15
   sqflite: ^2.0.0
   path: ^1.8.0
+  firebase_messaging: ^14.7.10
+  flutter_local_notifications: ^16.3.0
+  image_picker: ^1.0.7
+  flutter_easyloading: ^3.0.5
+  uid: ^0.0.2
+
 
 
 
@@ -93,6 +99,7 @@ flutter:
     - images/profile.jpg
     - images/jakaria.jpg
     - images/signup2.png
+    - images/body.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

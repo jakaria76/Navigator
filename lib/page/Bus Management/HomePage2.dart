@@ -5,6 +5,7 @@ import 'package:navigator/page/Bus%20Management/profile2.dart';
 import 'package:navigator/page/bus%20and%20user%20select%20page.dart';
 
 import 'massage2.dart';
+import 'massage3.dart';
 
 
 
@@ -140,7 +141,12 @@ class _HomePage2State extends State<HomePage2> {
       print('Data saved successfully!');
     } catch (e) {
       print('Error saving data: $e');
+
     }
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => HomeScreen()),
+    );
   }
 
 
@@ -167,8 +173,8 @@ class _HomePage2State extends State<HomePage2> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home),label:"Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.message),label:"message"),
+          BottomNavigationBarItem(icon: Icon(Icons.add),label:"add"),
+          BottomNavigationBarItem(icon: Icon(Icons.feed),label:"feed"),
           BottomNavigationBarItem(icon: Icon(Icons.person),label:"profile"),
 
         ],
@@ -179,7 +185,7 @@ class _HomePage2State extends State<HomePage2> {
           }
           if(index==1)
           {
-             Navigator.push(context, MaterialPageRoute(builder: (context)=>messages_screen2()));
+             Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
           }
           if(index==2)
           {
@@ -201,7 +207,13 @@ class _HomePage2State extends State<HomePage2> {
                   
                 ),
               ),
-
+              ListTile(
+                leading: Icon(Icons.chat),
+                title: Text("chat"),
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatPage2()));
+                },
+              ),
               ListTile(
                 leading: Icon(Icons.logout),
                 title: Text("LogOut"),
@@ -209,6 +221,7 @@ class _HomePage2State extends State<HomePage2> {
                   Navigator.push(context, MaterialPageRoute(builder: (context)=>bus_user()));
                 },
               ),
+
             ],
           )
       ),
