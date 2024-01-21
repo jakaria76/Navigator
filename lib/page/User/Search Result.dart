@@ -2,18 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:navigator/page/User/seat%20booking%20page.dart';
 
-class SearchResult extends StatelessWidget {
+class SearchResult extends StatefulWidget {
   final String searchLocation1;
   final String searchLocation2;
   final String searchDate;
-
 
   SearchResult({
     required this.searchLocation1,
     required this.searchLocation2,
     required this.searchDate,
-
   });
+
+  @override
+  _SearchResultState createState() => _SearchResultState();
+}
+
+class _SearchResultState extends State<SearchResult> {
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -37,15 +42,31 @@ class SearchResult extends StatelessWidget {
             var date = doc['date'];
             var price = doc['price'];
 
-            if (location1 == searchLocation1 &&
-                location2 == searchLocation2 &&
-                date == searchDate) {
+            if (location1 == widget.searchLocation1 &&
+                location2 == widget.searchLocation2 &&
+                date == widget.searchDate) {
               searchResults.add(
                 Padding(
                   padding: const EdgeInsets.all(5),
                   child: GestureDetector(
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>seatbooking()));
+                    onTap: () async {
+                      setState(() {
+                        isLoading = true;
+                      });
+
+                      // Perform any async operation here
+
+                      // Simulating a delay with Future.delayed
+                      await Future.delayed(Duration(seconds: 3));
+
+                      setState(() {
+                        isLoading = false;
+                      });
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => seatbooking()),
+                      );
                     },
                     child: Card(
                       margin: EdgeInsets.symmetric(vertical: 10),
@@ -59,7 +80,7 @@ class SearchResult extends StatelessWidget {
                             Text('Location 1: $location1'),
                             Text('Location 2: $location2'),
                             Text('Date: $date'),
-                            Text('price:$price')
+                            Text('Price: $price')
                           ],
                         ),
                       ),
@@ -70,7 +91,11 @@ class SearchResult extends StatelessWidget {
             }
           });
 
-          return ListView(
+          return isLoading
+              ? Center(
+               child: CircularProgressIndicator(),
+          )
+              : ListView(
             children: searchResults,
           );
         },
@@ -78,6 +103,3 @@ class SearchResult extends StatelessWidget {
     );
   }
 }
-
-
-

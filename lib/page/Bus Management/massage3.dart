@@ -1,10 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,34 +20,50 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: ChatPage(),
+      home: ChatPage2(),
     );
   }
 }
 
-class ChatPage extends StatefulWidget {
+class ChatPage2 extends StatefulWidget {
   @override
-  _ChatPageState createState() => _ChatPageState();
+  _ChatPage2State createState() => _ChatPage2State();
 }
 
-class _ChatPageState extends State<ChatPage> {
+class _ChatPage2State extends State<ChatPage2> {
   final TextEditingController _messageController = TextEditingController();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final String _collectionName = 'messages';
-  final String _userId = 'user123'; // Replace with actual user ID
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  late User _user;
+
+  @override
+  void initState() {
+    super.initState();
+    _user = _auth.currentUser!;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Flutter Firebase Chat'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.logout),
+            onPressed: () async {
+              await _auth.signOut();
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
       ),
       body: Column(
         children: [
           Expanded(
             child: StreamBuilder(
               stream: _firestore
-                  .collection(_collectionName)
+                  .collection('messages')
                   .orderBy('timestamp')
                   .snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -70,7 +86,7 @@ class _ChatPageState extends State<ChatPage> {
                   itemBuilder: (context, index) {
                     var message =
                     messages[index].data() as Map<String, dynamic>;
-                    var isSentByUser = message['userId'] == _userId;
+                    var isSentByUser = message['userId'] == _user.uid;
 
                     if (message.containsKey('imageUrl')) {
                       return ImageMessage(
@@ -136,9 +152,9 @@ class _ChatPageState extends State<ChatPage> {
 
   void _sendMessage(String text) {
     if (text.isNotEmpty) {
-      _firestore.collection(_collectionName).add({
+      _firestore.collection('messages').add({
         'text': text,
-        'userId': _userId,
+        'userId': _user.uid,
         'timestamp': FieldValue.serverTimestamp(),
       });
     }
@@ -148,9 +164,9 @@ class _ChatPageState extends State<ChatPage> {
     if (image != null) {
       var imageUrl = await _uploadImageToFirebase(image);
       if (imageUrl != null) {
-        _firestore.collection(_collectionName).add({
+        _firestore.collection('messages').add({
           'imageUrl': imageUrl,
-          'userId': _userId,
+          'userId': _user.uid,
           'timestamp': FieldValue.serverTimestamp(),
         });
       }
@@ -159,8 +175,8 @@ class _ChatPageState extends State<ChatPage> {
 
   Future<String?> _uploadImageToFirebase(XFile image) async {
     try {
-      var snapshot = await _firestore.collection(_collectionName).add({
-        'userId': _userId,
+      var snapshot = await _firestore.collection('messages').add({
+        'userId': _user.uid,
         'timestamp': FieldValue.serverTimestamp(),
       });
 
@@ -169,7 +185,8 @@ class _ChatPageState extends State<ChatPage> {
           .child('images/${snapshot.id}')
           .putFile(File(image.path));
 
-      var downloadUrl = await ref.then((taskSnapshot) => taskSnapshot.ref.getDownloadURL());
+      var downloadUrl =
+      await ref.then((taskSnapshot) => taskSnapshot.ref.getDownloadURL());
 
       return downloadUrl;
     } catch (e) {

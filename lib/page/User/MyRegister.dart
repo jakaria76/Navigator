@@ -216,7 +216,7 @@ class _MyRegisterState extends State<MyRegister> {
       );
 
 
-      Navigator.push(context, MaterialPageRoute(builder: (context) => PickImage()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
     } else {
       print("Some error happened");
     }

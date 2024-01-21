@@ -7,8 +7,6 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   bool showPassword = false;
-  String fullName = "caesium"; // Initial name, you can fetch the user's name from your data source
-  String email = "eka.caesium721@gmail.com"; // Initial email, you can fetch the user's email from your data source
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +19,7 @@ class _ProfilePageState extends State<ProfilePage> {
             Icons.arrow_back,
             color: Colors.green,
           ),
-          onPressed: () {
-            Navigator.pop(context); // Navigate back when the back button is pressed
-          },
+          onPressed: () {},
         ),
         actions: [],
       ),
@@ -65,7 +61,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         image: DecorationImage(
                           fit: BoxFit.cover,
                           image: NetworkImage(
-                            "https://static.wikia.nocookie.net/naruto/images/f/fd/Madara.png/revision/latest?cb=20160115141947",
+                            "https://images.pexels.com/photos/3307758/pexels-photo-3307758.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=250",
                           ),
                         ),
                       ),
@@ -96,25 +92,18 @@ class _ProfilePageState extends State<ProfilePage> {
               SizedBox(
                 height: 35,
               ),
-              buildEditableField("Full Name", fullName, Icons.person, (value) {
-                // Update the user's name
-                setState(() {
-                  fullName = value;
-                });
-              }),
-              buildNonEditableField("E-mail", email, Icons.email),
+              buildTextField("Full Name", "Dor Alex", false),
+              buildTextField("E-mail", "alexd@gmail.com", false),
               buildTextField("Password", "********", true),
-              buildTextField("Location", "Dhaka,Bangladesh", false),
+              buildTextField("Location", "TLV, Israel", false),
               SizedBox(
                 height: 35,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  OutlinedButton(
-                    onPressed: () {
-                      Navigator.pop(context); // Navigate back when the cancel button is pressed
-                    },
+                  OutlinedButton( // Updated: OutlinedButton instead of OutlineButton
+                    onPressed: () {},
                     style: OutlinedButton.styleFrom(
                       padding: EdgeInsets.symmetric(horizontal: 50),
                       shape: RoundedRectangleBorder(
@@ -130,15 +119,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      // TODO: Implement logic to update the user's information in your data source (e.g., Firebase Firestore)
-                      // For demonstration purposes, we print the updated name to the console.
-                      print("Updated Name: $fullName");
-
-                      // After updating the user's information, navigate back to the settings page.
-                      Navigator.pop(context);
-                    },
+                  ElevatedButton( // Updated: ElevatedButton instead of RaisedButton
+                    onPressed: () {},
                     style: ElevatedButton.styleFrom(
                       primary: Colors.green,
                       padding: EdgeInsets.symmetric(horizontal: 50),
@@ -195,65 +177,6 @@ class _ProfilePageState extends State<ProfilePage> {
             color: Colors.black,
           ),
         ),
-      ),
-    );
-  }
-
-  Widget buildEditableField(String labelText, String value, IconData icon, Function(String) onChanged) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 35.0),
-      child: Row(
-        children: [
-          Icon(
-            icon,
-            color: Colors.green,
-          ),
-          SizedBox(
-            width: 8,
-          ),
-          Expanded(
-            child: TextFormField(
-              initialValue: value,
-              onChanged: onChanged,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(bottom: 3),
-                labelText: labelText,
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                hintText: value,
-                hintStyle: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget buildNonEditableField(String labelText, String value, IconData icon) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 35.0),
-      child: Row(
-        children: [
-          Icon(
-            icon,
-            color: Colors.green,
-          ),
-          SizedBox(
-            width: 8,
-          ),
-          Text(
-            value,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
-          ),
-        ],
       ),
     );
   }

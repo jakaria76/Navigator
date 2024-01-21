@@ -10,6 +10,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'page/User/MyLogin.dart';
 import 'page/firebase_options.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 
 
@@ -33,7 +34,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home:splash_page(
         child:bus_user(),
+
       ),
+
     );
   }
 }
