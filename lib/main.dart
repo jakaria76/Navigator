@@ -1,12 +1,10 @@
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:navigator/page/bus%20and%20user%20select%20page.dart';
 import 'package:navigator/page/splash_page.dart';
 
-import 'page/User/MyLogin.dart';
 import 'page/firebase_options.dart';
 
 
