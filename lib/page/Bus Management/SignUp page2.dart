@@ -197,7 +197,7 @@ class _SignUp2State extends State<SignUp2> {
       return;
     }
 
-    User? user = await _auth.signUpWithEmailAndPassword(email, password);
+    User? user = await _auth.signUpWithEmailAndPassword(username,email, password);
 
     if (user != null) {
       print("User is successfully created");

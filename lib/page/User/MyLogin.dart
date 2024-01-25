@@ -26,11 +26,25 @@ class _LogInState extends State<LogIn> {
 
   Future<void> userLogin() async {
     try {
-      setState(() {
-        isLoading = true; // Set loading to true when starting the login operation
-      });
 
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(height: 16),
+                Text("Logging in..."),
+              ],
+            ),
+          );
+        },
+      );
       await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+      Navigator.pop(context);
 
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(

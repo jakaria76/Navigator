@@ -9,6 +9,7 @@ import 'package:navigator/page/User/setting%20page.dart';
 import '../Bus Management/massage2.dart';
 import '../bus and user select page.dart';
 import 'Bus Alart.dart';
+import 'HomeScreen.dart';
 import 'Map page.dart';
 import 'Notification.dart';
 import 'Offer page.dart';
@@ -85,7 +86,7 @@ class _HomePageState extends State<HomePage> {
               Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
             }
             if (index == 2) {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => UserProfileScreen()));
             }
           },
         ),
@@ -153,7 +154,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             HomeContent(),
             busalart(),
-            ChatPage(),
+            HomeScreen5(),
             OfferPage(),
             SettingsPage(),
             map(),

@@ -197,16 +197,12 @@ class _MyRegisterState extends State<MyRegister> {
       return;
     }
 
-    User? user = await _auth.signUpWithEmailAndPassword(email, password);
+    User? user = await _auth.signUpWithEmailAndPassword(username, email, password);
 
     if (user != null) {
       print("User is successfully created");
 
 
-      await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
-        'username': username,
-        'email': email,
-      });
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
