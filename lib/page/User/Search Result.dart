@@ -26,79 +26,90 @@ class _SearchResultState extends State<SearchResult> {
       appBar: AppBar(
         title: Text('Search Results'),
       ),
-      body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('bus_info').snapshots(),
-        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (!snapshot.hasData) {
-            return CircularProgressIndicator();
-          }
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage(
+                'https://c1.wallpaperflare.com/preview/864/516/895/blur-buildings-bus-evening.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: StreamBuilder(
+          stream: FirebaseFirestore.instance.collection('bus_info').snapshots(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            }
 
-          List<Widget> searchResults = [];
+            if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            }
 
-          snapshot.data!.docs.forEach((doc) {
-            var busName = doc['bus_name'];
-            var location1 = doc['location1'];
-            var location2 = doc['location2'];
-            var date = doc['date'];
-            var price = doc['price'];
+            List<Widget> searchResults = [];
 
-            if (location1 == widget.searchLocation1 &&
-                location2 == widget.searchLocation2 &&
-                date == widget.searchDate) {
-              searchResults.add(
-                Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: GestureDetector(
-                    onTap: () async {
-                      setState(() {
-                        isLoading = true;
-                      });
+            snapshot.data!.docs.forEach((doc) {
+              var busName = doc['bus_name'];
+              var location1 = doc['location1'];
+              var location2 = doc['location2'];
+              var date = doc['date'];
+              var price = doc['price'];
 
-                      // Perform any async operation here
+              if (location1 == widget.searchLocation1 &&
+                  location2 == widget.searchLocation2 &&
+                  date == widget.searchDate) {
+                searchResults.add(
+                  Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: GestureDetector(
+                      onTap: () async {
+                        setState(() {
+                          isLoading = true;
+                        });
 
-                      // Simulating a delay with Future.delayed
-                      await Future.delayed(Duration(seconds: 3));
+                        // Perform any async operation here
 
-                      setState(() {
-                        isLoading = false;
-                      });
+                        // Simulating a delay with Future.delayed
+                        await Future.delayed(Duration(seconds: 3));
 
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => seatbooking()),
-                      );
-                    },
-                    child: Card(
-                      margin: EdgeInsets.symmetric(vertical: 10),
-                      color: Colors.orange,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Bus Name: $busName'),
-                            Text('Location 1: $location1'),
-                            Text('Location 2: $location2'),
-                            Text('Date: $date'),
-                            Text('Price: $price')
-                          ],
+                        setState(() {
+                          isLoading = false;
+                        });
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => seatbooking()),
+                        );
+                      },
+                      child: Card(
+                        margin: EdgeInsets.symmetric(vertical: 10),
+                        color: Colors.orange,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Bus Name: $busName'),
+                              Text('Location 1: $location1'),
+                              Text('Location 2: $location2'),
+                              Text('Date: $date'),
+                              Text('Price: $price')
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              );
-            }
-          });
+                );
+              }
+            });
 
-          return isLoading
-              ? Center(
-               child: CircularProgressIndicator(),
-          )
-              : ListView(
-            children: searchResults,
-          );
-        },
+            return isLoading
+                ? Center(child: CircularProgressIndicator())
+                : ListView(
+              children: searchResults,
+            );
+          },
+        ),
       ),
     );
   }

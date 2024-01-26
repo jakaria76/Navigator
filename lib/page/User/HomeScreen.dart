@@ -1,14 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:navigator/page/Bus%20Management/ChatRoom2.dart';
 
-class HomeScreen6 extends StatefulWidget {
+import 'ChatRoom (1).dart';
+
+class HomeScreen5 extends StatefulWidget {
   @override
-  _HomeScreen6State createState() => _HomeScreen6State();
+  _HomeScreen5State createState() => _HomeScreen5State();
 }
 
-class _HomeScreen6State extends State<HomeScreen6> with WidgetsBindingObserver {
+class _HomeScreen5State extends State<HomeScreen5> with WidgetsBindingObserver {
   Map<String, dynamic>? userMap;
   bool isLoading = false;
   final TextEditingController _search = TextEditingController();
@@ -72,10 +73,17 @@ class _HomeScreen6State extends State<HomeScreen6> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Home Screen"),
-      ),
+    return Container(
+        decoration: BoxDecoration(
+        image: DecorationImage(
+        image: AssetImage('images/profile.jpg'), fit: BoxFit.cover),
+    ),
+    child: Scaffold(
+    backgroundColor: Colors.transparent,
+    appBar: AppBar(
+    backgroundColor: Colors.transparent,
+    elevation: 0,
+    ),
       body: isLoading
           ? Center(
         child: Container(
@@ -149,6 +157,7 @@ class _HomeScreen6State extends State<HomeScreen6> with WidgetsBindingObserver {
             Container(),
         ],
       ),
+    ),
     );
   }
 }
