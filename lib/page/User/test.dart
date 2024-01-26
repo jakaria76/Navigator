@@ -213,6 +213,7 @@ class _SeatWidgetState extends State<SeatWidget> {
 */
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:navigator/page/User/passenger%20details.dart';
@@ -511,233 +512,882 @@ class _SeatWidgetState extends State<SeatWidget> {
   }
 }
 
+///////////////////////////////////////
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'Bus Management/loginPage2.dart';
+import 'User/MyLogin.dart';
 
-//import 'package:flutter/material.dart';
+class BusUser extends StatefulWidget {
+  const BusUser({Key? key}) : super(key: key);
 
-class ProfilePage extends StatefulWidget {
   @override
-  _ProfilePageState createState() => _ProfilePageState();
+  State<BusUser> createState() => _BusUserState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
-  bool showPassword = false;
-  String fullName = "caesium"; // Initial name, you can fetch the user's name from your data source
-  String email = "eka.caesium721@gmail.com"; // Initial email, you can fetch the user's email from your data source
+class _BusUserState extends State<BusUser> {
+  @override
+  Widget build(BuildContext context) {
+    final action = CupertinoActionSheet(
+      message: Text("Select The Item", style: TextStyle(fontSize: 20)),
+      actions: [
+        CupertinoActionSheetAction(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LogIn()),
+            );
+          },
+          child: Text("User", style: TextStyle(fontSize: 30)),
+        ),
+        CupertinoActionSheetAction(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LogIn2()),
+            );
+          },
+          child: Text("Bus Management", style: TextStyle(fontSize: 30)),
+        ),
+      ],
+      cancelButton: CupertinoActionSheetAction(
+        child: Text("Cancel", style: TextStyle(color: Colors.red)),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+    );
+
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/your_placeholder_image.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Container(
+              padding: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Select your item',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 30,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      showCupertinoModalPopup(
+                        context: context,
+                        builder: (context) => action,
+                      );
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 10,
+                        horizontal: 20,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.orange,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Text(
+                        "Click",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+///////////////////////////////////////////////
+final action = CupertinoActionSheet(
+  title: Text(
+    "Select Your Role",
+    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+  ),
+  actions: [
+    CupertinoActionSheetAction(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => LogIn()),
+        );
+      },
+      child: Text("User", style: TextStyle(fontSize: 18)),
+    ),
+    CupertinoActionSheetAction(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => LogIn2()),
+        );
+      },
+      child: Text("Bus Management", style: TextStyle(fontSize: 18)),
+    ),
+  ],
+  cancelButton: CupertinoActionSheetAction(
+    child: Text("Cancel", style: TextStyle(color: Colors.red)),
+    onPressed: () {
+      Navigator.pop(context);
+    },
+  ),
+);
+////////////////////
+final action = CupertinoActionSheet(
+  title: Text(
+    "Select Your Role",
+    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+  ),
+  actions: [
+    Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        CupertinoActionSheetAction(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LogIn()),
+            );
+          },
+          child: Text("User", style: TextStyle(fontSize: 18)),
+        ),
+        CupertinoActionSheetAction(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LogIn2()),
+            );
+          },
+          child: Text("Bus Management", style: TextStyle(fontSize: 18)),
+        ),
+      ],
+    ),
+  ],
+  cancelButton: CupertinoActionSheetAction(
+    child: Text("Cancel", style: TextStyle(color: Colors.red)),
+    onPressed: () {
+      Navigator.pop(context);
+    },
+  ),
+);
+/////////////////////////////////////////
+class _bus_userState extends State<bus_user> {
+  @override
+  Widget build(BuildContext context) {
+    final action = CupertinoActionSheet(
+      title: Text(
+        "Select Your Role",
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+      ),
+      actions: [
+        CupertinoActionSheetAction(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LogIn()),
+            );
+          },
+          child: Text("User", style: TextStyle(fontSize: 18)),
+        ),
+        CupertinoActionSheetAction(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LogIn2()),
+            );
+          },
+          child: Text("Bus Management", style: TextStyle(fontSize: 18)),
+        ),
+      ],
+      cancelButton: CupertinoActionSheetAction(
+        child: Text("Cancel", style: TextStyle(color: Colors.red)),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+    );
+
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              'Select your item',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 30,
+                backgroundColor: Colors.blue,
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            GestureDetector(
+              onTap: () {
+                showCupertinoModalPopup(context: context, builder: (context) => action);
+              },
+              child: Text(
+                "Click",
+                style: TextStyle(
+                  color: Colors.orange,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+//////////////////////////////////
+class _bus_userState extends State<bus_user> {
+  @override
+  Widget build(BuildContext context) {
+    final action = CupertinoActionSheet(
+      title: Text(
+        "Select Your Role",
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+      ),
+      actions: [
+        CupertinoActionSheetAction(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LogIn()),
+            );
+          },
+          child: Text("User", style: TextStyle(fontSize: 18)),
+        ),
+        CupertinoActionSheetAction(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LogIn2()),
+            );
+          },
+          child: Text("Bus Management", style: TextStyle(fontSize: 18)),
+        ),
+      ],
+      cancelButton: CupertinoActionSheetAction(
+        child: Text("Cancel", style: TextStyle(color: Colors.red)),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+    );
+
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              'Select your item',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 30,
+                backgroundColor: Colors.blue,
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            GestureDetector(
+              onTap: () {
+                showCupertinoModalPopup(context: context, builder: (context) => action);
+              },
+              child: Text(
+                "Click",
+                style: TextStyle(
+                  color: Colors.orange,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+////////////////
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:navigator/page/User/seat%20booking%20page.dart';
+
+class SearchResult extends StatelessWidget {
+  final String searchLocation1;
+  final String searchLocation2;
+  final String searchDate;
+
+  SearchResult({
+    required this.searchLocation1,
+    required this.searchLocation2,
+    required this.searchDate,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        elevation: 1,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.green,
-          ),
-          onPressed: () {
-            Navigator.pop(context); // Navigate back when the back button is pressed
-          },
-        ),
-        actions: [],
+        title: Text('Search Results'),
+      ),
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance.collection('bus_info').snapshots(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) {
+            return CircularProgressIndicator();
+          }
+
+          List<Widget> searchResults = [];
+
+          snapshot.data!.docs.forEach((doc) {
+            var busName = doc['bus_name'];
+            var location1 = doc['location1'];
+            var location2 = doc['location2'];
+            var date = doc['date'];
+            var price = doc['price'];
+
+            if (location1 == searchLocation1 &&
+                location2 == searchLocation2 &&
+                date == searchDate) {
+              searchResults.add(
+                Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => seatbooking()));
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        image: DecorationImage(
+                          image: NetworkImage(
+                              'https://example.com/your_background_image_url.jpg'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Card(
+                          margin: EdgeInsets.symmetric(vertical: 10),
+                          color: Colors.transparent,
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Bus Name: $busName',
+                                    style: TextStyle(color: Colors.white)),
+                                Text('Location 1: $location1',
+                                    style: TextStyle(color: Colors.white)),
+                                Text('Location 2: $location2',
+                                    style: TextStyle(color: Colors.white)),
+                                Text('Date: $date',
+                                    style: TextStyle(color: Colors.white)),
+                                Text('Price: $price',
+                                    style: TextStyle(color: Colors.white)),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            }
+          });
+
+          return ListView(
+            children: searchResults,
+          );
+        },
+      ),
+    );
+  }
+}
+//////////////////=----------------------------------------------
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:navigator/page/User/seat%20booking%20page.dart';
+
+class SearchResult extends StatelessWidget {
+  final String searchLocation1;
+  final String searchLocation2;
+  final String searchDate;
+
+  SearchResult({
+    required this.searchLocation1,
+    required this.searchLocation2,
+    required this.searchDate,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Search Results'),
       ),
       body: Container(
-        padding: EdgeInsets.only(left: 16, top: 25, right: 16),
-        child: GestureDetector(
-          onTap: () {
-            FocusScope.of(context).unfocus();
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage(
+                'https://image.lexica.art/full_webp/cd9bb2f5-0747-4a8c-a27c-d6ec1fddc873'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: StreamBuilder(
+          stream: FirebaseFirestore.instance.collection('bus_info').snapshots(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (!snapshot.hasData) {
+              return CircularProgressIndicator();
+            }
+
+            List<Widget> searchResults = [];
+
+            snapshot.data!.docs.forEach((doc) {
+              var busName = doc['bus_name'];
+              var location1 = doc['location1'];
+              var location2 = doc['location2'];
+              var date = doc['date'];
+              var price = doc['price'];
+
+              if (location1 == searchLocation1 &&
+                  location2 == searchLocation2 &&
+                  date == searchDate) {
+                searchResults.add(
+                  Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => seatbooking()));
+                      },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Card(
+                          margin: EdgeInsets.symmetric(vertical: 10),
+                          color: Colors.transparent,
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Bus Name: $busName',
+                                    style: TextStyle(color: Colors.white)),
+                                Text('Location 1: $location1',
+                                    style: TextStyle(color: Colors.white)),
+                                Text('Location 2: $location2',
+                                    style: TextStyle(color: Colors.white)),
+                                Text('Date: $date',
+                                    style: TextStyle(color: Colors.white)),
+                                Text('Price: $price',
+                                    style: TextStyle(color: Colors.white)),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              }
+            });
+
+            return ListView(
+              children: searchResults,
+            );
           },
-          child: ListView(
-            children: [
-              Text(
-                "Edit Profile",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Center(
-                child: Stack(
-                  children: [
-                    Container(
-                      width: 130,
-                      height: 130,
+        ),
+      ),
+    );
+  }
+}
+//////.................................................
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:navigator/page/User/seat%20booking%20page.dart';
+
+class SearchResult extends StatelessWidget {
+  final String searchLocation1;
+  final String searchLocation2;
+  final String searchDate;
+
+  SearchResult({
+    required this.searchLocation1,
+    required this.searchLocation2,
+    required this.searchDate,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Search Results'),
+      ),
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance.collection('bus_info').snapshots(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) {
+            return CircularProgressIndicator();
+          }
+
+          List<Widget> searchResults = [];
+
+          snapshot.data!.docs.forEach((doc) {
+            var busName = doc['bus_name'];
+            var location1 = doc['location1'];
+            var location2 = doc['location2'];
+            var date = doc['date'];
+            var price = doc['price'];
+
+            if (location1 == searchLocation1 &&
+                location2 == searchLocation2 &&
+                date == searchDate) {
+              searchResults.add(
+                Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => seatbooking()));
+                    },
+                    child: Container(
                       decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 4,
-                          color: Theme.of(context).scaffoldBackgroundColor,
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            spreadRadius: 2,
-                            blurRadius: 10,
-                            color: Colors.black.withOpacity(0.1),
-                            offset: Offset(0, 10),
-                          )
-                        ],
-                        shape: BoxShape.circle,
+                        borderRadius: BorderRadius.circular(20),
                         image: DecorationImage(
-                          fit: BoxFit.cover,
                           image: NetworkImage(
-                            "https://static.wikia.nocookie.net/naruto/images/f/fd/Madara.png/revision/latest?cb=20160115141947",
+                              'https://example.com/your_background_image_url.jpg'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Card(
+                          margin: EdgeInsets.symmetric(vertical: 10),
+                          color: Colors.transparent,
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Bus Name: $busName',
+                                    style: TextStyle(color: Colors.white)),
+                                Text('Location 1: $location1',
+                                    style: TextStyle(color: Colors.white)),
+                                Text('Location 2: $location2',
+                                    style: TextStyle(color: Colors.white)),
+                                Text('Date: $date',
+                                    style: TextStyle(color: Colors.white)),
+                                Text('Price: $price',
+                                    style: TextStyle(color: Colors.white)),
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ),
-                    Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: Container(
-                        height: 40,
-                        width: 40,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            width: 4,
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                          ),
-                          color: Colors.green,
-                        ),
-                        child: Icon(
-                          Icons.edit,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
+                ),
+              );
+            }
+          });
+
+          return ListView(
+            children: searchResults,
+          );
+        },
+      ),
+    );
+  }
+}
+//------------------------------
+import 'package:flutter/material.dart';
+
+class BusManagementProfilePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Profile'),
+      ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                radius: 60,
+                backgroundImage: AssetImage('assets/profile_image.jpg'),
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Bus Management Author',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(
-                height: 35,
+              SizedBox(height: 10),
+              Text(
+                'Bus Management Company',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 16,
+                ),
               ),
-              buildEditableField("Full Name", fullName, Icons.person, (value) {
-                // Update the user's name
-                setState(() {
-                  fullName = value;
-                });
-              }),
-             // buildNonEditableField("E-mail", email, Icons.email),
-              buildTextField("Password", "********", true),
-              buildTextField("Location", "Dhaka,Bangladesh", false),
-              SizedBox(
-                height: 35,
+              SizedBox(height: 30),
+              ProfileField(label: 'Name', value: 'John Doe'),
+              ProfileField(label: 'Vehicle Name', value: 'Bus XYZ'),
+              ProfileField(label: 'Vehicle Type', value: 'Semi Sleeper'),
+              ProfileField(label: 'Vehicle Model', value: 'Model ABC'),
+              ProfileField(label: 'Contact Info', value: '+1 123-456-7890'),
+              SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: () {
+                  // Navigate to the profile editing page
+                },
+                child: Text('Edit Profile'),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  OutlinedButton(
-                    onPressed: () {
-                      Navigator.pop(context); // Navigate back when the cancel button is pressed
-                    },
-                    style: OutlinedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(horizontal: 50),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                    child: Text(
-                      "CANCEL",
-                      style: TextStyle(
-                        fontSize: 14,
-                        letterSpacing: 2.2,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      // TODO: Implement logic to update the user's information in your data source (e.g., Firebase Firestore)
-                      // For demonstration purposes, we print the updated name to the console.
-                      print("Updated Name: $fullName");
-
-                      // After updating the user's information, navigate back to the settings page.
-                      Navigator.pop(context);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.green,
-                      padding: EdgeInsets.symmetric(horizontal: 50),
-                      elevation: 2,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                    child: Text(
-                      "SAVE",
-                      style: TextStyle(
-                        fontSize: 14,
-                        letterSpacing: 2.2,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ],
-              )
             ],
           ),
         ),
       ),
     );
   }
+}
 
-  Widget buildTextField(
-      String labelText, String placeholder, bool isPasswordTextField) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 35.0),
-      child: TextField(
-        obscureText: isPasswordTextField ? showPassword : false,
-        decoration: InputDecoration(
-          suffixIcon: isPasswordTextField
-              ? IconButton(
-            onPressed: () {
-              setState(() {
-                showPassword = !showPassword;
-              });
-            },
-            icon: Icon(
-              Icons.remove_red_eye,
-              color: Colors.grey,
+class ProfileField extends StatelessWidget {
+  final String label;
+  final String value;
+
+  const ProfileField({
+    Key? key,
+    required this.label,
+    required this.value,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              '$label: ',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          )
-              : null,
-          contentPadding: EdgeInsets.only(bottom: 3),
-          labelText: labelText,
-          floatingLabelBehavior: FloatingLabelBehavior.always,
-          hintText: placeholder,
-          hintStyle: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
+            Text(
+              value,
+              style: TextStyle(
+                fontSize: 16,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: BusManagementProfilePage(),
+  ));
+}
+//-------------------------------------
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+class Profile2 extends StatefulWidget {
+  const Profile2({Key? key}) : super(key: key);
+
+  @override
+  _Profile2State createState() => _Profile2State();
+}
+
+class _Profile2State extends State<Profile2> {
+  TextEditingController nameController = TextEditingController(text: 'John Doe');
+  TextEditingController vehicleNameController =
+  TextEditingController(text: 'Bus XYZ');
+  TextEditingController vehicleTypeController =
+  TextEditingController(text: 'Semi Sleeper');
+  TextEditingController vehicleModelController =
+  TextEditingController(text: 'Model ABC');
+  TextEditingController contactInfoController =
+  TextEditingController(text: '+1 123-456-7890');
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('images/background_image.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                CircleAvatar(
+                  radius: 60,
+                  backgroundImage: AssetImage('images/user.png'),
+                ),
+                SizedBox(height: 20),
+                Text(
+                  'Bus Management Author',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'Bus Management Company',
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 16,
+                  ),
+                ),
+                SizedBox(height: 1),
+                EditableProfileField(
+                  label: 'Name',
+                  controller: nameController,
+                ),
+                EditableProfileField(
+                  label: 'Vehicle Name',
+                  controller: vehicleNameController,
+                ),
+                EditableProfileField(
+                  label: 'Vehicle Type',
+                  controller: vehicleTypeController,
+                ),
+                EditableProfileField(
+                  label: 'Vehicle Model',
+                  controller: vehicleModelController,
+                ),
+                EditableProfileField(
+                  label: 'Contact Info',
+                  controller: contactInfoController,
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    // Update the user's profile with the edited values
+                    // You can print or use the updated values as needed
+                    print('Name: ${nameController.text}');
+                    print('Vehicle Name: ${vehicleNameController.text}');
+                    print('Vehicle Type: ${vehicleTypeController.text}');
+                    print('Vehicle Model: ${vehicleModelController.text}');
+                    print('Contact Info: ${contactInfoController.text}');
+                  },
+                  child: Text('Save Changes'),
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
+}
 
-  Widget buildEditableField(String labelText, String value, IconData icon, Function(String) onChanged) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 35.0),
+class EditableProfileField extends StatelessWidget {
+  final String label;
+  final TextEditingController controller;
+
+  const EditableProfileField({
+    Key? key,
+    required this.label,
+    required this.controller,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            icon,
-            color: Colors.green,
+          Text(
+            '$label: ',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           SizedBox(
-            width: 8,
-          ),
-          Expanded(
+            width: 200,
             child: TextFormField(
-              initialValue: value,
-              onChanged: onChanged,
+              controller: controller,
+              style: TextStyle(fontSize: 16),
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(bottom: 3),
-                labelText: labelText,
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                hintText: value,
-                hintStyle: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                contentPadding: EdgeInsets.symmetric(horizontal: 10),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25),
                 ),
               ),
             ),
@@ -746,6 +1396,8 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
-
-
 }
+
+
+*/
+

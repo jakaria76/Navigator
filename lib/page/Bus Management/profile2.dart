@@ -9,11 +9,137 @@ class profile2 extends StatefulWidget {
 }
 
 class _profile2State extends State<profile2> {
+  TextEditingController nameController = TextEditingController(text: 'Mr. X');
+  TextEditingController vehicleNameController =
+  TextEditingController(text: 'volvo');
+  TextEditingController vehicleTypeController =
+  TextEditingController(text: 'AC');
+  TextEditingController vehicleModelController =
+  TextEditingController(text: 'RN');
+  TextEditingController contactInfoController =
+  TextEditingController(text: '01712345678');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Profile Page"),
+        title: Text('Profile'),
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('images/AnotherBus2.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                CircleAvatar(
+                  radius: 60,
+                  backgroundImage: AssetImage('images/user.png'),
+                ),
+                SizedBox(height: 20),
+                Text(
+                  'Bus Management Author',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'Bus Management Company',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                  ),
+                ),
+                SizedBox(height: 1),
+                EditableProfileField(
+                  label: 'Name',
+                  controller: nameController,
+                ),
+                EditableProfileField(
+                  label: 'Vehicle Name',
+                  controller: vehicleNameController,
+                ),
+                EditableProfileField(
+                  label: 'Vehicle Type',
+                  controller: vehicleTypeController,
+                ),
+                EditableProfileField(
+                  label: 'Vehicle Model',
+                  controller: vehicleModelController,
+                ),
+                EditableProfileField(
+                  label: 'Contact Info',
+                  controller: contactInfoController,
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    // Update the user's profile with the edited values
+                    // You can print or use the updated values as needed
+                    print('Name: ${nameController.text}');
+                    print('Vehicle Name: ${vehicleNameController.text}');
+                    print('Vehicle Type: ${vehicleTypeController.text}');
+                    print('Vehicle Model: ${vehicleModelController.text}');
+                    print('Contact Info: ${contactInfoController.text}');
+                  },
+                  child: Text('Save Changes'),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class EditableProfileField extends StatelessWidget {
+  final String label;
+  final TextEditingController controller;
+
+  const EditableProfileField({
+    Key? key,
+    required this.label,
+    required this.controller,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            '$label: ',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(
+            width: 200,
+            child: TextFormField(
+              controller: controller,
+              style: TextStyle(fontSize: 16),
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.symmetric(horizontal: 10),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
