@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class Feed extends StatefulWidget {
+  const Feed({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<Feed> createState() => _FeedState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _FeedState extends State<Feed> {
   int _value = 1;
   @override
   void initState() {

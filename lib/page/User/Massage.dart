@@ -1,55 +1,89 @@
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
-class messages_screen extends StatefulWidget {
-  @override
-  _MessagesScreenState createState() => _MessagesScreenState();
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
 }
 
-class _MessagesScreenState extends State<messages_screen> {
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Firebase Chat',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: ChatPage(),
+    );
+  }
+}
+
+class ChatPage extends StatefulWidget {
+  @override
+  _ChatPageState createState() => _ChatPageState();
+}
+
+class _ChatPageState extends State<ChatPage> {
   final TextEditingController _messageController = TextEditingController();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  CollectionReference _messages = FirebaseFirestore.instance.collection('messages');
+  final String _collectionName = 'messages';
+  final String _userId = 'user123'; // Replace with actual user ID
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text('Messages')),
+        title: Text('Flutter Firebase Chat'),
       ),
       body: Column(
         children: [
           Expanded(
             child: StreamBuilder(
-              stream: _messages.orderBy('timestamp').snapshots(),
+              stream: _firestore
+                  .collection(_collectionName)
+                  .orderBy('timestamp')
+                  .snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (!snapshot.hasData) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
                     child: CircularProgressIndicator(),
                   );
                 }
 
-                return ListView(
-                  children: snapshot.data!.docs.map((DocumentSnapshot document) {
-                    Map<String, dynamic>? data = document.data() as Map<String, dynamic>?;
-                    if (data == null) {
-                      return ListTile(
-                        title: Text('Error: Invalid Data'),
-                        subtitle: Text('Error'),
+                if (snapshot.hasError) {
+                  return Center(
+                    child: Text('Error: ${snapshot.error}'),
+                  );
+                }
+
+                List<DocumentSnapshot> messages = snapshot.data?.docs ?? [];
+
+                return ListView.builder(
+                  itemCount: messages.length,
+                  itemBuilder: (context, index) {
+                    var message =
+                    messages[index].data() as Map<String, dynamic>;
+                    var isSentByUser = message['userId'] == _userId;
+
+                    if (message.containsKey('imageUrl')) {
+                      return ImageMessage(
+                        imageUrl: message['imageUrl'],
+                        isSentByUser: isSentByUser,
+                      );
+                    } else {
+                      return ChatBubble(
+                        message: message['text'],
+                        isSentByUser: isSentByUser,
                       );
                     }
-
-                    String message = data['message'] ?? 'No message';
-                    String sender = data['sender'] ?? 'Unknown sender';
-
-                    return ListTile(
-                      //icon add kore dite hobe
-                      title: Text(message),
-                      subtitle: Text(sender),
-                    );
-                  }).toList(),
-
+                  },
                 );
               },
             ),
@@ -67,9 +101,19 @@ class _MessagesScreenState extends State<messages_screen> {
                   ),
                 ),
                 IconButton(
+                  icon: Icon(Icons.attach_file),
+                  onPressed: () async {
+                    var image = await _pickImage();
+                    if (image != null) {
+                      _sendMessageWithImage(image);
+                    }
+                  },
+                ),
+                IconButton(
                   icon: Icon(Icons.send),
                   onPressed: () {
-                    _sendMessage();
+                    _sendMessage(_messageController.text);
+                    _messageController.clear();
                   },
                 ),
               ],
@@ -80,15 +124,107 @@ class _MessagesScreenState extends State<messages_screen> {
     );
   }
 
-  void _sendMessage() {
-    String message = _messageController.text.trim();
-    if (message.isNotEmpty) {
-      _messages.add({
-        'message': message,
-        'sender': 'User', // You can replace this with the actual sender's name or ID
+  Future<XFile?> _pickImage() async {
+    final ImagePicker _picker = ImagePicker();
+    try {
+      return await _picker.pickImage(source: ImageSource.gallery);
+    } catch (e) {
+      print('Error picking image: $e');
+      return null;
+    }
+  }
+
+  void _sendMessage(String text) {
+    if (text.isNotEmpty) {
+      _firestore.collection(_collectionName).add({
+        'text': text,
+        'userId': _userId,
         'timestamp': FieldValue.serverTimestamp(),
       });
-      _messageController.clear();
     }
+  }
+
+  void _sendMessageWithImage(XFile image) async {
+    if (image != null) {
+      var imageUrl = await _uploadImageToFirebase(image);
+      if (imageUrl != null) {
+        _firestore.collection(_collectionName).add({
+          'imageUrl': imageUrl,
+          'userId': _userId,
+          'timestamp': FieldValue.serverTimestamp(),
+        });
+      }
+    }
+  }
+
+  Future<String?> _uploadImageToFirebase(XFile image) async {
+    try {
+      var snapshot = await _firestore.collection(_collectionName).add({
+        'userId': _userId,
+        'timestamp': FieldValue.serverTimestamp(),
+      });
+
+      var ref = FirebaseStorage.instance
+          .ref()
+          .child('images/${snapshot.id}')
+          .putFile(File(image.path));
+
+      var downloadUrl = await ref.then((taskSnapshot) => taskSnapshot.ref.getDownloadURL());
+
+      return downloadUrl;
+    } catch (e) {
+      print('Error uploading image: $e');
+      return null;
+    }
+  }
+}
+
+class ChatBubble extends StatelessWidget {
+  final String message;
+  final bool isSentByUser;
+
+  ChatBubble({required this.message, required this.isSentByUser});
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment:
+      isSentByUser ? Alignment.centerRight : Alignment.centerLeft,
+      child: Container(
+        margin: EdgeInsets.all(8),
+        padding: EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: isSentByUser ? Colors.blue : Colors.grey,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Text(
+          message,
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+    );
+  }
+}
+
+class ImageMessage extends StatelessWidget {
+  final String imageUrl;
+  final bool isSentByUser;
+
+  ImageMessage({required this.imageUrl, required this.isSentByUser});
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: isSentByUser ? Alignment.centerRight : Alignment.centerLeft,
+      child: Container(
+        margin: EdgeInsets.all(8),
+        child: Image.network(
+          imageUrl,
+          width: 200,
+          height: 200,
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
   }
 }
