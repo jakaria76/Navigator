@@ -26,21 +26,51 @@ class _SearchResultState extends State<SearchResult> {
       appBar: AppBar(
         title: Text('Search Results'),
       ),
-      body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('bus_info').snapshots(),
-        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (!snapshot.hasData) {
-            return CircularProgressIndicator();
-          }
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage(
+                'https://c1.wallpaperflare.com/preview/864/516/895/blur-buildings-bus-evening.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: StreamBuilder(
+          stream: FirebaseFirestore.instance.collection('bus_info').snapshots(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (!snapshot.hasData) {
+              return CircularProgressIndicator();
+            }
 
-          List<Widget> searchResults = [];
+            List<Widget> searchResults = [];
 
-          snapshot.data!.docs.forEach((doc) {
-            var busName = doc['bus_name'];
-            var location1 = doc['location1'];
-            var location2 = doc['location2'];
-            var date = doc['date'];
-            var price = doc['price'];
+            snapshot.data!.docs.forEach((doc) {
+              var busName = doc['bus_name'];
+              var location1 = doc['location1'];
+              var location2 = doc['location2'];
+              var date = doc['date'];
+              var price = doc['price'];
+
+              if (location1 == searchLocation1 &&
+                  location2 == searchLocation2 &&
+                  date == searchDate) {
+                searchResults.add(
+                  Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => seatbooking()));
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          image: DecorationImage(
+                            image: NetworkImage(
+                                'https://wallpaperfx.com/uploads/wallpapers/2015/04/26/16393/preview_city-rain.jpg'),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+
 
             if (location1 == widget.searchLocation1 &&
                 location2 == widget.searchLocation2 &&
@@ -82,14 +112,17 @@ class _SearchResultState extends State<SearchResult> {
                             Text('Date: $date'),
                             Text('Price: $price')
                           ],
+
                         ),
-                      ),
+                      )
+
+
                     ),
                   ),
-                ),
-              );
-            }
-          });
+                );
+              }
+            });
+
 
           return isLoading
               ? Center(
@@ -99,6 +132,7 @@ class _SearchResultState extends State<SearchResult> {
             children: searchResults,
           );
         },
+
       ),
     );
   }
