@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:navigator/page/User/HomePage.dart';
+import 'package:navigator/page/User/Services/notifi_service.dart';
 
 class UserProfileScreen extends StatefulWidget {
   @override
@@ -156,7 +157,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+                  NotificationService().showNotification(title: 'Sample title', body: 'It works!');
+
                 },
                 style: ElevatedButton.styleFrom(
                   primary: Colors.blue,

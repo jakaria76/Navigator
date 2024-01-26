@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart'; // Import the cloud_firestore package
+import 'package:navigator/page/User/pyement/number.dart';
 
 import 'Ticket Details.dart';
 
@@ -87,7 +88,7 @@ class _passenger_detailsState extends State<passenger_details> {
                     'phone': phoneController.text,
                   });
 
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => TicketDetails()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) =>  number()));
 
                   setState(() {
                     nameController.clear();

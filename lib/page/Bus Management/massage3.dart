@@ -1,246 +1,153 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:image_picker/image_picker.dart';
-import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:navigator/page/Bus%20Management/ChatRoom2.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
+class HomeScreen6 extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Firebase Chat',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: ChatPage2(),
-    );
-  }
+  _HomeScreen6State createState() => _HomeScreen6State();
 }
 
-class ChatPage2 extends StatefulWidget {
-  @override
-  _ChatPage2State createState() => _ChatPage2State();
-}
-
-class _ChatPage2State extends State<ChatPage2> {
-  final TextEditingController _messageController = TextEditingController();
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+class _HomeScreen6State extends State<HomeScreen6> with WidgetsBindingObserver {
+  Map<String, dynamic>? userMap;
+  bool isLoading = false;
+  final TextEditingController _search = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  late User _user;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
   void initState() {
     super.initState();
-    _user = _auth.currentUser!;
+    WidgetsBinding.instance!.addObserver(this);
+    setStatus("Online");
+  }
+
+  void setStatus(String status) async {
+    await _firestore.collection('users').doc(_auth.currentUser!.uid).update({
+      "status": status,
+    });
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      // online
+      setStatus("Online");
+    } else {
+      // offline
+      setStatus("Offline");
+    }
+  }
+
+  String chatRoomId(String user1, String user2) {
+    if (user1[0].toLowerCase().codeUnits[0] >
+        user2.toLowerCase().codeUnits[0]) {
+      return "$user1$user2";
+    } else {
+      return "$user2$user1";
+    }
+  }
+
+  void onSearch() async {
+    FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+    setState(() {
+      isLoading = true;
+    });
+
+    await _firestore
+        .collection('users')
+        .where("username", isEqualTo: _search.text)
+        .get()
+        .then((value) {
+      setState(() {
+        userMap = value.docs.isNotEmpty ? value.docs[0].data() : null;
+        isLoading = false;
+      });
+      print(userMap);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter Firebase Chat'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.logout),
-            onPressed: () async {
-              await _auth.signOut();
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
+        title: Text("Home Screen"),
       ),
-      body: Column(
+      body: isLoading
+          ? Center(
+        child: Container(
+          height: size.height / 20,
+          width: size.height / 20,
+          child: CircularProgressIndicator(),
+        ),
+      )
+          : Column(
         children: [
-          Expanded(
-            child: StreamBuilder(
-              stream: _firestore
-                  .collection('messages')
-                  .orderBy('timestamp')
-                  .snapshots(),
-              builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-
-                if (snapshot.hasError) {
-                  return Center(
-                    child: Text('Error: ${snapshot.error}'),
-                  );
-                }
-
-                List<DocumentSnapshot> messages = snapshot.data?.docs ?? [];
-
-                return ListView.builder(
-                  itemCount: messages.length,
-                  itemBuilder: (context, index) {
-                    var message =
-                    messages[index].data() as Map<String, dynamic>;
-                    var isSentByUser = message['userId'] == _user.uid;
-
-                    if (message.containsKey('imageUrl')) {
-                      return ImageMessage(
-                        imageUrl: message['imageUrl'],
-                        isSentByUser: isSentByUser,
-                      );
-                    } else {
-                      return ChatBubble(
-                        message: message['text'],
-                        isSentByUser: isSentByUser,
-                      );
-                    }
-                  },
-                );
-              },
-            ),
+          SizedBox(
+            height: size.height / 20,
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _messageController,
-                    decoration: InputDecoration(
-                      hintText: 'Type your message...',
-                    ),
+          Container(
+            height: size.height / 14,
+            width: size.width,
+            alignment: Alignment.center,
+            child: Container(
+              height: size.height / 14,
+              width: size.width / 1.15,
+              child: TextField(
+                controller: _search,
+                decoration: InputDecoration(
+                  hintText: "Search",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                IconButton(
-                  icon: Icon(Icons.attach_file),
-                  onPressed: () async {
-                    var image = await _pickImage();
-                    if (image != null) {
-                      _sendMessageWithImage(image);
-                    }
-                  },
-                ),
-                IconButton(
-                  icon: Icon(Icons.send),
-                  onPressed: () {
-                    _sendMessage(_messageController.text);
-                    _messageController.clear();
-                  },
-                ),
-              ],
+              ),
             ),
           ),
+          SizedBox(
+            height: size.height / 50,
+          ),
+          ElevatedButton(
+            onPressed: onSearch,
+            child: Text("Search"),
+          ),
+          SizedBox(
+            height: size.height / 30,
+          ),
+          if (userMap != null)
+            ListTile(
+              onTap: () {
+                String roomId = chatRoomId(
+                    _auth.currentUser!.displayName!,
+                    userMap!['username'] ?? "");
+
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => ChatRoom(
+                      chatRoomId: roomId,
+                      userMap: userMap!,
+                    ),
+                  ),
+                );
+              },
+              leading: Icon(Icons.account_box, color: Colors.black),
+              title: Text(
+                userMap!['username'] ?? "",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 17,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              subtitle: Text(userMap!['email'] ?? ""),
+              trailing: Icon(Icons.chat, color: Colors.black),
+            )
+          else
+            Container(),
         ],
-      ),
-    );
-  }
-
-  Future<XFile?> _pickImage() async {
-    final ImagePicker _picker = ImagePicker();
-    try {
-      return await _picker.pickImage(source: ImageSource.gallery);
-    } catch (e) {
-      print('Error picking image: $e');
-      return null;
-    }
-  }
-
-  void _sendMessage(String text) {
-    if (text.isNotEmpty) {
-      _firestore.collection('messages').add({
-        'text': text,
-        'userId': _user.uid,
-        'timestamp': FieldValue.serverTimestamp(),
-      });
-    }
-  }
-
-  void _sendMessageWithImage(XFile image) async {
-    if (image != null) {
-      var imageUrl = await _uploadImageToFirebase(image);
-      if (imageUrl != null) {
-        _firestore.collection('messages').add({
-          'imageUrl': imageUrl,
-          'userId': _user.uid,
-          'timestamp': FieldValue.serverTimestamp(),
-        });
-      }
-    }
-  }
-
-  Future<String?> _uploadImageToFirebase(XFile image) async {
-    try {
-      var snapshot = await _firestore.collection('messages').add({
-        'userId': _user.uid,
-        'timestamp': FieldValue.serverTimestamp(),
-      });
-
-      var ref = FirebaseStorage.instance
-          .ref()
-          .child('images/${snapshot.id}')
-          .putFile(File(image.path));
-
-      var downloadUrl =
-      await ref.then((taskSnapshot) => taskSnapshot.ref.getDownloadURL());
-
-      return downloadUrl;
-    } catch (e) {
-      print('Error uploading image: $e');
-      return null;
-    }
-  }
-}
-
-class ChatBubble extends StatelessWidget {
-  final String message;
-  final bool isSentByUser;
-
-  ChatBubble({required this.message, required this.isSentByUser});
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment:
-      isSentByUser ? Alignment.centerRight : Alignment.centerLeft,
-      child: Container(
-        margin: EdgeInsets.all(8),
-        padding: EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: isSentByUser ? Colors.blue : Colors.grey,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Text(
-          message,
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
-    );
-  }
-}
-
-class ImageMessage extends StatelessWidget {
-  final String imageUrl;
-  final bool isSentByUser;
-
-  ImageMessage({required this.imageUrl, required this.isSentByUser});
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: isSentByUser ? Alignment.centerRight : Alignment.centerLeft,
-      child: Container(
-        margin: EdgeInsets.all(8),
-        child: Image.network(
-          imageUrl,
-          width: 200,
-          height: 200,
-          fit: BoxFit.cover,
-        ),
       ),
     );
   }

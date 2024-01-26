@@ -58,7 +58,7 @@ class _HomeScreen5State extends State<HomeScreen5> with WidgetsBindingObserver {
 
     await _firestore
         .collection('users')
-        .where("email", isEqualTo: _search.text)
+        .where("username", isEqualTo: _search.text)
         .get()
         .then((value) {
       setState(() {
@@ -73,10 +73,17 @@ class _HomeScreen5State extends State<HomeScreen5> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Home Screen"),
-      ),
+    return Container(
+        decoration: BoxDecoration(
+        image: DecorationImage(
+        image: AssetImage('images/profile.jpg'), fit: BoxFit.cover),
+    ),
+    child: Scaffold(
+    backgroundColor: Colors.transparent,
+    appBar: AppBar(
+    backgroundColor: Colors.transparent,
+    elevation: 0,
+    ),
       body: isLoading
           ? Center(
         child: Container(
@@ -150,6 +157,7 @@ class _HomeScreen5State extends State<HomeScreen5> with WidgetsBindingObserver {
             Container(),
         ],
       ),
+    ),
     );
   }
 }

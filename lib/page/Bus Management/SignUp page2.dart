@@ -2,9 +2,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:navigator/page/Bus%20Management/HomePage2.dart';
-import 'package:navigator/page/Bus%20Management/loginPage2.dart';
+import 'package:navigator/page/User/MyLogin.dart';
 import 'package:navigator/user_auth/firebase_auth_services.dart';
+
+import 'HomePage2.dart';
+import 'loginPage2.dart';
 
 
 
@@ -75,7 +77,7 @@ class _SignUp2State extends State<SignUp2> {
                                     color: Colors.black,
                                   ),
                                 ),
-                                hintText: "UserName",
+                                hintText: "Enter Your Bus Name",
                                 hintStyle: TextStyle(color: Colors.black),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
@@ -197,16 +199,12 @@ class _SignUp2State extends State<SignUp2> {
       return;
     }
 
-    User? user = await _auth.signUpWithEmailAndPassword(username,email, password);
+    User? user = await _auth.signUpWithEmailAndPassword(username, email, password);
 
     if (user != null) {
       print("User is successfully created");
 
 
-      await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
-        'username': username,
-        'email': email,
-      });
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -225,4 +223,4 @@ class _SignUp2State extends State<SignUp2> {
 
 
 }
-//not touched anything
+//17/01/2024
