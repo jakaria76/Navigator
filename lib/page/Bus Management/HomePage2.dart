@@ -4,8 +4,10 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:navigator/page/Bus%20Management/profile2.dart';
 import 'package:navigator/page/bus%20and%20user%20select%20page.dart';
 
-import 'massage2.dart';
+//import 'massage2.dart';
+import '../User/pyement.dart';
 import 'massage3.dart';
+import 'offer2.dart';
 
 
 
@@ -176,6 +178,7 @@ class _HomePage2State extends State<HomePage2> {
           BottomNavigationBarItem(icon: Icon(Icons.add),label:"add"),
           BottomNavigationBarItem(icon: Icon(Icons.feed),label:"feed"),
           BottomNavigationBarItem(icon: Icon(Icons.person),label:"profile"),
+          BottomNavigationBarItem(icon: Icon(Icons.image),label:"offer"),
 
         ],
         onTap: (int index){
@@ -191,6 +194,11 @@ class _HomePage2State extends State<HomePage2> {
           {
             Navigator.push(context, MaterialPageRoute(builder: (context)=>profile2()));
           }
+          if(index==3)
+          {
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>Offer2()));
+          }
+
         },
       ),
       drawer: Drawer(

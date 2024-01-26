@@ -9,7 +9,7 @@ import 'package:navigator/page/User/Search Result.dart';
 import 'package:navigator/page/User/pyement.dart';
 import 'package:navigator/page/User/setting%20page.dart';
 import 'package:navigator/page/User/vloging.dart';
-import '../Bus Management/massage2.dart';
+//import '../Bus Management/massage2.dart';
 import '../bus and user select page.dart';
 import 'Bus Alart.dart';
 import 'HomeScreen.dart';
