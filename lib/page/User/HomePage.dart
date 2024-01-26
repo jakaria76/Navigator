@@ -2,13 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:navigator/page/User/Massage.dart';
+import 'package:navigator/page/User/feed.dart';
 
 import 'package:navigator/page/User/profile%20page.dart';
 import 'package:navigator/page/User/Search Result.dart';
+import 'package:navigator/page/User/pyement.dart';
 import 'package:navigator/page/User/setting%20page.dart';
+import 'package:navigator/page/User/vloging.dart';
 import '../Bus Management/massage2.dart';
 import '../bus and user select page.dart';
 import 'Bus Alart.dart';
+import 'HomeScreen.dart';
 import 'Map page.dart';
 import 'Notification.dart';
 import 'Offer page.dart';
@@ -82,10 +86,10 @@ class _HomePageState extends State<HomePage> {
               Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
             }
             if (index == 1) {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => Feed()));
             }
             if (index == 2) {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => UserProfileScreen()));
             }
           },
         ),
@@ -129,7 +133,7 @@ class _HomePageState extends State<HomePage> {
                 leading: Icon(Icons.notifications),
                 title: Text("Bus Alert"),
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => busalart()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => BkashPaymentApp()));
                 },
               ),
               ListTile(
@@ -152,8 +156,8 @@ class _HomePageState extends State<HomePage> {
         body: TabBarView(
           children: [
             HomeContent(),
-            busalart(),
-            ChatPage(),
+            BkashPaymentApp(),
+            HomeScreen5(),
             OfferPage(),
             SettingsPage(),
             map(),

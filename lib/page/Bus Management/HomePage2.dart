@@ -211,7 +211,7 @@ class _HomePage2State extends State<HomePage2> {
                 leading: Icon(Icons.chat),
                 title: Text("chat"),
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatPage2()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen6()));
                 },
               ),
               ListTile(
