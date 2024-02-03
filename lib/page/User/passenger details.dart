@@ -1,107 +1,76 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart'; // Import the cloud_firestore package
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'Ticket Details.dart';
+import 'TicketDetails.dart';
 
-class passenger_details extends StatefulWidget {
+class PassengerDetails extends StatefulWidget {
   @override
-  _passenger_detailsState createState() => _passenger_detailsState();
+  _PassengerDetailsState createState() => _PassengerDetailsState();
 }
 
-class _passenger_detailsState extends State<passenger_details> {
+class _PassengerDetailsState extends State<PassengerDetails> {
   TextEditingController nameController = TextEditingController();
   TextEditingController genderController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
 
-  // Initialize Firebase
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Center(child: Text('Passenger Details')),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TextField(
-                        controller: nameController,
-                        decoration: InputDecoration(labelText: 'Enter Full Name'),
-                      ),
-                      SizedBox(height: 8),
-                      TextField(
-                        controller: genderController,
-                        decoration: InputDecoration(labelText: 'Gender'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(height: 16),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TextField(
-                        controller: emailController,
-                        decoration: InputDecoration(
-                          icon: Icon(Icons.email, size: 30,),
-                          labelText: 'Email Id', labelStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      TextField(
-                        controller: phoneController,
-                        decoration: InputDecoration(
-                            icon: Icon(
-                              Icons.phone, size: 30,
-                            ),
-                            labelText: 'Phone'
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () async {
-                  // Store data in Firebase
-                  await firestore.collection('PassengerDetails').add({
-                    'name': nameController.text,
-                    'gender': genderController.text,
-                    'email': emailController.text,
-                    'phone': phoneController.text,
-                  });
-
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => TicketDetails()));
-
-                  setState(() {
-                    nameController.clear();
-                    genderController.clear();
-                    emailController.clear();
-                    phoneController.clear();
-                  });
-                },
-                child: Text('Continue Booking'),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+        appBar: AppBar(
+        title: Text('Passenger Details'),
+    centerTitle: true,
+    backgroundColor: Colors.teal,
+    ),
+    body: SingleChildScrollView(
+    child: Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: Column(
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: [
+    Card(
+    elevation: 8.0,
+    shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(15.0),
+    ),
+    child: Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+    TextField(
+    controller: nameController,
+    decoration: InputDecoration(
+    labelText: 'Enter Full Name',
+    prefixIcon: Icon(Icons.person),
+    ),
+    ),
+    SizedBox(height: 16),
+    TextField(
+    controller: genderController,
+    decoration: InputDecoration(
+    labelText: 'Gender',
+    prefixIcon: Icon(Icons.face),
+    ),
+    ),
+    ],
+    ),
+    ),
+    ),
+    SizedBox(height: 16),
+    Card(
+    elevation: 8.0,
+    shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(15.0),
+    ),
+    child: Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+    TextField(
+    controller: emailController,
+    decoration: InputDecoration(
+    labelText: '
