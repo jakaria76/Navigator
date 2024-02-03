@@ -1,24 +1,27 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:navigator/page/User/Massage.dart';
+
 import 'package:navigator/page/User/feed.dart';
 
 import 'package:navigator/page/User/profile%20page.dart';
 import 'package:navigator/page/User/Search Result.dart';
 import 'package:navigator/page/User/pyement.dart';
 import 'package:navigator/page/User/setting%20page.dart';
-import 'package:navigator/page/User/vloging.dart';
-//import '../Bus Management/massage2.dart';
+
 import '../bus and user select page.dart';
+
 import 'Bus Alart.dart';
+import 'History.dart';
 import 'HomeScreen.dart';
 import 'Map page.dart';
-import 'Notification.dart';
+
 import 'Offer page.dart';
 import 'call support.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:animate_do/animate_do.dart';
+import 'package:carousel_slider/carousel_options.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -48,7 +51,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 6,
+      length: 7,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.blueGrey[700],
@@ -69,6 +72,7 @@ class _HomePageState extends State<HomePage> {
               Tab(icon: Icon(Icons.home), text: "Home"),
               Tab(icon: Icon(Icons.bus_alert), text: "Bus alert"),
               Tab(icon: Icon(Icons.message), text: "Message "),
+              Tab(icon: Icon(Icons.history), text: "hsitory"),
               Tab(icon: Icon(Icons.discount), text: "Offers"),
               Tab(icon: Icon(Icons.settings), text: "Settings"),
               Tab(icon: Icon(Icons.location_on), text: "Map"),
@@ -76,10 +80,14 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Colors.orange,
           items: [
+
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
             BottomNavigationBarItem(icon: Icon(Icons.feed), label: "Feed"),
             BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+
+
           ],
           onTap: (int index) {
             if (index == 0) {
@@ -91,6 +99,7 @@ class _HomePageState extends State<HomePage> {
             if (index == 2) {
               Navigator.push(context, MaterialPageRoute(builder: (context) => UserProfileScreen()));
             }
+
           },
         ),
         drawer: Drawer(
@@ -156,8 +165,9 @@ class _HomePageState extends State<HomePage> {
         body: TabBarView(
           children: [
             HomeContent(),
-            BkashPaymentApp(),
+            noti(),
             HomeScreen5(),
+            HistoryPage(),
             OfferPage(),
             SettingsPage(),
             map(),
@@ -245,6 +255,10 @@ class _HomeContentState extends State<HomeContent> {
     "Satkhira",
   ];
 
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -265,38 +279,7 @@ class _HomeContentState extends State<HomeContent> {
           scrollDirection: Axis.vertical,
           child: Stack(
             children: [
-              Positioned(
-                top: 60,
-                left: 10,
-                right: 10,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20, left: 30),
-                      child: Text(
-                        'WELCOME TO YOUR APPLICATION',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20, left: 30),
-                      child: Text(
-                        'where do you want to go',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+
               Positioned(
                 bottom: 0,
                 left: 0,
@@ -430,8 +413,7 @@ class _HomeContentState extends State<HomeContent> {
       _searchDateController.text = selectedDate.toLocal().toString();
     }
   }
+
 }
-
-
 
 
