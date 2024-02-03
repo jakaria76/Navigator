@@ -72,16 +72,17 @@ class _NotificationsState extends State<Notifications> {
           children: [
             Text('Your Notifications Page Content'),
             SizedBox(height: 20),
-            ElevatedButton(
+            ElevatedButton.icon(
+              icon: Icon(Icons.notifications_outlined),
               onPressed: () {
                 LocalNotifications.showSimpleNotification(
                     title: "Simple Notification",
                     body: "This is a simple notification",
                     payload: "This is simple data");
               },
-
-              child: Text('Show Notification'),
+              label: Text("Simple Notification"),
             ),
+
           ],
         ),
       ),
