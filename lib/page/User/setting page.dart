@@ -10,11 +10,15 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Settings",
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),),
-      ),
+    return Container(
+       color: Colors.blueGrey[700],
+    child: Scaffold(
+    backgroundColor: Colors.blueGrey[700],
+    appBar: AppBar(
+    automaticallyImplyLeading: false,
+
+    elevation: 0,
+    ),
       body: Container(
         padding: EdgeInsets.only(left: 16, bottom: 20, right: 16),
         child: ListView(
@@ -115,6 +119,7 @@ class _SettingsPageState extends State<SettingsPage> {
           ],
         ),
       ),
+    ),
     );
   }
 

@@ -27,13 +27,7 @@ class _SearchResultState extends State<SearchResult> {
         title: Text('Search Results'),
       ),
       body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: NetworkImage(
-                'https://c1.wallpaperflare.com/preview/864/516/895/blur-buildings-bus-evening.jpg'),
-            fit: BoxFit.cover,
-          ),
-        ),
+        color: Colors.blueGrey[700],
         child: StreamBuilder(
           stream: FirebaseFirestore.instance.collection('bus_info').snapshots(),
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -81,18 +75,23 @@ class _SearchResultState extends State<SearchResult> {
                         );
                       },
                       child: Card(
-                        margin: EdgeInsets.symmetric(vertical: 10),
-                        color: Colors.orange,
+                        shadowColor: Colors.black,
+
+                        margin: EdgeInsets.symmetric(vertical: 2,horizontal: 5,),
+                        color: Colors.teal,
+
                         child: Padding(
-                          padding: const EdgeInsets.all(16.0),
+
+                          padding: const EdgeInsets.all(15),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
+
                             children: [
-                              Text('Bus Name: $busName'),
-                              Text('Location 1: $location1'),
-                              Text('Location 2: $location2'),
-                              Text('Date: $date'),
-                              Text('Price: $price')
+                              Text('Bus Name: $busName',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25)),
+                              Text('Location 1: $location1',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15)),
+                              Text('Location 2: $location2',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15)),
+                              Text('Date: $date',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15)),
+                              Text('Price: $price',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15))
                             ],
                           ),
                         ),

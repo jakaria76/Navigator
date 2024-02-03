@@ -8,6 +8,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:navigator/page/User/HomePage.dart';
 import 'package:navigator/page/User/Services/notifi_service.dart';
 
+import 'feed.dart';
+
 class UserProfileScreen extends StatefulWidget {
   @override
   _UserProfileScreenState createState() => _UserProfileScreenState();
@@ -89,84 +91,137 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         automaticallyImplyLeading: false,
         title: Center(child: Text('User Profile')),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              GestureDetector(
-                onTap: _uploadImage,
-                child: _profileImageUrl != null
-                    ? CircleAvatar(
-                  radius: 60,
-                  backgroundImage: NetworkImage(_profileImageUrl!),
-                )
-                    : CircleAvatar(
-                  radius: 50,
-                  backgroundColor: Colors.blue,
-                  child: Icon(
-                    Icons.camera_alt,
-                    color: Colors.white,
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.blueGrey[700],
+        items: [
+
+          BottomNavigationBarItem(icon: Icon(Icons.home,color: Colors.blue,size: 40,), label: "Home",),
+          BottomNavigationBarItem(icon: Icon(Icons.feed,color: Colors.blue,size: 40,), label: "Feed"),
+          BottomNavigationBarItem(icon: Icon(Icons.person,color: Colors.blue,size: 40,), label: "Profile"),
+
+
+        ],
+        onTap: (int index) {
+          if (index == 0) {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+          }
+          if (index == 1) {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => Feed()));
+          }
+          if (index == 2) {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => UserProfileScreen()));
+          }
+        },
+      ),
+      body: Container(
+        color: Colors.blueGrey[700],
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: _uploadImage,
+                  child: _profileImageUrl != null
+                      ? CircleAvatar(
+                    radius: 60,
+                    backgroundImage: NetworkImage(_profileImageUrl!),
+                  )
+                      : CircleAvatar(
+                    radius: 50,
+                    backgroundColor: Colors.blue,
+                    child: Icon(
+                      Icons.camera_alt,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 20),
-              Text(
-                _usernameController.text,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 25,
-                  color: Colors.blue,
+                SizedBox(height: 20),
+                Text(
+                  _usernameController.text,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                    color: Colors.blue,
+                  ),
                 ),
-              ),
-              SizedBox(height: 20),
-              TextField(
-                controller: _usernameController,
-                decoration: InputDecoration(
-                  labelText: 'Username',
-                  contentPadding: EdgeInsets.all(10),
-                  border: OutlineInputBorder(),
+                SizedBox(height: 20),
+                TextField(
+                  controller: _usernameController,
+                  decoration: InputDecoration(
+                    labelText: 'Username',
+                    contentPadding: EdgeInsets.all(10),
+                    border: OutlineInputBorder(),
+                  ),
                 ),
-              ),
-              SizedBox(height: 10),
-              TextField(
-                controller: _emailController,
-                decoration: InputDecoration(
-                  labelText: 'Email',
-                  contentPadding: EdgeInsets.all(10),
-                  border: OutlineInputBorder(),
+                SizedBox(height: 10),
+                TextField(
+                  controller: _emailController,
+                  decoration: InputDecoration(
+                    labelText: 'Email',
+                    contentPadding: EdgeInsets.all(10),
+                    border: OutlineInputBorder(),
+                  ),
                 ),
-              ),
-              SizedBox(height: 10),
-              TextField(
-                controller: _addressController,
-                decoration: InputDecoration(
-                  labelText: 'Address',
-                  contentPadding: EdgeInsets.all(10),
-                  border: OutlineInputBorder(),
+                SizedBox(height: 10),
+                TextField(
+                  controller: _addressController,
+                  decoration: InputDecoration(
+                    labelText: 'Address',
+                    contentPadding: EdgeInsets.all(10),
+                    border: OutlineInputBorder(),
+                  ),
                 ),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _updateUserProfile,
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.blue,
-                ),
-                child: Text('Update Profile'),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
+                SizedBox(height: 20),
 
-                },
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.blue,
+                TextField(
+                  controller: _addressController,
+                  decoration: InputDecoration(
+                    labelText: 'Address',
+                    contentPadding: EdgeInsets.all(10),
+                    border: OutlineInputBorder(),
+                  ),
                 ),
-                child: Text('Back to Home page'),
-              ),
-            ],
+                SizedBox(height: 10),
+                TextField(
+                  controller: _addressController,
+                  decoration: InputDecoration(
+                    labelText: 'Address',
+                    contentPadding: EdgeInsets.all(10),
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                SizedBox(height: 10),
+                TextField(
+                  controller: _addressController,
+                  decoration: InputDecoration(
+                    labelText: 'Address',
+                    contentPadding: EdgeInsets.all(10),
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                SizedBox(height: 10),
+                ElevatedButton(
+                  onPressed: _updateUserProfile,
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.blue,
+                  ),
+                  child: Text('Update Profile'),
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
+
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.blue,
+                  ),
+                  child: Text('Back to Home page'),
+                ),
+              ],
+            ),
           ),
         ),
       ),

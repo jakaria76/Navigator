@@ -36,7 +36,8 @@ class _CarouselSliderDemoState extends State<CarouselSliderDemo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Carousel Slider Demo'),
+        automaticallyImplyLeading: false,
+        title: Center(child: Text('Carousel Slider Demo')),
       ),
       body: Column(
         children: <Widget>[

@@ -24,7 +24,8 @@ class noti extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Notification Demo'),
+        automaticallyImplyLeading: false,
+        title: Center(child: Text('Notification Demo')),
       ),
       body: Center(
         child: ElevatedButton(

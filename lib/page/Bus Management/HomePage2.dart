@@ -6,6 +6,7 @@ import 'package:navigator/page/bus%20and%20user%20select%20page.dart';
 
 
 import '../User/pyement.dart';
+import 'Feed2.dart';
 import 'massage3.dart';
 import 'offer2.dart';
 
@@ -169,36 +170,40 @@ class _HomePage2State extends State<HomePage2> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Center(child: Text('Bus Information')),
-      ),
+    return Container(
+     color: Colors.blueGrey[700],
+    child: Scaffold(
+    backgroundColor: Colors.transparent,
+    appBar: AppBar(
+    automaticallyImplyLeading: false,
+    title: Center(child: Text('Bus Management')),
+    backgroundColor: Colors.blueAccent,
+    elevation: 0,
+    ),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.blueGrey[800],
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.add),label:"add"),
-          BottomNavigationBarItem(icon: Icon(Icons.feed),label:"feed"),
-          BottomNavigationBarItem(icon: Icon(Icons.person),label:"profile"),
-          BottomNavigationBarItem(icon: Icon(Icons.image),label:"offer"),
+
+          BottomNavigationBarItem(icon: Icon(Icons.feed,color: Colors.blue,size: 40,),label:"feed"),
+          BottomNavigationBarItem(icon: Icon(Icons.add,color: Colors.blue,size: 40,),label:"add"),
+          BottomNavigationBarItem(icon: Icon(Icons.person,color: Colors.blue,size: 40,),label:"profile"),
+
 
         ],
         onTap: (int index){
+
           if(index==0)
           {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage2()));
+             Navigator.push(context, MaterialPageRoute(builder: (context)=>Feed2()));
           }
           if(index==1)
           {
-             Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage2()));
           }
           if(index==2)
           {
             Navigator.push(context, MaterialPageRoute(builder: (context)=>profile2()));
           }
-          if(index==3)
-          {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>Offer2()));
-          }
-
         },
       ),
       drawer: Drawer(
@@ -234,109 +239,114 @@ class _HomePage2State extends State<HomePage2> {
           )
       ),
 
-      body: Padding(
-        padding: const EdgeInsets.all(5),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextFormField(
-              controller: _busNameController,
-              decoration: InputDecoration(
-                icon: Icon(Icons.bus_alert_rounded),
-                labelText: 'Bus Name',
-              ),
-            ),
-            TypeAheadField(
-              textFieldConfiguration: TextFieldConfiguration(
-                controller: _location1Controller,
-
+      body: Container(
+        color: Colors.blueGrey[700],
+        child: Padding(
+          padding: const EdgeInsets.all(5),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextFormField(
+                controller: _busNameController,
                 decoration: InputDecoration(
-                    icon: Icon(Icons.location_on),
-                    labelText: 'From'
+                  icon: Icon(Icons.bus_alert_rounded,color: Colors.blue,size: 40,),
+                  labelText: 'Bus Name',labelStyle: TextStyle(color: Colors.white),
                 ),
               ),
-              suggestionsCallback: (pattern) async {
-                return suggestions
-                    .where((item) => item.toLowerCase().contains(pattern.toLowerCase()))
-                    .toList();
-              },
-              itemBuilder: (context, suggestion) {
-                return ListTile(
-                  title: Text(suggestion),
-                );
-              },
-              onSuggestionSelected: (suggestion) {
-                _location1Controller.text = suggestion;
-              },
-            ),
-            TypeAheadField(
-              textFieldConfiguration: TextFieldConfiguration(
-                controller: _location2Controller,
+              TypeAheadField(
+                textFieldConfiguration: TextFieldConfiguration(
+                  controller: _location1Controller,
 
+                  decoration: InputDecoration(
+                      icon: Icon(Icons.location_on,color: Colors.blue,size: 40,),
+                      labelText: 'From',labelStyle: TextStyle(color: Colors.white),
+                  ),
+                ),
+                suggestionsCallback: (pattern) async {
+                  return suggestions
+                      .where((item) => item.toLowerCase().contains(pattern.toLowerCase()))
+                      .toList();
+                },
+                itemBuilder: (context, suggestion) {
+                  return ListTile(
+                    title: Text(suggestion),
+                  );
+                },
+                onSuggestionSelected: (suggestion) {
+                  _location1Controller.text = suggestion;
+                },
+              ),
+              TypeAheadField(
+                textFieldConfiguration: TextFieldConfiguration(
+                  controller: _location2Controller,
+
+                  decoration: InputDecoration(
+                      icon: Icon(Icons.location_city,color: Colors.blue,size: 40,),
+                      labelText: 'To',labelStyle: TextStyle(color: Colors.white),
+                  ),
+                ),
+                suggestionsCallback: (pattern) async {
+                  return suggestions
+                      .where((item) => item.toLowerCase().contains(pattern.toLowerCase()))
+                      .toList();
+                },
+                itemBuilder: (context, suggestion) {
+                  return ListTile(
+                    title: Text(suggestion),
+                  );
+                },
+                onSuggestionSelected: (suggestion) {
+                  _location2Controller.text = suggestion;
+                },
+              ),
+              TextFormField(
+                controller: _priceController,
                 decoration: InputDecoration(
-                    icon: Icon(Icons.location_city),
-                    labelText: 'To'
+                  icon: Icon(Icons.monetization_on_sharp,color: Colors.blue,size: 40,),
+                  labelText: 'Price',labelStyle: TextStyle(color: Colors.white),
                 ),
               ),
-              suggestionsCallback: (pattern) async {
-                return suggestions
-                    .where((item) => item.toLowerCase().contains(pattern.toLowerCase()))
-                    .toList();
-              },
-              itemBuilder: (context, suggestion) {
-                return ListTile(
-                  title: Text(suggestion),
-                );
-              },
-              onSuggestionSelected: (suggestion) {
-                _location2Controller.text = suggestion;
-              },
-            ),
-            TextFormField(
-              controller: _priceController,
-              decoration: InputDecoration(
-                icon: Icon(Icons.monetization_on_sharp),
-                labelText: 'Price',
-              ),
-            ),
-            TextFormField(
-              controller: _dateController,
-              readOnly: true,
+              TextFormField(
+                controller: _dateController,
+                readOnly: true,
 
-              onTap: () => _selectDate(context),
-              decoration: InputDecoration(
-                icon: Icon(Icons.calendar_month),
-                labelText: 'Select Date',
-              ),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Create a card with entered data and add it to the list
-                Widget card = _createBusCard(
-                  _busNameController.text,
-                  _location1Controller.text,
-                  _location2Controller.text,
-                  _priceController.text,
-                  _dateController.text,
-                );
-                setState(() {
-                  busCards.add(card);
-                });
-              },
-              child: Text('Add Bus Information'),
-            ),
-            SizedBox(height: 20),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: busCards,
+                onTap: () => _selectDate(context),
+                decoration: InputDecoration(
+                  icon: Icon(Icons.calendar_month,color: Colors.blue,size: 40,),
+                  labelText: 'Select Date',
+                  labelStyle: TextStyle(color: Colors.white),
                 ),
               ),
-            ),
-          ],
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  // Create a card with entered data and add it to the list
+                  Widget card = _createBusCard(
+                    _busNameController.text,
+                    _location1Controller.text,
+                    _location2Controller.text,
+                    _priceController.text,
+                    _dateController.text,
+                  );
+                  setState(() {
+                    busCards.add(card);
+                  });
+                },
+                child: Center(child: Text('Add Bus Information')),
+              ),
+              SizedBox(height: 20),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: busCards,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
+    ),
     );
   }
 }

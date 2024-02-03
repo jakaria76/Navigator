@@ -126,6 +126,13 @@ flutter:
     - images/verifyB.png
     - images/numberB.png
     - images/feed.jpeg
+    - images/ena1.jpeg
+    - images/ena2.jpeg
+    - images/green1.jpeg
+    - images/hanif1.jpeg
+    - images/hanif2.jpeg
+    - images/samoli1.jpg
+    - images/selfi1.jpeg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

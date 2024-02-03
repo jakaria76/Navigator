@@ -2,6 +2,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:navigator/page/User/passenger%20details.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 class seatbooking extends StatefulWidget {
   @override
@@ -10,16 +12,30 @@ class seatbooking extends StatefulWidget {
 
 class _seatbookingState extends State<seatbooking> {
   late List<String> selectedSeats;
-  late int totalPrice;
+  int totalPrice = 0;
 
   @override
   void initState() {
     super.initState();
+    // Initialize Firebase (if not done in main())
+    // await Firebase.initializeApp();
+
     selectedSeats = [];
     totalPrice = 0;
   }
 
-  void updateTotalPrice() {
+  // Fetch seat price from Firebase
+  Future<int> getSeatPrice() async {
+    // Replace 'yourCollection' and 'yourDocument' with your Firebase collection and document names
+    DocumentSnapshot document = await FirebaseFirestore.instance.collection('bus_info').doc('yourDocument').get();
+
+    // Replace 'price' with the field name in your document containing the seat price
+    return document['price'];
+  }
+
+  void updateTotalPrice() async {
+    int seatPrice = await getSeatPrice();
+
     setState(() {
       totalPrice = selectedSeats.length * 1000;
     });
@@ -34,7 +50,7 @@ class _seatbookingState extends State<seatbooking> {
         appBar: AppBar(
           title: Text('Welcome to Your Bus'),
           centerTitle: true,
-          backgroundColor: Colors.greenAccent[400],
+          backgroundColor: Colors.blueGrey[700],
           elevation: 0.0,
           bottom: PreferredSize(
             child: TabBar(
@@ -51,7 +67,7 @@ class _seatbookingState extends State<seatbooking> {
         bottomNavigationBar: Container(
           height: 50,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Colors.blueGrey[700],
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.15),
@@ -67,7 +83,7 @@ class _seatbookingState extends State<seatbooking> {
               children: [
                 Text(
                   'Total: $totalPrice for ${selectedSeats.length} seat(s): ${selectedSeats.join(", ")}',
-                  style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600),
+                  style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600,color: Colors.white),
                 ),
                 ElevatedButton(
                   onPressed: () {
