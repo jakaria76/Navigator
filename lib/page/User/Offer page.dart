@@ -4,9 +4,7 @@ class OfferPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Current Offers'),
-      ),
+
       body: Stack(
         children: [
           // Background Image

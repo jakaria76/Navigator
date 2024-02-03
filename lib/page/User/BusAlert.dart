@@ -1,6 +1,7 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'local_NotificationService.dart';
 
 class Notifications extends StatefulWidget {
   const Notifications({Key? key}) : super(key: key);
@@ -27,7 +28,7 @@ class _NotificationsState extends State<Notifications> {
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       print("onMessageOpenedApp: $message");
-      // Handle the incoming message when the app is opened from terminated state
+      // Handle the incoming message when the app is opened from the terminated state
       _handleNotification(message);
     });
 
@@ -52,14 +53,37 @@ class _NotificationsState extends State<Notifications> {
     // For example, you can update your UI or navigate to a specific part of the app
   }
 
+  void _showNotification() {
+    // Trigger a notification when the button is pressed
+    // You can customize the notification content as needed
+    LocalNotifications.showSimpleNotification(
+      title: 'New Notification',
+      body: 'This is a sample notification',
+      payload: 'notification_payload',
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Notifications'),
-      ),
       body: Center(
-        child: Text('Your Notifications Page Content'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Your Notifications Page Content'),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                LocalNotifications.showSimpleNotification(
+                    title: "Simple Notification",
+                    body: "This is a simple notification",
+                    payload: "This is simple data");
+              },
+
+              child: Text('Show Notification'),
+            ),
+          ],
+        ),
       ),
     );
   }

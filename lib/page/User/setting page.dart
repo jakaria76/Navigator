@@ -11,10 +11,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Settings",
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),),
-      ),
+
       body: Container(
         padding: EdgeInsets.only(left: 16, bottom: 20, right: 16),
         child: ListView(

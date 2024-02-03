@@ -12,9 +12,7 @@ class _mapState extends State<map> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Map Page"),
-      ),
+
     );
   }
 }
