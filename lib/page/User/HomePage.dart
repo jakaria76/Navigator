@@ -11,7 +11,7 @@ import 'package:navigator/page/User/setting%20page.dart';
 import 'package:navigator/page/User/vloging.dart';
 //import '../Bus Management/massage2.dart';
 import '../bus and user select page.dart';
-import 'Bus Alart.dart';
+import 'BusAlert.dart';
 import 'HomeScreen.dart';
 import 'Map page.dart';
 import 'Notification.dart';
@@ -77,6 +77,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         bottomNavigationBar: BottomNavigationBar(
+
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
             BottomNavigationBarItem(icon: Icon(Icons.feed), label: "Feed"),
@@ -157,7 +158,7 @@ class _HomePageState extends State<HomePage> {
         body: TabBarView(
           children: [
             HomeContent(),
-            BkashPaymentApp(),
+            Notifications(),
             HomeScreen5(),
             OfferPage(),
             SettingsPage(),

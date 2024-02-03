@@ -1397,6 +1397,38 @@ class EditableProfileField extends StatelessWidget {
     );
   }
 }
+DrawerHeader(
+  padding: EdgeInsets.all(0),
+  decoration: BoxDecoration(
+    color: Colors.blue,  // You can change the color to your preference
+    gradient: LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: [Colors.blue, Colors.green],
+    ),
+  ),
+  child: UserAccountsDrawerHeader(
+    decoration: BoxDecoration(color: Colors.transparent),
+    accountName: Text(
+      'Navigator',
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 36,
+        fontWeight: FontWeight.bold,
+        letterSpacing: 2,
+      ),
+    ),
+    accountEmail: Text(
+      'navigatorofficial@gmail.com',
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 16,
+      ),
+    ),
+    onDetailsPressed: () {},
+  ),
+);
+
 
 
 */
