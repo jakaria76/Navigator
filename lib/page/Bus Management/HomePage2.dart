@@ -94,18 +94,20 @@ class _HomePage2State extends State<HomePage2> {
   Widget _createBusCard(String busName, String location1, String location2, String price, String date) {
     return Card(
       margin: EdgeInsets.symmetric(vertical: 10),
-      color: Colors.orange,
+      color: Colors.blueGrey,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+
             Text('Bus Name: $busName'),
             Text('Location 1: $location1'),
             Text('Location 2: $location2'),
             Text('Price: $price'),
             Text('Date: $date'),
             ElevatedButton(
+
               onPressed: () {
 
                 _saveDataToFirestore(busName, location1, location2, price, date);
@@ -114,7 +116,7 @@ class _HomePage2State extends State<HomePage2> {
                   busCards.removeLast();
                 });
               },
-              child: Text('Save'),
+              child: Text('Save',style: TextStyle(fontWeight: FontWeight.bold),),
             ),
           ],
         ),

@@ -65,6 +65,7 @@ class _HomePageState extends State<HomePage> {
           ),
           bottom: TabBar(
             isScrollable: true,
+            labelColor: Colors.white,
             tabs: [
               Tab(icon: Icon(Icons.home), text: "Home"),
               Tab(icon: Icon(Icons.bus_alert), text: "Bus alert"),
