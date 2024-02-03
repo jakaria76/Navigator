@@ -17,42 +17,103 @@ class OfferPage extends StatelessWidget {
             fit: BoxFit.cover,
           ),
 
-          // Offer Content
-          Container(
-            margin: EdgeInsets.all(20),
-            padding: EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.8), // Adjust opacity as needed
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Current Offers',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
+          // Offer Content wrapped in SingleChildScrollView
+          SingleChildScrollView(
+            child: Container(
+              margin: EdgeInsets.all(20),
+              padding: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.8), // Adjust opacity as needed
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Current Offers',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                SizedBox(height: 20),
+                  SizedBox(height: 20),
 
-                // Offer List (You can replace this with your actual data)
-                OfferItem(title: '10% Off on Weekend Trips', description: 'Use code: WEEKEND10'),
-                OfferItem(title: 'Double Points on Every Booking', description: 'Limited Time Offer'),
-
-                SizedBox(height: 20),
-
-                // User's Reward Points
-                Text(
-                  'Your Reward Points: 150', // Replace with actual user points
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                  // Offer Cards (You can replace this with your actual data)
+                  OfferCard(
+                    cardTitle: 'Weekend Special',
+                    offers: [
+                      OfferItem(title: '10% Off on Weekend Trips', description: 'Use code: WEEKEND10'),
+                      OfferItem(title: 'Double Points on Every Booking', description: 'Limited Time Offer'),
+                    ],
                   ),
-                ),
-              ],
+                  OfferCard(
+                    cardTitle: 'Monthly Bonanza',
+                    offers: [
+                      OfferItem(title: '20% Off on Monthly Subscriptions', description: 'Use code: MONTHLY20'),
+                      OfferItem(title: 'Triple Points on First Booking', description: 'New Users Only'),
+                    ],
+                  ),
+
+                  // Add more OfferCards as needed
+                  OfferCard(
+                    cardTitle: 'Special Event Sale',
+                    offers: [
+                      OfferItem(title: 'Free Upgrade on Event Packages', description: 'Upgrade Now!'),
+                      OfferItem(title: 'Extra 15% Off on VIP Tickets', description: 'Use code: VIP15'),
+                    ],
+                  ),
+                  OfferCard(
+                    cardTitle: 'Holiday Deals',
+                    offers: [
+                      OfferItem(title: 'Holiday Package Discount', description: 'Limited Availability'),
+                      OfferItem(title: 'Early Booking Bonus', description: 'Book now and save!'),
+                    ],
+                  ),
+
+                  SizedBox(height: 20),
+
+                  // User's Reward Points
+                  Text(
+                    'Your Reward Points: 150', // Replace with actual user points
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class OfferCard extends StatelessWidget {
+  final String cardTitle;
+  final List<OfferItem> offers;
+
+  OfferCard({required this.cardTitle, required this.offers});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(bottom: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            cardTitle,
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 10),
+          // Offer List
+          Column(
+            children: offers,
           ),
         ],
       ),

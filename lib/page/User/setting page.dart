@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../bus and user select page.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -90,14 +91,22 @@ class _SettingsPageState extends State<SettingsPage> {
                   padding: EdgeInsets.symmetric(horizontal: 40),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
+
                   ),
+                  backgroundColor: Colors.green
                 ),
-                child: Text(
-                  "SIGN OUT",
-                  style: TextStyle(
-                    fontSize: 16,
-                    letterSpacing: 2.2,
-                    color: Colors.black,
+                child: GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => bus_user()));
+                  },
+                  child: Text(
+                    "SIGN OUT",
+                    style: TextStyle(
+                      fontSize: 16,
+                      letterSpacing: 2.2,
+                      color: Colors.white,
+
+                    ),
                   ),
                 ),
               ),

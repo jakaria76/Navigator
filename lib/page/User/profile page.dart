@@ -1,260 +1,180 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
-class ProfilePage extends StatefulWidget {
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:navigator/page/User/HomePage.dart';
+import 'package:navigator/page/User/Services/notifi_service.dart';
+
+class UserProfileScreen extends StatefulWidget {
   @override
-  _ProfilePageState createState() => _ProfilePageState();
+  _UserProfileScreenState createState() => _UserProfileScreenState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
-  bool showPassword = false;
-  String fullName = "caesium"; // Initial name, you can fetch the user's name from your data source
-  String email = "eka.caesium721@gmail.com"; // Initial email, you can fetch the user's email from your data source
+class _UserProfileScreenState extends State<UserProfileScreen> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final CollectionReference users = FirebaseFirestore.instance.collection('users');
+  final FirebaseStorage _storage = FirebaseStorage.instance;
+  final ImagePicker _imagePicker = ImagePicker();
+
+  late User _user;
+  TextEditingController _usernameController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _addressController = TextEditingController();
+  String? _profileImageUrl;
+
+  @override
+  void initState() {
+    super.initState();
+    _getUserData();
+  }
+
+  Future<void> _getUserData() async {
+    _user = _auth.currentUser!;
+    DocumentSnapshot userSnapshot = await users.doc(_user.uid).get();
+
+    setState(() {
+      _usernameController.text = userSnapshot['user name'];
+      _emailController.text = userSnapshot['e-mail'];
+      _addressController.text = userSnapshot['address'];
+      _profileImageUrl = userSnapshot['profileImageUrl'];
+    });
+  }
+
+  Future<void> _updateUserProfile() async {
+    try {
+      await users.doc(_user.uid).update({
+        'user name': _usernameController.text,
+        'e-mail': _emailController.text,
+        'address': _addressController.text,
+        'profileImageUrl': _profileImageUrl,
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('User profile updated successfully!'),
+        ),
+      );
+    } catch (e) {
+      print('Error updating user profile: $e');
+    }
+  }
+
+  Future<void> _uploadImage() async {
+    final pickedFile = await _imagePicker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      File imageFile = File(pickedFile.path);
+
+      String fileName = 'profile_${_user.uid}_${DateTime.now().millisecondsSinceEpoch}.jpg';
+      Reference storageReference = _storage.ref().child(fileName);
+
+      UploadTask uploadTask = storageReference.putFile(imageFile);
+      TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {});
+
+      String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+
+      setState(() {
+        _profileImageUrl = downloadUrl;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        elevation: 1,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.green,
-          ),
-          onPressed: () {
-            Navigator.pop(context); // Navigate back when the back button is pressed
-          },
-        ),
-        actions: [],
+        title: Text('User Profile'),
       ),
-      body: Container(
-        padding: EdgeInsets.only(left: 16, top: 25, right: 16),
-        child: GestureDetector(
-          onTap: () {
-            FocusScope.of(context).unfocus();
-          },
-          child: ListView(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                "Edit Profile",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Center(
-                child: Stack(
-                  children: [
-                    Container(
-                      width: 130,
-                      height: 130,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 4,
-                          color: Theme.of(context).scaffoldBackgroundColor,
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            spreadRadius: 2,
-                            blurRadius: 10,
-                            color: Colors.black.withOpacity(0.1),
-                            offset: Offset(0, 10),
-                          )
-                        ],
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(
-                            "https://static.wikia.nocookie.net/naruto/images/f/fd/Madara.png/revision/latest?cb=20160115141947",
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: Container(
-                        height: 40,
-                        width: 40,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            width: 4,
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                          ),
-                          color: Colors.green,
-                        ),
-                        child: Icon(
-                          Icons.edit,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
+              GestureDetector(
+                onTap: _uploadImage,
+                child: _profileImageUrl != null
+                    ? CircleAvatar(
+                  radius: 60,
+                  backgroundImage: NetworkImage(_profileImageUrl!),
+                )
+                    : CircleAvatar(
+                  radius: 50,
+                  backgroundColor: Colors.blue,
+                  child: Icon(
+                    Icons.camera_alt,
+                    color: Colors.white,
+                  ),
                 ),
               ),
-              SizedBox(
-                height: 35,
+              SizedBox(height: 20),
+              Text(
+                _usernameController.text,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25,
+                  color: Colors.blue,
+                ),
               ),
-              buildEditableField("Full Name", fullName, Icons.person, (value) {
-                // Update the user's name
-                setState(() {
-                  fullName = value;
-                });
-              }),
-              buildNonEditableField("E-mail", email, Icons.email),
-              buildTextField("Password", "********", true),
-              buildTextField("Location", "Dhaka,Bangladesh", false),
-              SizedBox(
-                height: 35,
+              SizedBox(height: 20),
+              TextField(
+                controller: _usernameController,
+                decoration: InputDecoration(
+                  labelText: 'Username',
+                  contentPadding: EdgeInsets.all(10),
+                  border: OutlineInputBorder(),
+                ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  OutlinedButton(
-                    onPressed: () {
-                      Navigator.pop(context); // Navigate back when the cancel button is pressed
-                    },
-                    style: OutlinedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(horizontal: 50),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                    child: Text(
-                      "CANCEL",
-                      style: TextStyle(
-                        fontSize: 14,
-                        letterSpacing: 2.2,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      // TODO: Implement logic to update the user's information in your data source (e.g., Firebase Firestore)
-                      // For demonstration purposes, we print the updated name to the console.
-                      print("Updated Name: $fullName");
+              SizedBox(height: 10),
+              TextField(
+                controller: _emailController,
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  contentPadding: EdgeInsets.all(10),
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 10),
+              TextField(
+                controller: _addressController,
+                decoration: InputDecoration(
+                  labelText: 'Address',
+                  contentPadding: EdgeInsets.all(10),
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: _updateUserProfile,
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.blue,
+                ),
+                child: Text('Update Profile'),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  NotificationService().showNotification(title: 'Sample title', body: 'It works!');
 
-                      // After updating the user's information, navigate back to the settings page.
-                      Navigator.pop(context);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.green,
-                      padding: EdgeInsets.symmetric(horizontal: 50),
-                      elevation: 2,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                    child: Text(
-                      "SAVE",
-                      style: TextStyle(
-                        fontSize: 14,
-                        letterSpacing: 2.2,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ],
-              )
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.blue,
+                ),
+                child: Text('Back to Home page'),
+              ),
             ],
           ),
         ),
       ),
     );
   }
+}
 
-  Widget buildTextField(
-      String labelText, String placeholder, bool isPasswordTextField) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 35.0),
-      child: TextField(
-        obscureText: isPasswordTextField ? showPassword : false,
-        decoration: InputDecoration(
-          suffixIcon: isPasswordTextField
-              ? IconButton(
-            onPressed: () {
-              setState(() {
-                showPassword = !showPassword;
-              });
-            },
-            icon: Icon(
-              Icons.remove_red_eye,
-              color: Colors.grey,
-            ),
-          )
-              : null,
-          contentPadding: EdgeInsets.only(bottom: 3),
-          labelText: labelText,
-          floatingLabelBehavior: FloatingLabelBehavior.always,
-          hintText: placeholder,
-          hintStyle: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget buildEditableField(String labelText, String value, IconData icon, Function(String) onChanged) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 35.0),
-      child: Row(
-        children: [
-          Icon(
-            icon,
-            color: Colors.green,
-          ),
-          SizedBox(
-            width: 8,
-          ),
-          Expanded(
-            child: TextFormField(
-              initialValue: value,
-              onChanged: onChanged,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(bottom: 3),
-                labelText: labelText,
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                hintText: value,
-                hintStyle: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget buildNonEditableField(String labelText, String value, IconData icon) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 35.0),
-      child: Row(
-        children: [
-          Icon(
-            icon,
-            color: Colors.green,
-          ),
-          SizedBox(
-            width: 8,
-          ),
-          Text(
-            value,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+void main() {
+  runApp(MaterialApp(
+    home: UserProfileScreen(),
+  ));
 }

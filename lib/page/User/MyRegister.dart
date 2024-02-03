@@ -6,6 +6,7 @@ import 'package:navigator/page/User/MyLogin.dart';
 import 'package:navigator/user_auth/firebase_auth_services.dart';
 
 import 'HomePage.dart';
+import 'image picker.dart';
 
 class MyRegister extends StatefulWidget {
   const MyRegister({Key? key}) : super(key: key);
@@ -85,7 +86,7 @@ class _MyRegisterState extends State<MyRegister> {
                           ),
                           TextField(
                             controller:_emailController,
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
@@ -110,7 +111,7 @@ class _MyRegisterState extends State<MyRegister> {
                           ),
                           TextField(
                             controller:_passwordController,
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.black),
                             obscureText: true,
                             decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
@@ -196,16 +197,12 @@ class _MyRegisterState extends State<MyRegister> {
       return;
     }
 
-    User? user = await _auth.signUpWithEmailAndPassword(email, password);
+    User? user = await _auth.signUpWithEmailAndPassword(username, email, password);
 
     if (user != null) {
       print("User is successfully created");
 
 
-      await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
-        'username': username,
-        'email': email,
-      });
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

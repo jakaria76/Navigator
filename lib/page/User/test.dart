@@ -511,6 +511,7 @@ class _SeatWidgetState extends State<SeatWidget> {
     );
   }
 }
+
 ///////////////////////////////////////
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -1399,3 +1400,4 @@ class EditableProfileField extends StatelessWidget {
 
 
 */
+

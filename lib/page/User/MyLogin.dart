@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:navigator/page/User/HomePage.dart';
 import 'package:navigator/page/User/MyRegister.dart';
 
+
 import 'forgate.dart';
 
 class LogIn extends StatefulWidget {
@@ -15,10 +16,6 @@ class LogIn extends StatefulWidget {
 }
 
 class _LogInState extends State<LogIn> {
-
-
-
-
   String email = "", password = "";
 
   final _formkey = GlobalKey<FormState>();
@@ -26,22 +23,44 @@ class _LogInState extends State<LogIn> {
   TextEditingController useremailcontroller = TextEditingController();
   TextEditingController userpasswordcontroller = TextEditingController();
 
-  userLogin() async {
-    try {
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
+  bool isLoading = false;
 
+  Future<void> userLogin() async {
+    try {
+
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(height: 16),
+                Text("Logging in..."),
+              ],
+            ),
+          );
+        },
+      );
+      await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+      Navigator.pop(context);
 
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(
           "Login Successful!",
           style: TextStyle(fontSize: 18.0, color: Colors.white),
         ),
-        backgroundColor: Colors.green, // You can customize the background color
+        backgroundColor: Colors.green,
       ));
 
       Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
     } on FirebaseAuthException catch (e) {
+      setState(() {
+        isLoading = false; // Set loading to false when login fails
+      });
+
       if (e.code == 'user-not-found') {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(
@@ -51,14 +70,18 @@ class _LogInState extends State<LogIn> {
         ));
       } else if (e.code == 'wrong-password') {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(
-              "Wrong Password Provided by User",
-              style: TextStyle(fontSize: 18.0, color: Colors.black),
-            )));
+          content: Text(
+            "Wrong Password Provided by User",
+            style: TextStyle(fontSize: 18.0, color: Colors.black),
+          ),
+        ));
       }
+    } finally {
+      setState(() {
+        isLoading = false; // Set loading to false after login operation completes
+      });
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -162,14 +185,14 @@ class _LogInState extends State<LogIn> {
                     height: 30.0,
                   ),
                   GestureDetector(
-                    onTap: () {
+                    onTap: () async {
                       if (_formkey.currentState!.validate()) {
                         setState(() {
                           email = useremailcontroller.text;
                           password = userpasswordcontroller.text;
                         });
                       }
-                      userLogin();
+                      await userLogin();
                     },
                     child: Center(
                       child: Container(
@@ -180,13 +203,14 @@ class _LogInState extends State<LogIn> {
                             color: Color(0xFFf95f3b),
                             borderRadius: BorderRadius.circular(30)),
                         child: Center(
-                            child: Text(
-                              "Login",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.bold),
-                            )),
+                          child: Text(
+                            "Login",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -219,7 +243,20 @@ class _LogInState extends State<LogIn> {
                         ),
                       )
                     ],
-                  )
+                  ),
+                  // Use FutureBuilder to conditionally show CircularProgressIndicator
+                  FutureBuilder(
+                    future: null, // You can replace 'null' with the future you are waiting for, if needed
+                    builder: (context, snapshot) {
+                      if (isLoading) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else {
+                        return SizedBox.shrink();
+                      }
+                    },
+                  ),
                 ],
               ),
             ),
