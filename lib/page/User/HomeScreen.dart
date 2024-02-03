@@ -81,6 +81,7 @@ class _HomeScreen5State extends State<HomeScreen5> with WidgetsBindingObserver {
     child: Scaffold(
     backgroundColor: Colors.transparent,
     appBar: AppBar(
+      automaticallyImplyLeading: false,
     backgroundColor: Colors.transparent,
     elevation: 0,
     ),

@@ -86,7 +86,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('User Profile'),
+        automaticallyImplyLeading: false,
+        title: Center(child: Text('User Profile')),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -157,7 +158,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  NotificationService().showNotification(title: 'Sample title', body: 'It works!');
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
 
                 },
                 style: ElevatedButton.styleFrom(
