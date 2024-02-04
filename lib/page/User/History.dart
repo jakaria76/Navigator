@@ -12,31 +12,35 @@ class _HistoryPageState extends State<HistoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+
         automaticallyImplyLeading: false,
         title: Center(child: Text("History Page")),
       ),
-      body: FutureBuilder(
-        future: FirebaseFirestore.instance.collection('bus_info').get(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          }
+      body: Container(
+        color: Colors.blueGrey[700],
+        child: FutureBuilder(
+          future: FirebaseFirestore.instance.collection('bus_info').get(),
+          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            }
 
-          if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          }
+            if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            }
 
-          return ListView(
-            children: snapshot.data!.docs.map((DocumentSnapshot document) {
-              Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-              return ListTile(
-                title: Text('${data['bus_name']} Bus posted'),
-                subtitle: Text('Location 1: ${data['location1']} - Location 2: ${data['location2']}'),
-                // Display other fields as needed
-              );
-            }).toList(),
-          );
-        },
+            return ListView(
+              children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+                return ListTile(
+                  title: Text('${data['bus_name']} Bus posted'),
+                  subtitle: Text('Location 1: ${data['location1']} - Location 2: ${data['location2']}'),
+                  // Display other fields as needed
+                );
+              }).toList(),
+            );
+          },
+        ),
       ),
     );
   }

@@ -1,7 +1,8 @@
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:navigator/page/User/passenger%20details.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class seatbooking extends StatefulWidget {
   @override
@@ -10,31 +11,42 @@ class seatbooking extends StatefulWidget {
 
 class _seatbookingState extends State<seatbooking> {
   late List<String> selectedSeats;
-  late int totalPrice;
+  int totalPrice = 0;
 
   @override
   void initState() {
     super.initState();
     selectedSeats = [];
-    totalPrice = 0;
+    updateTotalPrice();
   }
 
-  void updateTotalPrice() {
+  Future<int> getSeatPrice() async {
+    String? uid = FirebaseAuth.instance.currentUser?.uid;
+    DocumentSnapshot document = await FirebaseFirestore.instance
+        .collection('bus_info')
+        .doc(uid)
+        .get();
+    int price = document['price'] ?? 0;
+    return price;
+  }
+
+  void updateTotalPrice() async {
+    int seatPrice = await getSeatPrice();
     setState(() {
-      totalPrice = selectedSeats.length * 1000;
+      totalPrice = selectedSeats.length * seatPrice;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 1,
+      length: 2,
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text('Welcome to Your Bus'),
           centerTitle: true,
-          backgroundColor: Colors.greenAccent[400],
+          backgroundColor: Colors.blueGrey[700],
           elevation: 0.0,
           bottom: PreferredSize(
             child: TabBar(
@@ -51,7 +63,7 @@ class _seatbookingState extends State<seatbooking> {
         bottomNavigationBar: Container(
           height: 50,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Colors.blueGrey[700],
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.15),
@@ -67,14 +79,13 @@ class _seatbookingState extends State<seatbooking> {
               children: [
                 Text(
                   'Total: $totalPrice for ${selectedSeats.length} seat(s): ${selectedSeats.join(", ")}',
-                  style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600),
+                  style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white),
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    // Implement logic for 'Next' button
-                    // Access selectedSeats and calculate the total price here
-                    // Total price is already updated in updateTotalPrice
-                    // Display total price in a dialog or navigate to the next screen
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
@@ -86,10 +97,11 @@ class _seatbookingState extends State<seatbooking> {
                             TextButton(
                               onPressed: () {
                                 Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            passenger_details()));
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => passenger_details(),
+                                  ),
+                                );
                               },
                               child: Text('OK'),
                             ),
@@ -98,7 +110,8 @@ class _seatbookingState extends State<seatbooking> {
                       },
                     );
                   },
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green),
                   child: Text('Next',
                       style: TextStyle(color: Colors.blueGrey[800])),
                 ),
@@ -216,7 +229,7 @@ class _seatbookingState extends State<seatbooking> {
                   ],
                 ),
 
-                // ... (similar rows for other seats)
+
               ],
             ),
             Container(
@@ -264,7 +277,6 @@ class _SeatWidgetState extends State<SeatWidget> {
     var width = MediaQuery.of(context).size.width / 5 - 4;
     return GestureDetector(
       onTap: () {
-        // Toggle seat selection on tap
         setState(() {
           isSelected = !isSelected;
           widget.onSelect(widget.name);
@@ -296,5 +308,3 @@ class _SeatWidgetState extends State<SeatWidget> {
     );
   }
 }
-//certain pixel errors happening if more then 4 seats are seleceted
-

@@ -2,6 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:navigator/page/User/pyement/pyementcomplete.dart';
 
+import '../HomePage.dart';
+import '../feed.dart';
+import '../profile page.dart';
+
 class pin extends StatefulWidget {
   const pin({super.key});
 
@@ -22,6 +26,28 @@ class _pinState extends State<pin> {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Colors.blueGrey[700],
+          items: [
+
+            BottomNavigationBarItem(icon: Icon(Icons.home,color: Colors.blue,size: 40,), label: "Home",),
+            BottomNavigationBarItem(icon: Icon(Icons.feed,color: Colors.blue,size: 40,), label: "Feed"),
+            BottomNavigationBarItem(icon: Icon(Icons.person,color: Colors.blue,size: 40,), label: "Profile"),
+
+
+          ],
+          onTap: (int index) {
+            if (index == 0) {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+            }
+            if (index == 1) {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => Feed()));
+            }
+            if (index == 2) {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => UserProfileScreen()));
+            }
+          },
         ),
         body: Column(
 
