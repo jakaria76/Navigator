@@ -350,25 +350,7 @@ class _HomeContentState extends State<HomeContent> {
                         icon: Icon(Icons.date_range, size: 50, color: Colors.white),
                       ),
                     ),
-                    SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () async {
-                        // Show loading indicator
-                        EasyLoading.show(status: 'Searching...');
-                        await Future.delayed(Duration(seconds: 3));
-                        EasyLoading.dismiss();
-
-                        // Perform search and navigate to the SearchPage
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SearchResult(
-                              searchLocation1: _searchLocation1Controller.text,
-                              searchLocation2: _searchLocation2Controller.text,
-                              searchDate: _searchDateController.text,
-                            ),
-                          ),
-                        );
+                    
 
                         // Hide loading indicator after the search is complete
                         EasyLoading.dismiss();
