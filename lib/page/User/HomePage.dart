@@ -165,6 +165,7 @@ class _HomePageState extends State<HomePage> {
             HomeScreen5(),
             HistoryPage(),
             CarouselSliderDemo(),
+            //OfferPage(),
             SettingsPage(),
           ],
         ),
