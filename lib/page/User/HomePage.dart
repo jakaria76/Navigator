@@ -14,13 +14,11 @@ import '../bus and user select page.dart';
 import 'Bus Alart.dart';
 import 'History.dart';
 import 'HomeScreen.dart';
-import 'Map page.dart';
 
 import 'Offer page.dart';
 import 'call support.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:animate_do/animate_do.dart';
 import 'package:carousel_slider/carousel_options.dart';
 void main() {
   runApp(const MyApp());
@@ -51,7 +49,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 7,
+      length: 6,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.blueGrey[700],
@@ -75,17 +73,16 @@ class _HomePageState extends State<HomePage> {
               Tab(icon: Icon(Icons.history), text: "hsitory"),
               Tab(icon: Icon(Icons.discount), text: "Offers"),
               Tab(icon: Icon(Icons.settings), text: "Settings"),
-              Tab(icon: Icon(Icons.location_on), text: "Map"),
             ],
           ),
         ),
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.orange,
+          backgroundColor: Colors.blueGrey[700],
           items: [
 
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-            BottomNavigationBarItem(icon: Icon(Icons.feed), label: "Feed"),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+            BottomNavigationBarItem(icon: Icon(Icons.home,color: Colors.blue,size: 40,), label: "Home",),
+            BottomNavigationBarItem(icon: Icon(Icons.feed,color: Colors.blue,size: 40,), label: "Feed"),
+            BottomNavigationBarItem(icon: Icon(Icons.person,color: Colors.blue,size: 40,), label: "Profile"),
 
 
           ],
@@ -99,7 +96,6 @@ class _HomePageState extends State<HomePage> {
             if (index == 2) {
               Navigator.push(context, MaterialPageRoute(builder: (context) => UserProfileScreen()));
             }
-
           },
         ),
         drawer: Drawer(
@@ -170,7 +166,6 @@ class _HomePageState extends State<HomePage> {
             HistoryPage(),
             CarouselSliderDemo(),
             SettingsPage(),
-            map(),
           ],
         ),
       ),
@@ -189,10 +184,13 @@ class _HomeContentState extends State<HomeContent> {
   final TextEditingController _searchDateController = TextEditingController();
   int _currentIndex = 0;
   final List<String> images = [
-    'images/feed.jpeg',
-    'images/feed.jpeg',
-    'images/feed.jpeg',
-    'images/feed.jpeg',
+    'images/hanif1.jpeg',
+    'images/ena2.jpeg',
+    'images/ena1.jpeg',
+    'images/green1.jpeg',
+    'images/hanif2.jpeg',
+    'images/samoli1.jpg',
+    'images/selfi1.jpeg',
   ];
   final List<String> suggestions = [
     "Dhaka",
@@ -268,12 +266,7 @@ class _HomeContentState extends State<HomeContent> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('images/body.jpg'),
-          fit: BoxFit.cover,
-        ),
-      ),
+      color: Colors.blueGrey[700],
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
@@ -281,113 +274,114 @@ class _HomeContentState extends State<HomeContent> {
           backgroundColor: Colors.transparent,
           elevation: 0,
         ),
-        body: Stack(
-          children: [
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Stack(
+            children: [
 
 
-            Padding(
-              padding: const EdgeInsets.only(top: 0, left: 0, right: 0),
-              child: Card(
-                color: Colors.blueGrey[700],
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                elevation: 10,
-                shadowColor: Colors.black,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TypeAheadField(
-                      textFieldConfiguration: TextFieldConfiguration(
-                        controller: _searchLocation1Controller,
+              Padding(
+                padding: const EdgeInsets.only(top: 0, left: 0, right: 0),
+                child: Card(
+                  color: Colors.blueGrey[700],
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                  elevation: 10,
+                  shadowColor: Colors.black,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TypeAheadField(
+                        textFieldConfiguration: TextFieldConfiguration(
+                          controller: _searchLocation1Controller,
+                          decoration: InputDecoration(
+                              icon: Icon(Icons.location_on, size: 50, color: Colors.white),
+                              labelText: 'From Where',
+                              labelStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white)),
+                        ),
+                        suggestionsCallback: (pattern) async {
+                          return suggestions
+                              .where((item) => item.toLowerCase().contains(pattern.toLowerCase()))
+                              .toList();
+                        },
+                        itemBuilder: (context, suggestion) {
+                          return ListTile(
+                            title: Text(suggestion, selectionColor: Colors.white),
+                          );
+                        },
+                        onSuggestionSelected: (suggestion) {
+                          _searchLocation1Controller.text = suggestion;
+                        },
+                      ),
+                      TypeAheadField(
+                        textFieldConfiguration: TextFieldConfiguration(
+                          controller: _searchLocation2Controller,
+                          decoration: InputDecoration(
+                              icon: Icon(Icons.location_city, size: 50, color: Colors.white),
+                              labelText: 'To location',
+                              labelStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white)),
+                        ),
+                        suggestionsCallback: (pattern) async {
+                          return suggestions
+                              .where((item) => item.toLowerCase().contains(pattern.toLowerCase()))
+                              .toList();
+                        },
+                        itemBuilder: (context, suggestion) {
+                          return ListTile(
+                            title: Text(suggestion),
+                          );
+                        },
+                        onSuggestionSelected: (suggestion) {
+                          _searchLocation2Controller.text = suggestion;
+                        },
+                      ),
+                      TextFormField(
+                        controller: _searchDateController,
+                        readOnly: true,
+                        onTap: () => _selectDate(context),
                         decoration: InputDecoration(
-                            icon: Icon(Icons.location_on, size: 50, color: Colors.white),
-                            labelText: 'From Where',
-                            labelStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white)),
+                          labelText: 'Select Date',
+                          labelStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white),
+                          icon: Icon(Icons.date_range, size: 50, color: Colors.white),
+                        ),
                       ),
-                      suggestionsCallback: (pattern) async {
-                        return suggestions
-                            .where((item) => item.toLowerCase().contains(pattern.toLowerCase()))
-                            .toList();
-                      },
-                      itemBuilder: (context, suggestion) {
-                        return ListTile(
-                          title: Text(suggestion, selectionColor: Colors.white),
-                        );
-                      },
-                      onSuggestionSelected: (suggestion) {
-                        _searchLocation1Controller.text = suggestion;
-                      },
-                    ),
-                    TypeAheadField(
-                      textFieldConfiguration: TextFieldConfiguration(
-                        controller: _searchLocation2Controller,
-                        decoration: InputDecoration(
-                            icon: Icon(Icons.location_city, size: 50, color: Colors.white),
-                            labelText: 'To location',
-                            labelStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white)),
-                      ),
-                      suggestionsCallback: (pattern) async {
-                        return suggestions
-                            .where((item) => item.toLowerCase().contains(pattern.toLowerCase()))
-                            .toList();
-                      },
-                      itemBuilder: (context, suggestion) {
-                        return ListTile(
-                          title: Text(suggestion),
-                        );
-                      },
-                      onSuggestionSelected: (suggestion) {
-                        _searchLocation2Controller.text = suggestion;
-                      },
-                    ),
-                    TextFormField(
-                      controller: _searchDateController,
-                      readOnly: true,
-                      onTap: () => _selectDate(context),
-                      decoration: InputDecoration(
-                        labelText: 'Select Date',
-                        labelStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white),
-                        icon: Icon(Icons.date_range, size: 50, color: Colors.white),
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () async {
-                        // Show loading indicator
-                        EasyLoading.show(status: 'Searching...');
-                        await Future.delayed(Duration(seconds: 3));
-                        EasyLoading.dismiss();
+                      SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: () async {
+                          // Show loading indicator
+                          EasyLoading.show(status: 'Searching...');
+                          await Future.delayed(Duration(seconds: 3));
+                          EasyLoading.dismiss();
 
-                        // Perform search and navigate to the SearchPage
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SearchResult(
-                              searchLocation1: _searchLocation1Controller.text,
-                              searchLocation2: _searchLocation2Controller.text,
-                              searchDate: _searchDateController.text,
+                          // Perform search and navigate to the SearchPage
+                          await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SearchResult(
+                                searchLocation1: _searchLocation1Controller.text,
+                                searchLocation2: _searchLocation2Controller.text,
+                                searchDate: _searchDateController.text,
+                              ),
                             ),
-                          ),
-                        );
+                          );
 
-                        // Hide loading indicator after the search is complete
-                        EasyLoading.dismiss();
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                        child: Center(
-                          child: Text(
-                            'Search Bus',
-                            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.blueGrey[800]),
+                          // Hide loading indicator after the search is complete
+                          EasyLoading.dismiss();
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                          child: Center(
+                            child: Text(
+                              'Search Bus',
+                              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.blueGrey[800]),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 50, left: 0, right: 0),
-                      child: CarouselSlider.builder(
+                      CarouselSlider.builder(
                         itemCount: images.length,
                         options: CarouselOptions(
-                          aspectRatio: 16/9,
+
+                          height: 250,
                           autoPlay: true,
                           onPageChanged: (index, reason) {
                             setState(() {
@@ -401,34 +395,33 @@ class _HomeContentState extends State<HomeContent> {
                               child: Image.asset(
                                 images[index],
                                 fit: BoxFit.cover,
-                                width: 1000,
-                                height: 500,
+
                               ),
                             ),
                           );
                         },
                       ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: images.map((url) {
-                        int index = images.indexOf(url);
-                        return Container(
-                          width: 8.0,
-                          height: 8.0,
-                          margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: _currentIndex == index ? Colors.blueAccent : Colors.grey,
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  ],
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: images.map((url) {
+                          int index = images.indexOf(url);
+                          return Container(
+                            width: 20.0,
+                            height: 10.0,
+                            margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: _currentIndex == index ? Colors.blueAccent : Colors.grey,
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -36,52 +36,56 @@ class _CarouselSliderDemoState extends State<CarouselSliderDemo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Carousel Slider Demo'),
+        automaticallyImplyLeading: false,
+        title: Center(child: Text('Carousel Slider Demo')),
       ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: CarouselSlider.builder(
-              itemCount: images.length,
-              options: CarouselOptions(
-                aspectRatio: 16/9,
-                autoPlay: true,
-                onPageChanged: (index, reason) {
-                  setState(() {
-                    _currentIndex = index;
-                  });
+      body: Container(
+        color: Colors.blueGrey[700],
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              child: CarouselSlider.builder(
+                itemCount: images.length,
+                options: CarouselOptions(
+                  aspectRatio: 16/9,
+                  autoPlay: true,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      _currentIndex = index;
+                    });
+                  },
+                ),
+                itemBuilder: (BuildContext context, int index, int realIndex) {
+                  return Container(
+                    child: Center(
+                      child: Image.asset(
+                        images[index],
+                        fit: BoxFit.cover,
+                        width: 1000,
+                        height: 500,
+                      ),
+                    ),
+                  );
                 },
               ),
-              itemBuilder: (BuildContext context, int index, int realIndex) {
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: images.map((url) {
+                int index = images.indexOf(url);
                 return Container(
-                  child: Center(
-                    child: Image.asset(
-                      images[index],
-                      fit: BoxFit.cover,
-                      width: 1000,
-                      height: 500,
-                    ),
+                  width: 8.0,
+                  height: 8.0,
+                  margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: _currentIndex == index ? Colors.blueAccent : Colors.grey,
                   ),
                 );
-              },
+              }).toList(),
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: images.map((url) {
-              int index = images.indexOf(url);
-              return Container(
-                width: 8.0,
-                height: 8.0,
-                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: _currentIndex == index ? Colors.blueAccent : Colors.grey,
-                ),
-              );
-            }).toList(),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

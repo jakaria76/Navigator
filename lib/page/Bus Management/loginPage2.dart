@@ -95,7 +95,7 @@ class _LogIn2State extends State<LogIn2> {
                             Icons.email,
                             color: Colors.white,
                           ),
-                          hintText: 'Your Email',
+                          hintText: 'Enter BusManagement E-mail',
                           hintStyle: TextStyle(color: Colors.white60)),
                       style: TextStyle(color: Colors.white),
                     ),

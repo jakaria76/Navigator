@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:navigator/page/User/profile%20page.dart';
+
+import 'HomePage.dart';
 
 class Feed extends StatefulWidget {
   const Feed({super.key});
@@ -28,6 +31,28 @@ class _FeedState extends State<Feed> {
     appBar: AppBar(
      title: Center(child: Text('Feed')),
     ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.blueGrey[700],
+        items: [
+
+          BottomNavigationBarItem(icon: Icon(Icons.home,color: Colors.blue,size: 40,), label: "Home",),
+          BottomNavigationBarItem(icon: Icon(Icons.feed,color: Colors.blue,size: 40,), label: "Feed"),
+          BottomNavigationBarItem(icon: Icon(Icons.person,color: Colors.blue,size: 40,), label: "Profile"),
+
+
+        ],
+        onTap: (int index) {
+          if (index == 0) {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+          }
+          if (index == 1) {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => Feed()));
+          }
+          if (index == 2) {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => UserProfileScreen()));
+          }
+        },
+      ),
       body: PropertyList(),
 
 
