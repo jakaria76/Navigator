@@ -95,6 +95,7 @@ class _LogInState extends State<LogIn> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: Colors.transparent,
           elevation: 0,
         ),
