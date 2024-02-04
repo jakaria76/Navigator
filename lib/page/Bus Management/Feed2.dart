@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:navigator/page/Bus%20Management/profile2.dart';
+
+import 'HomePage2.dart';
 
 class Feed2 extends StatefulWidget {
   const Feed2({super.key});
@@ -19,14 +22,37 @@ class _Feed2State extends State<Feed2> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('images/feed.jpeg'), fit: BoxFit.cover),
-        ),
+        color: Colors.white,
         child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             title: Center(child: Text('Feed')),
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            backgroundColor: Colors.blueGrey[800],
+            items: [
+
+              BottomNavigationBarItem(icon: Icon(Icons.feed,color: Colors.blue,size: 40,),label:"feed"),
+              BottomNavigationBarItem(icon: Icon(Icons.add,color: Colors.blue,size: 40,),label:"add"),
+              BottomNavigationBarItem(icon: Icon(Icons.person,color: Colors.blue,size: 40,),label:"profile"),
+
+
+            ],
+            onTap: (int index){
+
+              if(index==0)
+              {
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>Feed2()));
+              }
+              if(index==1)
+              {
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage2()));
+              }
+              if(index==2)
+              {
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>profile2()));
+              }
+            },
           ),
           body: PropertyList(),
 
@@ -85,26 +111,32 @@ class PropertyCard extends StatelessWidget {
 
 
       child: Container(
-        height: 150,
 
-        decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("images/feed.jpeg"),fit: BoxFit.cover,
-            )
-          //image: DecorationImage(
-          //image: AssetImage("images/sky.jpg"),
-          //fit: BoxFit.cover,
 
-        ),
+        height: 200,
+
+        color: Colors.blueGrey[700],
         child: ListTile(
-          title: Text('Bus_name: ${property['bus_name']}',style: TextStyle(color: Colors.white),),
+          title: Text('Bus_name: ${property['bus_name']}',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25,color: Colors.blue)),
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('From: ${property['location1']}',style: TextStyle(color: Colors.white),),
-              Text('To: ${property['location2']}',style: TextStyle(color: Colors.white),),
-              Text('Price: ${property['price']}',style: TextStyle(color: Colors.white),),
-              Text('Date: ${property['date']}',style: TextStyle(color: Colors.white),),
+              SizedBox(
+                height: 15,
+              ),
+              Text('From: ${property['location1']}',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20)),
+              SizedBox(
+                height: 15,
+              ),
+              Text('To: ${property['location2']}',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20)),
+              SizedBox(
+                height: 15,
+              ),
+              Text('Price: ${property['price']}',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20)),
+              SizedBox(
+                height: 15,
+              ),
+              Text('Date: ${property['date']}',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20)),
               // Check if 'price' field exists before accessing its value
               //if (data?.containsKey('price') ?? false) Text('Price: ${property['price']}'),
               // Check if 'district' field exists before accessing its value

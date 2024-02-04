@@ -27,10 +27,13 @@ class noti extends StatelessWidget {
         automaticallyImplyLeading: false,
         title: Center(child: Text('Notification Demo')),
       ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: _showNotification,
-          child: Text('Show Notification'),
+      body: Container(
+        color: Colors.blueGrey[700],
+        child: Center(
+          child: ElevatedButton(
+            onPressed: _showNotification,
+            child: Text('Show Notification'),
+          ),
         ),
       ),
     );

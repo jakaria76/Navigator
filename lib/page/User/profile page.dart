@@ -115,6 +115,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       ),
       body: Container(
         color: Colors.blueGrey[700],
+
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.all(16.0),
@@ -174,34 +175,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   ),
                 ),
                 SizedBox(height: 20),
-
-                TextField(
-                  controller: _addressController,
-                  decoration: InputDecoration(
-                    labelText: 'Address',
-                    contentPadding: EdgeInsets.all(10),
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-                SizedBox(height: 10),
-                TextField(
-                  controller: _addressController,
-                  decoration: InputDecoration(
-                    labelText: 'Address',
-                    contentPadding: EdgeInsets.all(10),
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-                SizedBox(height: 10),
-                TextField(
-                  controller: _addressController,
-                  decoration: InputDecoration(
-                    labelText: 'Address',
-                    contentPadding: EdgeInsets.all(10),
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-                SizedBox(height: 10),
                 ElevatedButton(
                   onPressed: _updateUserProfile,
                   style: ElevatedButton.styleFrom(

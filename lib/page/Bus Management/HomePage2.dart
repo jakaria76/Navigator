@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
@@ -126,14 +127,15 @@ class _HomePage2State extends State<HomePage2> {
 
   Future<void> _saveDataToFirestore(String busName, String location1, String location2, String price, String date) async {
     try {
+      // Get the current user UID
+      String? uid = FirebaseAuth.instance.currentUser?.uid;
 
       FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-
       CollectionReference busInfoCollection = firestore.collection('bus_info');
 
-
       await busInfoCollection.add({
+        'uid': uid, // Save the UID of the user
         'bus_name': busName,
         'location1': location1,
         'location2': location2,
@@ -144,11 +146,10 @@ class _HomePage2State extends State<HomePage2> {
       print('Data saved successfully!');
     } catch (e) {
       print('Error saving data: $e');
-
     }
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => HomeScreen()),
+      MaterialPageRoute(builder: (context) => HomePage2()),
     );
   }
 
@@ -175,7 +176,7 @@ class _HomePage2State extends State<HomePage2> {
     child: Scaffold(
     backgroundColor: Colors.transparent,
     appBar: AppBar(
-    automaticallyImplyLeading: false,
+
     title: Center(child: Text('Bus Management')),
     backgroundColor: Colors.blueAccent,
     elevation: 0,

@@ -76,78 +76,84 @@ class _HomeScreen6State extends State<HomeScreen6> with WidgetsBindingObserver {
       appBar: AppBar(
         title: Text("Home Screen"),
       ),
-      body: isLoading
-          ? Center(
-        child: Container(
-          height: size.height / 20,
-          width: size.height / 20,
-          child: CircularProgressIndicator(),
-        ),
-      )
-          : Column(
-        children: [
-          SizedBox(
+      body: Container(
+        color: Colors.blueGrey[700],
+        child: isLoading
+            ? Center(
+          child: Container(
             height: size.height / 20,
+            width: size.height / 20,
+            child: CircularProgressIndicator(),
           ),
-          Container(
-            height: size.height / 14,
-            width: size.width,
-            alignment: Alignment.center,
-            child: Container(
+        )
+            : Column(
+          children: [
+            SizedBox(
+              height: size.height / 20,
+            ),
+            Container(
               height: size.height / 14,
-              width: size.width / 1.15,
-              child: TextField(
-                controller: _search,
-                decoration: InputDecoration(
-                  hintText: "Search",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
+              width: size.width,
+              alignment: Alignment.center,
+              child: Container(
+                height: size.height / 14,
+                width: size.width / 1.15,
+                child: TextField(
+                  controller: _search,
+                  decoration: InputDecoration(
+                    hintText: "Search",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          SizedBox(
-            height: size.height / 50,
-          ),
-          ElevatedButton(
-            onPressed: onSearch,
-            child: Text("Search"),
-          ),
-          SizedBox(
-            height: size.height / 30,
-          ),
-          if (userMap != null)
-            ListTile(
-              onTap: () {
-                String roomId = chatRoomId(
-                    _auth.currentUser!.displayName!,
-                    userMap!['username'] ?? "");
+            SizedBox(
+              height: size.height / 50,
+            ),
+            ElevatedButton(
+              onPressed: onSearch,
+              child: Text("Search"),
+            ),
+            SizedBox(
+              height: size.height / 30,
+            ),
+            if (userMap != null)
+              ListTile(
 
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => ChatRoom(
-                      chatRoomId: roomId,
-                      userMap: userMap!,
+                onTap: () {
+                  String roomId = chatRoomId(
+                      _auth.currentUser!.displayName!,
+                      userMap!['username'] ?? "");
+
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => ChatRoom(
+                        chatRoomId: roomId,
+                        userMap: userMap!,
+                      ),
                     ),
+                  );
+                },
+                leading: Icon(Icons.chat, color: Colors.blue,size: 40,),
+                title: Text(
+                  userMap!['username'] ?? "",
+                  style: TextStyle(
+                    color: Colors.blue,
+                    fontSize: 25,
+                    fontWeight: FontWeight.w500,
                   ),
-                );
-              },
-              leading: Icon(Icons.account_box, color: Colors.black),
-              title: Text(
-                userMap!['username'] ?? "",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 17,
-                  fontWeight: FontWeight.w500,
                 ),
-              ),
-              subtitle: Text(userMap!['email'] ?? ""),
-              trailing: Icon(Icons.chat, color: Colors.black),
-            )
-          else
-            Container(),
-        ],
+                subtitle: Text(userMap!['email'] ?? ""
+                  ,style: TextStyle(color: Colors.blue),
+                ),
+
+              )
+            else
+              Container(),
+          ],
+        ),
       ),
     );
   }
